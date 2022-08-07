@@ -17,8 +17,8 @@ class CreateClassTable extends Migration
             $table->id();
             $table->string('nama_latin');
             $table->string('nama_umum')->nullable();
-            $table->string('ciri_ciri')->nullable();
-            $table->string('keterangan')->nullable();
+            $table->text('ciri_ciri')->nullable();
+            $table->text('keterangan')->nullable();
             $table->timestamps();
         });
     }

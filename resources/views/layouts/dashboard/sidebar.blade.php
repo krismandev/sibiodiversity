@@ -32,6 +32,31 @@
                 </p>
             </a>
             </li>
+            <li class="nav-item has-treeview {{(request()->is('dashboard/class*') || request()->is('dashboard/ordo*')) ? 'menu-open' : ''}}">
+              <a href="#" class="nav-link {{(request()->is('dashboard/class*') || request()->is('dashboard/ordo*')) ? 'active' : ''}}">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>
+                  Master
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{route('class.index')}}" class="nav-link {{(request()->is('dashboard/class*'))?'active': ''}}">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Class</p>
+                  </a>
+                </li>
+              </ul>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{route('ordo.index')}}" class="nav-link {{(request()->is('dashboard/ordo*'))?'active': ''}}">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Ordo</p>
+                  </a>
+                </li>
+              </ul>
+          </li>
             <li class="nav-item">
                 <a href="{{route('logout')}}" class="nav-link">
                 <i class="nav-icon fa fa-sign-out"></i>
@@ -40,23 +65,6 @@
                 </p>
                 </a>
             </li>
-            <li class="nav-item has-treeview">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon fas fa-tachometer-alt"></i>
-                  <p>
-                    Master
-                    <i class="right fas fa-angle-left"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="{{route('class.index')}}" class="nav-link {{(request()->is('class*'))?'active': ''}}">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Class</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
