@@ -20,7 +20,13 @@ class AuthController extends Controller
         $creds = $request->only(['email','password']);
 
         if (auth()->attempt($creds)) {
-            return redirect()->route('home');
+            if(auth()->user()->role == 0){
+                return redirect()->route('home.dashboard');
+            }elseif (auth()->user()->role == 1 || auth()->user()->role == 2 ){
+                return redirect()->route('home.frontend');
+            }
+            
+
         }else{
             return redirect()->back()->with("error","Password atau username salah");
         }
