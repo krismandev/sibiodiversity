@@ -43,6 +43,33 @@ Route::group(['middleware' => ['auth','cekstatus:0'],'prefix'=>'dashboard'], fun
         Route::patch('/','Dashboard\OrdoController@update')->name('ordo.update');
         Route::get('/delete/{id}','Dashboard\OrdoController@delete')->name('ordo.delete');
     });
+
+    Route::group(['prefix'=>'famili'], function(){
+        Route::get('/','Dashboard\FamiliController@index')->name('famili.index');
+        Route::get('/create','Dashboard\FamiliController@create')->name('famili.create');
+        Route::post('/','Dashboard\FamiliController@store')->name('famili.store');
+        Route::get('/{id}','Dashboard\FamiliController@edit')->name('famili.edit');
+        Route::patch('/','Dashboard\FamiliController@update')->name('famili.update');
+        Route::get('/delete/{id}','Dashboard\FamiliController@delete')->name('famili.delete');
+    });
+
+    Route::group(['prefix'=>'genus'], function(){
+        Route::get('/','Dashboard\GenusController@index')->name('genus.index');
+        Route::get('/create','Dashboard\GenusController@create')->name('genus.create');
+        Route::post('/','Dashboard\GenusController@store')->name('genus.store');
+        Route::get('/{id}','Dashboard\GenusController@edit')->name('genus.edit');
+        Route::patch('/','Dashboard\GenusController@update')->name('genus.update');
+        Route::get('/delete/{id}','Dashboard\GenusController@delete')->name('genus.delete');
+    });
+
+    Route::group(['prefix'=>'spesies'], function(){
+        Route::get('/','Dashboard\SpesiesController@index')->name('spesies.index');
+        Route::get('/create','Dashboard\SpesiesController@create')->name('spesies.create');
+        Route::post('/','Dashboard\SpesiesController@store')->name('spesies.store');
+        Route::get('/{id}','Dashboard\SpesiesController@edit')->name('spesies.edit');
+        Route::patch('/','Dashboard\SpesiesController@update')->name('spesies.update');
+        Route::get('/delete/{id}','Dashboard\SpesiesController@delete')->name('spesies.delete');
+    });
 });
 Route::get('/', 'FrontEnd\FrontEndController@index')->name('home.frontend');
 Route::get('/explore', 'FrontEnd\FrontEndController@explore')->name('explore.frontend');

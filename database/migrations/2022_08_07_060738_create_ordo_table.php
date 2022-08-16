@@ -20,6 +20,7 @@ class CreateOrdoTable extends Migration
             $table->text('ciri_ciri')->nullable();
             $table->text('keterangan')->nullable();
             $table->integer('class_id');
+            $table->date('deleted_at')->nullable();
             $table->timestamps();
         });
     }

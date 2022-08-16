@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateClassTable extends Migration
+class CreateGenusTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateClassTable extends Migration
      */
     public function up()
     {
-        Schema::create('class', function (Blueprint $table) {
+        Schema::create('genus', function (Blueprint $table) {
             $table->id();
             $table->string('nama_latin');
             $table->string('nama_umum')->nullable();
             $table->text('ciri_ciri')->nullable();
             $table->text('keterangan')->nullable();
+            $table->integer('famili_id');
             $table->date('deleted_at')->nullable();
             $table->timestamps();
         });
@@ -31,6 +32,6 @@ class CreateClassTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('class');
+        Schema::dropIfExists('genus');
     }
 }

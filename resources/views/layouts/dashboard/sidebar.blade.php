@@ -32,8 +32,11 @@
                 </p>
             </a>
             </li>
-            <li class="nav-item has-treeview {{(request()->is('dashboard/class*') || request()->is('dashboard/ordo*')) ? 'menu-open' : ''}}">
-              <a href="#" class="nav-link {{(request()->is('dashboard/class*') || request()->is('dashboard/ordo*')) ? 'active' : ''}}">
+            @php
+              $master_menu_active = (request()->is('dashboard/class*') || request()->is('dashboard/ordo*') || request()->is('dashboard/famili*') || request()->is('dashboard/genus*') || request()->is('dashboard/spesies*')) ? true : false;
+            @endphp
+            <li class="nav-item has-treeview {{$master_menu_active == true ? 'menu-open' : ''}}">
+              <a href="#" class="nav-link {{$master_menu_active == true ? 'active' : ''}}">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
                   Master
@@ -53,6 +56,30 @@
                   <a href="{{route('ordo.index')}}" class="nav-link {{(request()->is('dashboard/ordo*'))?'active': ''}}">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Ordo</p>
+                  </a>
+                </li>
+              </ul>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{route('famili.index')}}" class="nav-link {{(request()->is('dashboard/famili*'))?'active': ''}}">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Famili</p>
+                  </a>
+                </li>
+              </ul>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{route('genus.index')}}" class="nav-link {{(request()->is('dashboard/genus*'))?'active': ''}}">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Genus</p>
+                  </a>
+                </li>
+              </ul>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{route('spesies.index')}}" class="nav-link {{(request()->is('dashboard/spesies*'))?'active': ''}}">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Spesies</p>
                   </a>
                 </li>
               </ul>

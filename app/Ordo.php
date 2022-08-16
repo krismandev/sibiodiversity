@@ -13,4 +13,9 @@ class Ordo extends Model
     {
         return $this->belongsTo(ClassModel::class);
     }
+
+    public function famili()
+    {
+        return $this->hasMany(Famili::class,'ordo_id','id');
+    }
 }
