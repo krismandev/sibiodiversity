@@ -22,8 +22,8 @@ class CreateSpesiesTable extends Migration
             $table->integer('status_konservasi_id')->nullable();
             $table->string('potensi')->nullable();
             $table->string('keaslian_jenis')->nullable();
-            $table->string('distribusi_global')->nullable();
-            $table->string('deskripsi')->nullable();
+            $table->text('distribusi_global')->nullable();
+            $table->text('deskripsi')->nullable();
             $table->string('gambar')->nullable();
             $table->boolean('is_approved')->nullable();
             $table->integer('user_id');

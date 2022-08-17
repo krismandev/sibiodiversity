@@ -4,7 +4,7 @@ namespace App\Http\Controllers\FrontEnd;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Spesies;
 class FrontEndController extends Controller
 {
     /**
@@ -19,7 +19,8 @@ class FrontEndController extends Controller
 
     public function explore()
     {
-        return view('frontend.explore');
+        $data_spesies = Spesies::orderBy("nama_latin")->paginate(9);
+        return view('frontend.explore', compact(['data_spesies']));
     }
 
     /**
