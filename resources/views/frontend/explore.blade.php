@@ -77,7 +77,7 @@
                     <div class="col-lg-4 mt-2 ">
                         <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="100">    
                             <div class="card border-0">
-                                <img class="card-img-top" src="{{$item->getImage()}}" style="width:150px !important;"  alt="{{$item->getImage()}}">
+                                <img class="card-img-top" src="{{$item->getImage()}}" style="width:300px !important;"  alt="{{$item->getImage()}}">
                                 <div class="card-body">
                                     <h5 class="card-title" style="font-weight: 700; margin-bottom: 5px; font-size: 20px; color: #37517e;">{{ $item->nama_umum }}</h5>
                                     <p class="card-text" style="display: block; font-size: 15px;padding-bottom: 10px; position: relative; font-weight: 500;">( <em> {{ $item->nama_latin }} </em> )</p>
