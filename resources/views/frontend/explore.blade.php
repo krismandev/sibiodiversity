@@ -4,9 +4,7 @@
 <div class="row">
     <div class="col-3">
         <section id="nav-abjad" class="nav-abjad section-bg ">
-            <div class="container">
-          
-                
+            <div class="container">  
                 <span class="mt-2" style=" font-size: 18px; font-weight: bold; color: #37517e;">Cari Data Ikan :</span>  
                 <form>
                     <div class="input-group ">
@@ -67,32 +65,31 @@
         <!-- ======= Ikan Section ======= -->
         <section id="ikan" class="ikan ">
             <div class="container " data-aos="fade-up">
-            <div class="section-title">
-                
-                <p class="badge bg-info">Total Data Ikan : </p>  
+                <div class="section-title">
+                    
+                    <p class="badge bg-info">Total Data Ikan : </p>  
 
-                <h2 class="mt-2">{{$data_spesies->count()}}</h2> 
-            </div>
+                    <h2 class="mt-2">{{$data_spesies->count()}}</h2> 
+                </div>
 
-            <div class="row">
-                @forelse($data_spesies as $item)
-                <div class="col-lg-4 mt-2 ">
-                    <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="100">    
-                        <div class="card border-0">
-                            <img class="card-img-top" src="{{$item->getImage()}}" alt="{{$item->getImage()}}">
-                            <div class="card-body">
-                                <h5 class="card-title" style="font-weight: 700; margin-bottom: 5px; font-size: 20px; color: #37517e;">{{ $item->nama_umum }}</h5>
-                                <p class="card-text" style="display: block; font-size: 15px;padding-bottom: 10px; position: relative; font-weight: 500;">( <em> {{ $item->nama_latin }} </em> )</p>
+                <div class="row">
+                    @forelse($data_spesies as $item)
+                    <div class="col-lg-4 mt-2 ">
+                        <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="100">    
+                            <div class="card border-0">
+                                <img class="card-img-top" src="{{$item->getImage()}}" style="object-fit:cover; object-position:center;"  alt="{{$item->getImage()}}">
+                                <div class="card-body">
+                                    <h5 class="card-title" style="font-weight: 700; margin-bottom: 5px; font-size: 20px; color: #37517e;">{{ $item->nama_umum }}</h5>
+                                    <p class="card-text" style="display: block; font-size: 15px;padding-bottom: 10px; position: relative; font-weight: 500;">( <em> {{ $item->nama_latin }} </em> )</p>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    @empty
+                    <p><center> Data Tidak Ditemukan </center> </p>
+                    @endforelse
+
                 </div>
-                @empty
-                <p><center> Data Tidak Ditemukan </center> </p>
-                @endforelse
-
-            </div>
-
             </div>
         </section><!-- End Ikan Section -->
     </div>
