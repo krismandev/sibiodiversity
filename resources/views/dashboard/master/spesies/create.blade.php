@@ -10,8 +10,7 @@
     <div class="col-12">
       <div class="card">
         <div class="card-header">
-          <div class="card-tools">
-          </div>
+          <h5>Data Spesies</h5>
         </div>
         <div class="card-body p-0">
             <form role="form" action="{{isset($spesies) ? route('spesies.update') : route('spesies.store')}}" method="post" enctype="multipart/form-data">
@@ -85,6 +84,53 @@
                     <textarea name="deskripsi" cols="30" rows="5" class="form-control ckeditor">{{$spesies->deskripsi ?? ''}}</textarea>
                   </div>
                 </div>
+                <div class="card-header">
+                <h5>Detail Spesimen</h5>
+              </div>
+                <!-- /.card-body -->
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="lokasi_penemuan">Lokasi Penemuan</label>
+                    <input type="text" class="form-control" placeholder="" name="lokasi_penemuan" value="{{$spesies->lokasi_penemuan ?? ''}}">
+                  </div>
+                  <div class="form-group">
+                    <label for="namaLatin">Provinsi Penemuan</label>
+                    <select class="form-control" name="provinsi_id" id="provinsi">
+                        <option disabled selected>---Pilih Provinsi---</option>
+                        @foreach($provinsi as $data_provinsi)
+                        <option value="{{$data_provinsi->id}}">{{$data_provinsi->nama_provinsi}}</option>
+                        @endforeach    
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="namaLatin">Kabupaten Penemuan</label>
+                      <select class="form-control" name="kabupaten_id" id="kabupaten">
+                        <option value="" selected>---Pilih Kabupaten---</option>
+                      </select>  
+                  </div>
+                  <div class="form-group">
+                    <label for="namaLatin">Kecamatan Penemuan</label>
+                      <select class="form-control" name="kecamatan_id" id="kecamatan">
+                        <option value="" selected>---Pilih Kecamatan---</option>
+                      </select> 
+                  </div>
+                  <div class="form-group">
+                    <label for="namaLatin">Tanggal Penemuan</label>
+                    <input type="date" class="form-control" name="tanggal_penemuan" value="{{$spesies->tanggal_penemuan ?? ''}}"> 
+                  </div>
+                  <div class="form-group">
+                    <label for="namaLatin">Kolektor</label>
+                    <input type="text" class="form-control" name="tanggal_penemuan" value="{{$spesies->kolektor ?? ''}}"> 
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputFile">Rantai DNA</label>
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="exampleInputFile" name="rantai_dna">
+                        <label class="custom-file-label" for="exampleInputFile">Pilih File</label>
+                      </div>
+                    </div>
+                  </div>
                 <!-- /.card-body -->
 
                 <div class="card-footer">
@@ -100,6 +146,7 @@
 
 @endsection
 @section("linkfooter")
+<script src="{{asset('js/wilayah.js')}}"></script>
 <script src="{{asset('asset_dashboard/plugins/ckeditor/ckeditor.js')}}"></script>
 <script type="text/javascript">
    

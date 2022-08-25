@@ -1,20 +1,34 @@
-<!-- ======= Hero Section ======= -->
-<section id="hero" class="d-flex align-items-center">
-
-<div class="container">
-  <div class="row">
-    <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
-      <h1>Better Solutions For Your Business</h1>
-      <h2>We are team of talented designers making websites with Bootstrap</h2>
-      <div class="d-flex justify-content-center justify-content-lg-start">
-        <a href="#about" class="btn-get-started scrollto">Get Started</a>
-        <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="glightbox btn-watch-video"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>
-      </div>
-    </div>
-    <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
-      <img src="{{asset('assets_frontend/img/hero-img.png')}}" class="img-fluid animated" alt="">
-    </div>
-  </div>
-</div>
-
-</section><!-- End Hero -->
+<!-- Hero section -->
+<section class="hero-section">
+		<div class="hero-slider owl-carousel">
+			<div class="hs-item set-bg" data-setbg="{{asset('assets_frontend/img/hero-slider/1.jpg')}}">
+				<div class="hs-text">
+					<div class="container">
+						<div class="row">
+							<div class="col-lg-8">
+								<div class="hs-subtitle">Award Winning UNIVERSITY</div>
+								<h2 class="hs-title">An investment in knowledge pays the best interest.</h2>
+								<p class="hs-des">Education is not just about going to school and getting a degree. It's about widening your<br> knowledge and absorbing the truth about life. Knowledge is power.</p>
+								<div class="site-btn">GET STARTED</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="hs-item set-bg" data-setbg="{{asset('assets_frontend/img/hero-slider/2.jpg')}}">
+				<div class="hs-text">
+					<div class="container">
+						<div class="row">
+							<div class="col-lg-8">
+								<div class="hs-subtitle">Award Winning UNIVERSITY</div>
+								<h2 class="hs-title">An investment in knowledge pays the best interest.</h2>
+								<p class="hs-des">Education is not just about going to school and getting a degree. It's about widening your<br> knowledge and absorbing the truth about life. Knowledge is power.</p>
+								<div class="site-btn">GET STARTED</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Hero section end -->

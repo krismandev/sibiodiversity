@@ -23,6 +23,10 @@ Route::get("/login","AuthController@login")->name("login");
 
 Route::post("/login","AuthController@postLogin")->name("postLogin");
 Route::get("/logout","AuthController@logout")->name("logout");
+
+Route::get('/getkabupaten', 'Dashboard\SpesiesController@getKabupaten');
+Route::get('/getkecamatan', 'Dashboard\SpesiesController@getKecamatan');
+
 Route::group(['middleware' => ['auth','cekstatus:0'],'prefix'=>'dashboard'], function(){
     Route::get('/', 'Dashboard\DashboardController@index')->name('home.dashboard');
 
@@ -72,5 +76,7 @@ Route::group(['middleware' => ['auth','cekstatus:0'],'prefix'=>'dashboard'], fun
     });
 });
 Route::get('/', 'FrontEnd\FrontEndController@index')->name('home.frontend');
-Route::get('/explore', 'FrontEnd\FrontEndController@explore')->name('explore.frontend');
+Route::get('/explorer', 'FrontEnd\FrontEndController@explorer')->name('explorer.frontend');
+Route::get('/gallery', 'FrontEnd\FrontEndController@gallery')->name('gallery.frontend');
+Route::get('/berita', 'FrontEnd\FrontEndController@berita')->name('berita.frontend');
 

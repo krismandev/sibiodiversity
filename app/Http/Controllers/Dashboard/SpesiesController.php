@@ -6,10 +6,27 @@ use App\Genus;
 use App\Http\Controllers\Controller;
 use App\Spesies;
 use App\StatusKonservasi;
+use App\Provinsi;
+use App\Kabupaten;
+use App\Kecamatan;
 use Illuminate\Http\Request;
 
 class SpesiesController extends Controller
 {
+    public function getKabupaten(Request $request){
+    
+        $kabupaten = Kabupaten::where("provinsi_id",$request->provinsi_id)->pluck('id','nama_kabupaten');
+    
+        return response()->json($kabupaten);
+    }
+    
+    public function getKecamatan(Request $request){
+    
+        $kecamatan = Kecamatan::where("kabupaten_id",$request->kabupaten_id)->pluck('id','nama_kecamatan');
+        return response()->json($kecamatan);
+    }
+
+
     public function customValidate($request)
     {
         $fields = [
@@ -39,7 +56,8 @@ class SpesiesController extends Controller
         $title = "Tambah Spesies Ikan Baru";
         $genuses = Genus::orderBy("nama_latin")->get();
         $status_konservasis = StatusKonservasi::all();
-        return view('dashboard.master.spesies.create',compact(['title','genuses','status_konservasis']));
+        $provinsi = Provinsi::all();
+        return view('dashboard.master.spesies.create',compact(['title','genuses','status_konservasis','provinsi']));
     }
 
     public function store(Request $request)

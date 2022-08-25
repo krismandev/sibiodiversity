@@ -17,10 +17,20 @@ class FrontEndController extends Controller
         return view('frontend.index');
     }
 
-    public function explore()
+    public function explorer()
     {
         $data_spesies = Spesies::orderBy("nama_latin")->paginate(9);
-        return view('frontend.explore', compact(['data_spesies']));
+        return view('frontend.explorer', compact(['data_spesies']));
+    }
+
+    public function gallery()
+    {
+        return view('frontend.gallery');
+    }
+
+    public function berita()
+    {
+        return view('frontend.berita');
     }
 
     /**

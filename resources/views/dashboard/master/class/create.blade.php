@@ -1,7 +1,7 @@
 @extends("layouts.dashboard.master")
 @section("page_title","Data Class")
 @section("breadcrumb")
-<li class="breadcrumb-item"><a href="{{route("home.dashboard")}}">Home</a></li>
+<li class="breadcrumb-item"><a href="{{route('home.dashboard')}}">Home</a></li>
 <li class="breadcrumb-item active">Class</li>
 @endsection
 @section("title","Class")
@@ -63,10 +63,8 @@
     $(".edit-agency").click(function (e) {
         const agency_id = $(this).data("agency_id")
         const agency_name = $(this).data("name")
-
         $("#name_update").val(agency_name)
         $("#agency_id_update").val(agency_id)
-
     });
 </script>
 @endsection

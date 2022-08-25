@@ -1,143 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<title>Unica - University Template</title>
+	<meta charset="UTF-8">
+	<meta name="description" content="Unica University Template">
+	<meta name="keywords" content="event, unica, creative, html">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Favicon -->   
+	<link href="{{asset('assets_frontend/img/favicon.ico')}}" rel="shortcut icon"/>
 
-  <title>Sibiodiversity - @yield('title')</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Rubik:400,400i,500,500i,700,700i" rel="stylesheet">
 
-  <!-- Favicons -->
-  <link href="{{asset('assets_frontend/img/favicon.png')}}" rel="icon">
-  <link href="{{asset('assets_frontend/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
+	<!-- Stylesheets -->
+	<link rel="stylesheet" href="{{asset('assets_frontend/css/bootstrap.min.css')}}"/>
+	<link rel="stylesheet" href="{{asset('assets_frontend/css/font-awesome.min.css')}}"/>
+	<link rel="stylesheet" href="{{asset('assets_frontend/css/themify-icons.css')}}"/>
+	<link rel="stylesheet" href="{{asset('assets_frontend/css/magnific-popup.css')}}"/>
+	<link rel="stylesheet" href="{{asset('assets_frontend/css/animate.css')}}"/>
+	<link rel="stylesheet" href="{{asset('assets_frontend/css/owl.carousel.css')}}"/>
+	<link rel="stylesheet" href="{{asset('assets_frontend/css/style.css')}}"/>
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
-  <!-- Vendor CSS Files -->
-  <link href="{{asset('assets_frontend/vendor/aos/aos.css')}}" rel="stylesheet">
-  <link href="{{asset('assets_frontend/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
-  <link href="{{asset('assets_frontend/vendor/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet">
-  <link href="{{asset('assets_frontend/vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
-  <link href="{{asset('assets_frontend/vendor/glightbox/css/glightbox.min.css')}}" rel="stylesheet">
-  <link href="{{asset('assets_frontend/vendor/remixicon/remixicon.css')}}" rel="stylesheet">
-  <link href="{{asset('assets_frontend/vendor/swiper/swiper-bundle.min.css')}}" rel="stylesheet">
+	<!--[if lt IE 9]>
+	  <script src="{{asset('assets_frontend/https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js')}}"></script>
+	  <script src="{{asset('assets_frontend/https://oss.maxcdn.com/respond/1.4.2/respond.min.js')}}"></script>
+	<![endif]-->
 
-  <!-- Template Main CSS File -->
-  <link href="{{asset('assets_frontend/css/style.css')}}" rel="stylesheet">
-
-  <!-- =======================================================
-  * Template Name: Arsha - v4.3.0
-  * Template URL: https://bootstrapmade.com/arsha-free-bootstrap-html-template-corporate/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
-
 <body>
+	<!-- Page Preloder -->
+	<div id="preloder">
+		<div class="loader"></div>
+	</div>
 
-    @include("layouts.frontend.top-menu")
-  
+	<!-- header section -->
+	<header class="header-section">
+		<div class="container">
+			<!-- logo -->
+			<a href="index.html" class="site-logo"><img src="{{asset('assets_frontend/img/logo.png')}}" alt=""></a>
+			<div class="nav-switch">
+				<i class="fa fa-bars"></i>
+			</div>
+			<div class="header-info">
+				<!-- <div class="hf-item">
+					<i class="fa fa-clock-o"></i>
+					<p><span>Working time:</span>Monday - Friday: 08 AM - 06 PM</p>
+				</div>
+				<div class="hf-item">
+					<i class="fa fa-map-marker"></i>
+					<p><span>Find us:</span>40 Baria Street 133/2, New York City, US</p>
+				</div> -->
+			</div>
+		</div>
+	</header>
+	<!-- header section end-->
 
-  
-  <main id="main">
 
-    @yield('content')
-    
-    </main><!-- End #main -->
+	<!-- Header section  -->
+	<nav class="nav-section">
+		<div class="container">
+			<div class="nav-right">
+				<a href="{{route('login')}}"><i class="fa fa-sign-in" aria-hidden="true"></i> Masuk</a>
+				<a href="{{route('register')}}"><i class="fa fa-registered" aria-hidden="true"></i>Daftar</a>
+			</div>
+			<ul class="main-menu">
+				<li class="{{(request()->is('/*'))?'active': ''}}"><a href="{{route('home.frontend')}}">Beranda</a></li>
+				<li class="{{(request()->is('explorer*'))?'active': ''}}"><a href="{{route('explorer.frontend')}}">Explorer</a></li>
+				<li class="{{(request()->is('gallery*'))?'active': ''}}"><a href="{{route('gallery.frontend')}}">Gallery</a></li>
+				<li class="{{(request()->is('berita*'))?'active': ''}}"><a href="{{route('berita.frontend')}}">Berita</a></li>
+			</ul>
+		</div>
+	</nav>
+	<!-- Header section end -->
+	
 
-  <!-- ======= Footer ======= -->
-  <footer id="footer">
 
-   
+@yield('content')
 
-    <div class="footer-top">
-      <div class="container">
-        <div class="row">
+	
 
-          <div class="col-lg-3 col-md-6 footer-contact">
-            <h3>Arsha</h3>
-            <p>
-              A108 Adam Street <br>
-              New York, NY 535022<br>
-              United States <br><br>
-              <strong>Phone:</strong> +1 5589 55488 55<br>
-              <strong>Email:</strong> info@example.com<br>
-            </p>
-          </div>
+	<!-- Footer section -->
+	<footer class="footer-section">
+		<div class="container footer-top">
+			<div class="row">
+				<!-- widget -->
+				<div class="col-sm-6 col-lg-3 footer-widget">
+					<div class="about-widget">
+						<img src="{{asset('assets_frontend/img/logo-light.png')}}" alt="">
+						<p>orem ipsum dolor sit amet, consecter adipiscing elite. Donec minos varius, viverra justo ut, aliquet nisl.</p>
+						<div class="social pt-1">
+							<a href=""><i class="fa fa-twitter-square"></i></a>
+							<a href=""><i class="fa fa-facebook-square"></i></a>
+							<a href=""><i class="fa fa-google-plus-square"></i></a>
+							<a href=""><i class="fa fa-linkedin-square"></i></a>
+							<a href=""><i class="fa fa-rss-square"></i></a>
+						</div>
+					</div>
+				</div>
+				<!-- widget -->
+				<div class="col-sm-6 col-lg-3 footer-widget">
+					<h6 class="fw-title">USEFUL LINK</h6>
+					<div class="dobule-link">
+						<ul>
+							<li><a href="">Home</a></li>
+							<li><a href="">About us</a></li>
+							<li><a href="">Services</a></li>
+							<li><a href="">Events</a></li>
+							<li><a href="">Features</a></li>
+						</ul>
+						<ul>
+							<li><a href="">Policy</a></li>
+							<li><a href="">Term</a></li>
+							<li><a href="">Help</a></li>
+							<li><a href="">FAQs</a></li>
+							<li><a href="">Site map</a></li>
+						</ul>
+					</div>
+				</div>
+				<!-- widget -->
+				<div class="col-sm-6 col-lg-3 footer-widget">
+					<h6 class="fw-title">RECENT POST</h6>
+					<ul class="recent-post">
+						<li>
+							<p>Snackable study:How to break <br> up your master's degree</p>
+							<span><i class="fa fa-clock-o"></i>24 Mar 2018</span>
+						</li>
+						<li>
+							<p>Open University plans major <br> cuts to number of staff</p>
+							<span><i class="fa fa-clock-o"></i>24 Mar 2018</span>
+						</li>
+					</ul>
+				</div>
+				<!-- widget -->
+				<div class="col-sm-6 col-lg-3 footer-widget">
+					<h6 class="fw-title">CONTACT</h6>
+					<ul class="contact">
+						<li><p><i class="fa fa-map-marker"></i> 40 Baria Street 133/2, NewYork City,US</p></li>
+						<li><p><i class="fa fa-phone"></i> (+88) 111 555 666</p></li>
+						<li><p><i class="fa fa-envelope"></i> infodeercreative@gmail.com</p></li>
+						<li><p><i class="fa fa-clock-o"></i> Monday - Friday, 08:00AM - 06:00 PM</p></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- copyright -->
+		<div class="copyright">
+			<div class="container">
+				<p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+			</div>		
+		</div>
+	</footer>
+	<!-- Footer section end-->
 
-          <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Useful Links</h4>
-            <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
-            </ul>
-          </div>
 
-          <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Our Services</h4>
-            <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
-            </ul>
-          </div>
 
-          <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Our Social Networks</h4>
-            <p>Cras fermentum odio eu feugiat lide par naso tierra videa magna derita valies</p>
-            <div class="social-links mt-3">
-              <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-              <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-              <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-              <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-              <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-    <div class="container footer-bottom clearfix">
-      <div class="copyright">
-        &copy; Copyright <strong><span>Arsha</span></strong>. All Rights Reserved
-      </div>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/arsha-free-bootstrap-html-template-corporate/ -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-      </div>
-
-    
-    
-    </div>
-  </footer><!-- End Footer -->
-
-  <!-- <div id="preloader"></div>
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a> -->
-
-  <!-- Vendor JS Files -->
-  <script src="{{asset('assets_frontend/vendor/aos/aos.js')}}"></script>
-  <script src="{{asset('assets_frontend/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-  <script src="{{asset('assets_frontend/vendor/glightbox/js/glightbox.min.js')}}"></script>
-  <script src="{{asset('assets_frontend/vendor/isotope-layout/isotope.pkgd.min.js')}}"></script>
-  <script src="{{asset('assets_frontend/vendor/php-email-form/validate.js')}}"></script>
-  <script src="{{asset('assets_frontend/vendor/swiper/swiper-bundle.min.js')}}"></script>
-  <script src="{{asset('assets_frontend/vendor/waypoints/noframework.waypoints.js')}}"></script>
-
-  <!-- Template Main JS File -->
-  <script src="{{asset('assets_frontend/js/main.js')}}"></script>
-
+	<!--====== Javascripts & Jquery ======-->
+	<script src="{{asset('assets_frontend/js/jquery-3.2.1.min.js')}}"></script>
+	<script src="{{asset('assets_frontend/js/owl.carousel.min.js')}}"></script>
+	<script src="{{asset('assets_frontend/js/jquery.countdown.js')}}"></script>
+	<script src="{{asset('assets_frontend/js/masonry.pkgd.min.js')}}"></script>
+	<script src="{{asset('assets_frontend/js/magnific-popup.min.js')}}"></script>
+	<script src="{{asset('assets_frontend/js/main.js')}}"></script>
+	
 </body>
-
 </html>

@@ -1,7 +1,7 @@
 @extends("layouts.dashboard.master")
 @section("page_title","Data Class")
 @section("breadcrumb")
-<li class="breadcrumb-item"><a href="{{route("home.dashboard")}}">Home</a></li>
+<li class="breadcrumb-item"><a href="{{route('home.dashboard')}}">Home</a></li>
 <li class="breadcrumb-item active">Class</li>
 @endsection
 @section("title","Class")
@@ -71,10 +71,8 @@
       "responsive": true,
       "autoWidth": false,
   });
-
   $(".btn-danger").click(function (e) {
       const class_id = $(this).data("class_id");
-
       swal({
           title: "Yakin?",
           text: "Mau menghapus data ini?",
@@ -90,3 +88,4 @@
   });
 </script>
 @endsection
+

@@ -27,6 +27,7 @@ class CreateSpesiesTable extends Migration
             $table->string('gambar')->nullable();
             $table->boolean('is_approved')->nullable();
             $table->integer('user_id');
+            $table->string('status')->nullable();
             $table->date('deleted_at')->nullable();
             $table->timestamps();
         });
