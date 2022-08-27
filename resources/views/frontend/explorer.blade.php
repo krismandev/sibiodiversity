@@ -1,6 +1,14 @@
 @extends("layouts.frontend.master")
 @section("title","Explore")
 @section("content")
+<!-- Breadcrumb section -->
+<div class="site-breadcrumb">
+	<div class="container">
+		<a href="{{route('home.frontend')}}"><i class="fa fa-home"></i> Beranda</a> <i class="fa fa-angle-right"></i>
+		<span>Explorer</span>
+	</div>
+</div>
+<!-- Breadcrumb section end -->
 <section class="explorer-section">
     <div class="container">
         <div class="row">
@@ -34,7 +42,9 @@
         </div>
         <div class="row">
             @forelse($data_spesies as $item)
+          
             <div class="col-xl-6">
+            <a href="{{url('/explorer-detail/'.$item->id)}}">
                 <div class="blog-item">
                     <div class="blog-thumb set-bg" data-setbg="{{$item->getImage()}}"></div>
                     <div class="blog-content">
@@ -42,11 +52,12 @@
                         <span>( <em> {{ $item->nama_latin }} </em> )</span>
                         <div class="blog-meta">
                             <span><i class="fa fa-calendar-o"></i> ( <em> {{ $item->created_at }} </em> )</span>
-                            <span><i class="fa fa-user"></i> Repaldi</span>
+                            <span><i class="fa fa-user"></i> {{$item->user_id}}</span>
                         </div>
                         <!-- <p>Integer luctus diam ac scerisque consectetur. Vimus dot euismod neganeco lacus sit amet. Aenean interdus mid vitae sed accumsan...</p> -->
                     </div>
                 </div>
+            </a>
             </div>
             @empty
             <p><center> Data Tidak Ditemukan </center> </p>

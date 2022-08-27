@@ -27,4 +27,12 @@ class Spesies extends Model
     {
         return $this->belongsTo(StatusKonservasi::class);
     }
+
+    public function next(){
+        return $this->where('id','>',$this->id)->orderBy('id')->first();
+    }
+
+    public function previous(){
+        return $this->where('id','<',$this->id)->orderBy('id')->first();
+    }
 }
