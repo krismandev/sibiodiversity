@@ -29,8 +29,16 @@ class Spesies extends Model
         return $this->belongsTo(StatusKonservasi::class);
     }
 
+
     public function detail_spesimen()
     {
         return $this->hasMany(DetailSpesimen::class,"spesies_id","id");
+    }
+    public function next(){
+        return $this->where('id','>',$this->id)->orderBy('id')->first();
+    }
+
+    public function previous(){
+        return $this->where('id','<',$this->id)->orderBy('id')->first();
     }
 }

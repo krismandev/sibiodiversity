@@ -23,6 +23,15 @@ class FrontEndController extends Controller
         return view('frontend.explorer', compact(['data_spesies']));
     }
 
+    public function explorerDetail($id)
+    {
+        $data = Spesies::find($id);
+        $data_spesies = Spesies::latest()->paginate(5);
+        $next = $data->next();
+        $previous = $data->previous();
+        return view('frontend.explorer-detail', compact(['data','data_spesies','next','previous']));
+    }
+
     public function gallery()
     {
         return view('frontend.gallery');
