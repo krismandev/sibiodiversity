@@ -16,7 +16,7 @@ class CreateDetailSpesimenTable extends Migration
         Schema::create('detail_spesimen', function (Blueprint $table) {
             $table->id();
             $table->integer('spesies_id');
-            $table->string('kd_spesimen');
+            $table->string('kd_spesimen')->unique();
             $table->integer('lokasi_penemuan_id')->nullable();
             $table->text('kolektor')->nullable();
             $table->text('lokasi_penyimpanan')->nullable();

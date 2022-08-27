@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\DetailSpesimen;
 use App\Genus;
 use App\Http\Controllers\Controller;
 use App\Spesies;
@@ -9,7 +10,10 @@ use App\StatusKonservasi;
 use App\Provinsi;
 use App\Kabupaten;
 use App\Kecamatan;
+use App\LokasiPenemuan;
+use Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SpesiesController extends Controller
 {
@@ -40,6 +44,14 @@ class SpesiesController extends Controller
             "distribusi_global" =>"nullable",
             "gambar" =>"nullable|file|mimes:jpg,jpeg,png,gif",
             "genus_id" =>"required",
+            "provinsi_id" =>"required",
+            "kabupaten_id" =>"required",
+            "kecamatan_id" =>"required",
+            "nama_lokasi" =>"required",
+            "kolektor" =>"required",
+            "rantai_dna" =>"nullable|file",
+            "lokasi_penyimpanan" =>"nullable",
+            "rujukan" =>"nullable",
         ];
         $request->validate($fields);
     }
@@ -63,7 +75,8 @@ class SpesiesController extends Controller
     public function store(Request $request)
     {
         $this->customValidate($request);
-
+        // dd($request->all());
+        DB::beginTransaction();
         try {
             $nama_gambar = null;
             if ($request->hasFile('gambar')) {
@@ -72,7 +85,15 @@ class SpesiesController extends Controller
                 $tujuan_upload = 'spesies';
                 $gambar->move($tujuan_upload,$nama_gambar);
             }
-            Spesies::create([
+
+            $lokasi_penemuan = LokasiPenemuan::create([
+                "nama_lokasi"=>$request->nama_lokasi,
+                "provinsi_id"=>$request->provinsi_id,
+                "kabupaten_id"=>$request->kabupaten_id,
+                "kecamatan_id"=>$request->kecamatan_id,
+            ]);
+
+            $spesies = Spesies::create([
                 "genus_id" =>$request->genus_id,
                 "nama_latin" =>$request->nama_latin,
                 "nama_umum" =>$request->nama_umum,
@@ -83,11 +104,32 @@ class SpesiesController extends Controller
                 "keaslian_jenis" =>$request->keaslian_jenis,
                 "distribusi_global" => $request->distribusi_global,
                 "gambar" =>$nama_gambar,
-                "user_id"=>auth()->user()->id
+                "user_id"=>auth()->user()->id,
+                "status"=>$request->status,
+                "rujukan"=>$request->rujukan,
+            ]);
+
+            if ($request->hasFile('rantai_dna')) {
+                $rantai_dna = $request->file('rantai_dna');
+                $nama_rantai_dna = time()."_".$rantai_dna->getClientOriginalName();
+                $tujuan_upload = 'spesies/rantai_dna';
+                $rantai_dna->move($tujuan_upload,$nama_rantai_dna);
+            }
+
+            $detail_spesies = DetailSpesimen::create([
+                "spesies_id"=>$spesies->id,
+                "kd_spesimen"=>$request->kd_spesimen,
+                "lokasi_penemuan_id"=>$lokasi_penemuan->id,
+                "kolektor"=>$request->kolektor,
+                "lokasi_penyimpanan"=>$request->lokasi_penyimpanan,
+                "rantai_dna"=> $nama_rantai_dna ?? null,
+                "tanggal_penemuan"=>$request->tanggal_penemuan
             ]);
         } catch (\Exception $e) {
+            DB::rollBack();
             return back()->with('error',$e->getMessage());
         }
+        DB::commit();
 
         return redirect()->route('spesies.index')->with('success','Berhasil menambah data');
     }

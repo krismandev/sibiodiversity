@@ -71,6 +71,15 @@
                     <input type="text" class="form-control" placeholder="" name="distribusi_global" value="{{$spesies->distribusi_global ?? ''}}"> 
                   </div>
                   <div class="form-group">
+                    <label for="status">Status</label>
+                      <select class="form-control" name="status" id="status">
+                        <option value="" selected>---Pilih Status---</option>
+                        <option value="valid">Valid</option>
+                        <option value="verified">Verified</option>
+                        <option value="checking">Checking</option>
+                      </select>  
+                  </div>
+                  <div class="form-group">
                     <label for="exampleInputFile">Gambar</label>
                     <div class="input-group">
                       <div class="custom-file">
@@ -86,12 +95,16 @@
                 </div>
                 <div class="card-header">
                 <h5>Detail Spesimen</h5>
-              </div>
+                </div>
                 <!-- /.card-body -->
                 <div class="card-body">
                   <div class="form-group">
+                    <label for="lokasi_penemuan">Kode Spesimen</label>
+                    <input type="text" class="form-control" placeholder="" name="kd_spesimen" value="{{$spesies->kd_spesimen ?? ''}}">
+                  </div>
+                  <div class="form-group">
                     <label for="lokasi_penemuan">Lokasi Penemuan</label>
-                    <input type="text" class="form-control" placeholder="" name="lokasi_penemuan" value="{{$spesies->lokasi_penemuan ?? ''}}">
+                    <input type="text" class="form-control" placeholder="" name="nama_lokasi" value="{{$spesies->nama_lokasi ?? ''}}">
                   </div>
                   <div class="form-group">
                     <label for="namaLatin">Provinsi Penemuan</label>
@@ -120,7 +133,7 @@
                   </div>
                   <div class="form-group">
                     <label for="namaLatin">Kolektor</label>
-                    <input type="text" class="form-control" name="tanggal_penemuan" value="{{$spesies->kolektor ?? ''}}"> 
+                    <input type="text" class="form-control" name="kolektor" value="{{$spesies->kolektor ?? ''}}"> 
                   </div>
                   <div class="form-group">
                     <label for="exampleInputFile">Rantai DNA</label>
@@ -130,6 +143,14 @@
                         <label class="custom-file-label" for="exampleInputFile">Pilih File</label>
                       </div>
                     </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="lokasi_penemuan">Lokasi Penyimpanan</label>
+                    <input type="text" class="form-control" placeholder="" name="lokasi_penyimpanan" value="{{$spesies->lokasi_penyimpanan ?? ''}}">
+                  </div>
+                  <div class="form-group">
+                    <label for="lokasi_penemuan">Rujukan</label>
+                    <input type="text" class="form-control" placeholder="" name="rujukan" value="{{$spesies->rujukan ?? ''}}">
                   </div>
                 <!-- /.card-body -->
 
