@@ -32,7 +32,7 @@ class Spesies extends Model
 
     public function detail_spesimen()
     {
-        return $this->hasMany(DetailSpesimen::class,"spesies_id","id");
+        return $this->hasOne(DetailSpesimen::class,"spesies_id","id");
     }
     public function next(){
         return $this->where('id','>',$this->id)->orderBy('id')->first();

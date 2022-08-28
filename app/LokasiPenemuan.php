@@ -13,4 +13,9 @@ class LokasiPenemuan extends Model
     {
         return $this->hasOne(DetailSpesimen::class,"lokasi_penemuan_id","id");
     }
+
+    public function provinsi()
+    {
+        return $this->belongsTo(Provinsi::class);
+    }
 }

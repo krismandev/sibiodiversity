@@ -141,15 +141,19 @@ class SpesiesController extends Controller
         $spesies = Spesies::find($id);
         $genuses = Genus::orderBy("nama_latin")->get();
         $status_konservasis = StatusKonservasi::all();
-        return view('dashboard.master.spesies.create',compact(['spesies','title','genuses','status_konservasis']));
+        $provinsi = Provinsi::all();
+        return view('dashboard.master.spesies.create',compact(['spesies','title','genuses','status_konservasis','provinsi']));
     }
 
     public function update(Request $request)
     {
         $this->customValidate($request);
-        $id = decrypt($request->spesies_id);
-        $spesies = Spesies::find($id);
+        DB::beginTransaction();
         try {
+            $id = decrypt($request->spesies_id);
+            $spesies = Spesies::find($id);
+            $detail_spesimen = DetailSpesimen::find($request->detail_spesimen_id);
+
             $nama_gambar = null;
             if ($request->hasFile('gambar')) {
                 $gambar = $request->file('gambar');
@@ -157,6 +161,16 @@ class SpesiesController extends Controller
                 $tujuan_upload = 'spesies';
                 $gambar->move($tujuan_upload,$nama_gambar);
             }
+
+            $lokasi_penemuan = $detail_spesimen->lokasi_penemuan;
+
+            $lokasi_penemuan->update([
+                "nama_lokasi"=>$request->nama_lokasi,
+                "provinsi_id"=>$request->provinsi_id,
+                "kabupaten_id"=>$request->kabupaten_id,
+                "kecamatan_id"=>$request->kecamatan_id,
+            ]);
+
             $spesies->update([
                 "genus_id" =>$request->genus_id,
                 "nama_latin" =>$request->nama_latin,
@@ -168,9 +182,30 @@ class SpesiesController extends Controller
                 "keaslian_jenis" =>$request->keaslian_jenis,
                 "distribusi_global" => $request->distribusi_global,
                 "gambar" =>$nama_gambar,
-                "user_id"=>auth()->user()->id
+                "user_id"=>auth()->user()->id,
+                "status"=>$request->status,
+                "rujukan"=>$request->rujukan,
             ]);
+
+            if ($request->hasFile('rantai_dna')) {
+                $rantai_dna = $request->file('rantai_dna');
+                $nama_rantai_dna = time()."_".$rantai_dna->getClientOriginalName();
+                $tujuan_upload = 'spesies/rantai_dna';
+                $rantai_dna->move($tujuan_upload,$nama_rantai_dna);
+            }
+
+            $detail_spesimen->update([
+                "spesies_id"=>$spesies->id,
+                "kd_spesimen"=>$request->kd_spesimen,
+                "lokasi_penemuan_id"=>$lokasi_penemuan->id,
+                "kolektor"=>$request->kolektor,
+                "lokasi_penyimpanan"=>$request->lokasi_penyimpanan,
+                "rantai_dna"=> $nama_rantai_dna ?? null,
+                "tanggal_penemuan"=>$request->tanggal_penemuan
+            ]);
+            DB::commit();
         } catch (\Exception $e){
+            DB::rollBack();
             return back()->with('error',$e->getMessage());
         }
 

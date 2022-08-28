@@ -18,6 +18,7 @@
                   @csrf
                   @method("PATCH")
                   <input type="hidden" name="spesies_id" value="{{encrypt($spesies->id)}}">
+                  <input type="hidden" name="detail_spesimen_id" value="{{$spesies->detail_spesimen->id}}">
                 @else
                   @csrf
                 @endif
@@ -81,12 +82,15 @@
                   </div>
                   <div class="form-group">
                     <label for="exampleInputFile">Gambar</label>
-                    <div class="input-group">
-                      <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="exampleInputFile" name="gambar">
-                        <label class="custom-file-label" for="exampleInputFile">Pilih File</label>
-                      </div>
-                    </div>
+                    {{-- <div class="input-group"> --}}
+                      {{-- <div class="custom-file"> --}}
+                        <input type="file" class="form-control" id="exampleInputFile" name="gambar">
+                        {{-- <label class="custom-file-label" for="exampleInputFile">Pilih File</label> --}}
+                        @if (isset($spesies) && $spesies->gambar != null)
+                          <small>Abaikan jika tidak ingin mengubah gambar</small>                            
+                        @endif
+                      {{-- </div> --}}
+                    {{-- </div> --}}
                   </div>
                   <div class="form-group">
                     <label for="ciriCiri">Deskripsi</label>
@@ -100,16 +104,19 @@
                 <div class="card-body">
                   <div class="form-group">
                     <label for="lokasi_penemuan">Kode Spesimen</label>
-                    <input type="text" class="form-control" placeholder="" name="kd_spesimen" value="{{$spesies->kd_spesimen ?? ''}}">
+                    <input type="text" class="form-control" placeholder="" name="kd_spesimen" value="{{$spesies->detail_spesimen->kd_spesimen ?? ''}}">
                   </div>
                   <div class="form-group">
                     <label for="lokasi_penemuan">Lokasi Penemuan</label>
-                    <input type="text" class="form-control" placeholder="" name="nama_lokasi" value="{{$spesies->nama_lokasi ?? ''}}">
+                    <input type="text" class="form-control" placeholder="" name="nama_lokasi" value="{{$spesies->detail_spesimen->lokasi_penemuan->nama_lokasi ?? ''}}">
                   </div>
                   <div class="form-group">
                     <label for="namaLatin">Provinsi Penemuan</label>
                     <select class="form-control" name="provinsi_id" id="provinsi">
                         <option disabled selected>---Pilih Provinsi---</option>
+                        @if(isset($spesies->detail_spesimen->lokasi_penemuan->provinsi_id))
+                          <option value="{{$spesies->detail_spesimen->lokasi_penemuan->provinsi_id}}">{{$spesies->detail_spesimen->lokasi_penemuan->provinsi->nama_provinsi}}</option>
+                        @endif
                         @foreach($provinsi as $data_provinsi)
                         <option value="{{$data_provinsi->id}}">{{$data_provinsi->nama_provinsi}}</option>
                         @endforeach    
@@ -167,7 +174,8 @@
 
 @endsection
 @section("linkfooter")
-<script src="{{asset('js/wilayah.js')}}"></script>
+@include('dashboard.master.spesies.js.wilayah-js')
+{{-- <script src="{{asset('js/wilayah.js')}}"></script> --}}
 <script src="{{asset('asset_dashboard/plugins/ckeditor/ckeditor.js')}}"></script>
 <script type="text/javascript">
    
