@@ -5,6 +5,9 @@ namespace App\Http\Controllers\FrontEnd;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Spesies;
+use App\Gallery;
+use App\Berita;
+
 class FrontEndController extends Controller
 {
     /**
@@ -34,77 +37,33 @@ class FrontEndController extends Controller
 
     public function gallery()
     {
-        return view('frontend.gallery');
+        $gallery = Gallery::latest()->paginate(5);
+        return view('frontend.gallery',compact(['gallery']));
     }
 
     public function berita()
     {
-        return view('frontend.berita');
+        $data_berita = Berita::latest()->paginate(5);
+        $berita_terbaru = Berita::latest()->paginate(5);
+        return view('frontend.berita',compact(['data_berita','berita_terbaru']));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function beritaDetail($id)
     {
-        //
+        $berita = Berita::find($id);
+        $berita_terbaru = Berita::latest()->paginate(5);
+        $next = $berita->next();
+        $previous = $berita->previous();
+        return view('frontend.berita-detail', compact(['berita','berita_terbaru','next','previous']));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+    public function cariBerita(Request $request){
+       
+        $data_berita = Berita::where('judul' , $request->cari)->orWhere('judul','like','%'.$request->cari.'%')->paginate(5);
+        $berita_terbaru = Berita::latest()->paginate(5);
+        return view('frontend.berita',compact(['data_berita','berita_terbaru']));
+       
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+    
 }

@@ -14,85 +14,30 @@
     <div class="container">
         <div class="row">
             <!-- course item -->
+            @forelse($gallery as $item)
             <div class="col-lg-4 col-md-6 course-item">
                 <div class="course-thumb">
-                    <img src="{{asset('assets_frontend/img/course/1.jpg')}}" alt="">
+                    @if($item->jenis_file == "Gambar")
+                    <img  src="{{$item->getGallery()}}" alt="{{asset('assets_frontend/img/course/1.jpg')}}" alt="">
+                    @else
+                    <video controls>
+                      <source src="{{$item->getGallery()}}" type="video" alt="{{asset('assets_frontend/img/course/1.jpg')}}"/>
+                    </video>
+                    @endif
                     <div class="course-cat">
-                        <span>VIDIO</span>
+                        <span>{{$item->jenis_file}}</span>
                     </div>
                 </div>
                 <div class="course-info">
-                    <h4>Certificate Course in Writing<br>for a Global Market</h4>
+                    <h4>{{$item->judul}}</h4>
                 </div>
             </div>
-            <!-- course item -->
-            <div class="col-lg-4 col-md-6 course-item">
-                <div class="course-thumb">
-                    <img src="{{asset('assets_frontend/img/course/2.jpg')}}" alt="">
-                    <div class="course-cat">
-                        <span>FOTO</span>
-                    </div>
-                </div>
-                <div class="course-info">
-                    <h4>Google AdWords: Get More<br> Customers with Search Marketing </h4>
-                </div>
-            </div>
-            <!-- course item -->
-            <div class="col-lg-4 col-md-6 course-item">
-                <div class="course-thumb">
-                    <img src="{{asset('assets_frontend/img/course/3.jpg')}}" alt="">
-                    <div class="course-cat">
-                        <span>FOTO</span>
-                    </div>
-                </div>
-                <div class="course-info">
-                    <h4>The Ultimate Drawing Course<br> Beginner to Advanced</h4>
-                </div>
-            </div>
-            <!-- course item -->
-            <div class="col-lg-4 col-md-6 course-item">
-                <div class="course-thumb">
-                    <img src="{{asset('assets_frontend/img/course/4.jpg')}}" alt="">
-                    <div class="course-cat">
-                        <span>VIDIO</span>
-                    </div>
-                </div>
-                <div class="course-info">
-                    <h4>Ultimate MySQL Bootcamp: Go from SQL Beginner to Expert</h4>
-                </div>
-            </div>
-            <!-- course item -->
-            <div class="col-lg-4 col-md-6 course-item">
-                <div class="course-thumb">
-                    <img src="{{asset('assets_frontend/img/course/5.jpg')}}" alt="">
-                    <div class="course-cat">
-                        <span>VIDIO</span>
-                    </div>
-                </div>
-                <div class="course-info">
-                    <h4>Web Developer Bootcamp<br>Make web  applications</h4>
-                    
-                </div>
-            </div>
-            <!-- course item -->
-            <div class="col-lg-4 col-md-6 course-item">
-                <div class="course-thumb">
-                    <img src="{{asset('assets_frontend/img/course/6.jpg')}}" alt="">
-                    <div class="course-cat">
-                        <span>FOTO</span>
-                    </div>
-                </div>
-                <div class="course-info">
-                    <h4>How to Start an Amazon<br>FBA Store on a Tight Budget</h4>
-                </div>
-            </div>
+            @empty
+            <h5> Belum Memiliki Gallery</h5>
+            @endforelse
         </div>
         <div class="text-center">
-            <ul class="site-pageination">
-                <li><a href="#" class="active">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-            </ul>
+           {{ $gallery->links() }}
         </div>
     </div>
 </section>

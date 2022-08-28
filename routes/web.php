@@ -30,6 +30,7 @@ Route::get('/getkecamatan', 'Dashboard\SpesiesController@getKecamatan');
 Route::group(['middleware' => ['auth','cekstatus:0'],'prefix'=>'dashboard'], function(){
     Route::get('/', 'Dashboard\DashboardController@index')->name('home.dashboard');
 
+    
     Route::group(['prefix'=>'class'], function(){
         Route::get('/','Dashboard\ClassController@index')->name('class.index');
         Route::get('/create','Dashboard\ClassController@create')->name('class.create');
@@ -38,7 +39,7 @@ Route::group(['middleware' => ['auth','cekstatus:0'],'prefix'=>'dashboard'], fun
         Route::patch('/','Dashboard\ClassController@update')->name('class.update');
         Route::get('/delete/{id}','Dashboard\ClassController@delete')->name('class.delete');
     });
-
+    
     Route::group(['prefix'=>'ordo'], function(){
         Route::get('/','Dashboard\OrdoController@index')->name('ordo.index');
         Route::get('/create','Dashboard\OrdoController@create')->name('ordo.create');
@@ -56,7 +57,7 @@ Route::group(['middleware' => ['auth','cekstatus:0'],'prefix'=>'dashboard'], fun
         Route::patch('/','Dashboard\FamiliController@update')->name('famili.update');
         Route::get('/delete/{id}','Dashboard\FamiliController@delete')->name('famili.delete');
     });
-
+    
     Route::group(['prefix'=>'genus'], function(){
         Route::get('/','Dashboard\GenusController@index')->name('genus.index');
         Route::get('/create','Dashboard\GenusController@create')->name('genus.create');
@@ -65,7 +66,7 @@ Route::group(['middleware' => ['auth','cekstatus:0'],'prefix'=>'dashboard'], fun
         Route::patch('/','Dashboard\GenusController@update')->name('genus.update');
         Route::get('/delete/{id}','Dashboard\GenusController@delete')->name('genus.delete');
     });
-
+    
     Route::group(['prefix'=>'spesies'], function(){
         Route::get('/','Dashboard\SpesiesController@index')->name('spesies.index');
         Route::get('/create','Dashboard\SpesiesController@create')->name('spesies.create');
@@ -74,10 +75,30 @@ Route::group(['middleware' => ['auth','cekstatus:0'],'prefix'=>'dashboard'], fun
         Route::patch('/','Dashboard\SpesiesController@update')->name('spesies.update');
         Route::get('/delete/{id}','Dashboard\SpesiesController@delete')->name('spesies.delete');
     });
+
+    Route::group(['prefix'=>'gallery'], function(){
+        Route::get('/','Dashboard\GalleryController@index')->name('gallery.index');
+        Route::get('/create','Dashboard\GalleryController@create')->name('gallery.create');
+        Route::post('/','Dashboard\GalleryController@store')->name('gallery.store');
+        Route::get('/{id}','Dashboard\GalleryController@edit')->name('gallery.edit');
+        Route::patch('/','Dashboard\GalleryController@update')->name('gallery.update');
+        Route::get('/delete/{id}','Dashboard\GalleryController@delete')->name('gallery.delete');
+    });
+
+    Route::group(['prefix'=>'berita'], function(){
+        Route::get('/','Dashboard\BeritaController@index')->name('berita.index');
+        Route::get('/create','Dashboard\BeritaController@create')->name('berita.create');
+        Route::post('/','Dashboard\BeritaController@store')->name('berita.store');
+        Route::get('/{id}','Dashboard\BeritaController@edit')->name('berita.edit');
+        Route::patch('/','Dashboard\BeritaController@update')->name('berita.update');
+        Route::get('/delete/{id}','Dashboard\BeritaController@delete')->name('berita.delete');
+    });
+
 });
 Route::get('/', 'FrontEnd\FrontEndController@index')->name('home.frontend');
 Route::get('/explorer', 'FrontEnd\FrontEndController@explorer')->name('explorer.frontend');
 Route::get('/explorer-detail/{id}', 'FrontEnd\FrontEndController@explorerDetail');
-Route::get('/gallery', 'FrontEnd\FrontEndController@gallery')->name('gallery.frontend');
-Route::get('/berita', 'FrontEnd\FrontEndController@berita')->name('berita.frontend');
-
+Route::get('/gallery-sibiodiversity', 'FrontEnd\FrontEndController@gallery')->name('gallery.frontend');
+Route::get('/berita-sibiodiversity', 'FrontEnd\FrontEndController@berita')->name('berita.frontend');
+Route::get('/berita-detail/{id}', 'FrontEnd\FrontEndController@beritaDetail');
+Route::get('/cari-berita', 'FrontEnd\FrontEndController@cariBerita');

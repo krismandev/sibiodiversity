@@ -84,6 +84,23 @@
                 </li>
               </ul>
           </li>
+          
+            <li class="nav-item">
+            <a href="{{route('gallery.index')}}" class="nav-link {{(request()->is('dashboard/gallery*'))?'active': ''}}">
+                <i class="nav-icon fa fa-video-camera"></i>
+                <p>
+               Gallery
+                </p>
+            </a>
+            </li>
+            <li class="nav-item">
+            <a href="{{route('berita.index')}}" class="nav-link {{(request()->is('dashboard/berita*'))?'active': ''}}">
+                <i class="nav-icon fa fa-newspaper-o"></i>
+                <p>
+               Berita
+                </p>
+            </a>
+            </li>
             <li class="nav-item">
                 <a href="{{route('logout')}}" class="nav-link">
                 <i class="nav-icon fa fa-sign-out"></i>

@@ -1,10 +1,10 @@
 @extends("layouts.dashboard.master")
-@section("page_title",$title)
+@section("page_title","Gallery")
 @section("breadcrumb")
 <li class="breadcrumb-item"><a href="{{route('home.dashboard')}}">Home</a></li>
-<li class="breadcrumb-item active">Spesies</li>
+<li class="breadcrumb-item active">Gallery</li>
 @endsection
-@section("title",$title)
+@section("title","Gallery")
 @section("content")
 <div class="row">
     @if ($errors->any())
@@ -20,37 +20,41 @@
       <div class="card">
         <div class="card-header">
           <div class="card-tools">
-            <a href="{{route('spesies.create')}}" class="btn btn-primary">Tambah</a>
+            <a href="{{route('gallery.create')}}" class="btn btn-primary">Tambah</a>
             {{-- <button type="submit" class="btn btn-primary float-right" data-toggle="modal" data-target="#myModal">Tambah</button> --}}
           </div>
         </div>
         <div class="card-body">
-            <table class="table table-bordered table-striped" id="data_spesies_reguler">
+            <table class="table table-bordered table-striped" id="data_gallery_reguler">
               <thead>
                 <tr>
-                  <th>Spesies (Latin)</th>
-                  <th>Nama Umum</th>
-                  <th>Genus</th>
-                  <th>Deskripsi</th>
-                  <th>Gambar</th>
+        
+                  <th>Gambar/Video</th>
+                  <th>Judul</th>
+                  <th>Keterangan</th>
+                
                   <th>Aksi</th>
                 </tr>
               </thead>
               <tbody>
-                @if ($spesieses != null)
-                @foreach ($spesieses as $spesies)
+                @if ($gallery != null)
+                @foreach ($gallery as $g)
                 <tr>
-                  <td>{{$spesies->nama_latin}}</td>
-                  <td>{{$spesies->nama_umum}}</td>
-                  <td>{{$spesies->genus->nama_latin}}</td>
-                  <td>{!!Str::limit($spesies->deskripsi,200)!!}</td>
                   <td>
-                    <img src="{{$spesies->getImage()}}" alt="" style="max-width: 150px;">
+                    @if($g->jenis_file == "Gambar")
+                    <img src="{{$g->getGallery()}}" alt="" style="max-width: 150px;">
+                    @else
+                    <video controls>
+                      <source src="{{$g->getGallery()}}" type="video" />
+                    </video>
+                    @endif
                   </td>
+                  <td>{{$g->judul}}</td>
+                  <td>{!!Str::limit($g->keterangan,200)!!}</td>
                   <td>
-                      <a class="btn btn-warning" href="{{route('spesies.edit',encrypt($spesies->id))}}">Edit</a>
+                      <a class="btn btn-warning" href="{{route('gallery.edit',encrypt($g->id))}}">Edit</a>
                       <a class="btn btn-danger" href="#"
-                      data-spesies_id="{{encrypt($spesies->id)}}">Hapus</a>
+                      data-gallery_id="{{encrypt($g->id)}}">Hapus</a>
                   </td>
                 </tr>
                 @endforeach
@@ -69,14 +73,12 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript">
     
-  $("#data_spesies_reguler").DataTable({
+  $("#data_gallery_reguler").DataTable({
       "responsive": true,
       "autoWidth": false,
   });
-
   $(".btn-danger").click(function (e) {
-      const spesies_id = $(this).data("spesies_id");
-
+      const gallery_id = $(this).data("gallery_id");
       swal({
           title: "Yakin?",
           text: "Mau menghapus data ini?",
@@ -86,9 +88,10 @@
       })
       .then((willDelete) => {
           if (willDelete) {
-              window.location = "/dashboard/spesies/delete/"+spesies_id;
+              window.location = "/dashboard/gallery/delete/"+gallery_id;
           }
       });
   });
 </script>
 @endsection
+
