@@ -101,6 +101,36 @@
                 </p>
             </a>
             </li>
+
+            @php
+              $setting_menu_active = (request()->is('dashboard/tentang*') || request()->is('dashboard/slider*')) ? true : false;
+            @endphp
+            <li class="nav-item has-treeview {{$setting_menu_active == true ? 'menu-open' : ''}}">
+              <a href="#" class="nav-link {{$setting_menu_active == true ? 'active' : ''}}">
+                <i class="nav-icon fa fa-cogs"></i>
+                <p>
+                  Pengaturan
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{route('tentang.index')}}" class="nav-link {{(request()->is('dashboard/tentang*'))?'active': ''}}">
+                    <i class="far fa fa-info-circle nav-icon"></i>
+                    <p>Informasi Tentang</p>
+                  </a>
+                </li>
+              </ul>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{route('slider.index')}}" class="nav-link {{(request()->is('dashboard/slider*'))?'active': ''}}">
+                    <i class="fa fa-sliders nav-icon"></i>
+                    <p>Slider</p>
+                  </a>
+                </li>
+              </ul>
+              
+          </li>
             <li class="nav-item">
                 <a href="{{route('logout')}}" class="nav-link">
                 <i class="nav-icon fa fa-sign-out"></i>

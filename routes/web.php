@@ -94,6 +94,22 @@ Route::group(['middleware' => ['auth','cekstatus:0'],'prefix'=>'dashboard'], fun
         Route::get('/delete/{id}','Dashboard\BeritaController@delete')->name('berita.delete');
     });
 
+    Route::group(['prefix'=>'tentang'], function(){
+        Route::get('/','Dashboard\TentangController@index')->name('tentang.index');
+        Route::get('/create','Dashboard\TentangController@create')->name('tentang.create');
+        Route::post('/','Dashboard\TentangController@store')->name('tentang.store');
+        Route::patch('/','Dashboard\TentangController@update')->name('tentang.update');
+    });
+
+    Route::group(['prefix'=>'slider'], function(){
+        Route::get('/','Dashboard\SliderController@index')->name('slider.index');
+        Route::get('/create','Dashboard\SliderController@create')->name('slider.create');
+        Route::post('/','Dashboard\SliderController@store')->name('slider.store');
+        Route::get('/{id}','Dashboard\SliderController@edit')->name('slider.edit');
+        Route::patch('/','Dashboard\SliderController@update')->name('slider.update');
+        Route::get('/delete/{id}','Dashboard\SliderController@delete')->name('slider.delete');
+    });
+
 });
 Route::get('/', 'FrontEnd\FrontEndController@index')->name('home.frontend');
 Route::get('/explorer', 'FrontEnd\FrontEndController@explorer')->name('explorer.frontend');

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Spesies;
 use App\Gallery;
 use App\Berita;
+use App\Tentang;
 
 class FrontEndController extends Controller
 {
@@ -17,7 +18,9 @@ class FrontEndController extends Controller
      */
     public function index()
     {
-        return view('frontend.index');
+        $tentang = Tentang::first();
+        $judul='Tentang Sibiodiversity';
+        return view('frontend.index',compact(['tentang','judul']));
     }
 
     public function explorer()
