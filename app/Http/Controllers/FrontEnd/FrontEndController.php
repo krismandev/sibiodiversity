@@ -68,5 +68,18 @@ class FrontEndController extends Controller
        
     }
 
+    public function filterExplorer(Request $request)
+    {
+        if ($request->abjad == "all") {
+            $data_spesies = Spesies::orderBy("nama_latin")->paginate(9);
+        }else{
+            $data_spesies = Spesies::where(function($query) use($request){
+                $query->where("nama_latin","LIKE",$request->abjad."%")
+                    ->orWhere("nama_umum","LIKE",$request->abjad."%");
+            })->paginate(9);
+        }
+        return view('frontend.partials.item-list-explorer',compact(['data_spesies']))->render();
+    }
+
     
 }

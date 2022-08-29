@@ -24,9 +24,9 @@
             <div class="col-md-9 col-lg-9" id="nav-abjad">
             <span class="mt-2" style=" font-size: 18px; font-weight: bold; color: #37517e;">Berdasarkan Abjad: </span> 
                 <ol class="mb-2">
-                <li><a href="#"> All </a></li>
+                    <li><a href="#" data-abjad="all" class="abjad"> All </a></li>
                     @foreach(range('A','Z') as $abjad)
-                        <li><a href="#"> {{ $abjad }} </a></li>
+                        <li><a href="#" data-abjad="{{$abjad}}" class="abjad"> {{ $abjad }} </a></li>
                     @endforeach
                 </ol>
             </div>
@@ -40,7 +40,7 @@
             <h3>DATA IKAN</h3>
             <p>Total {{$data_spesies->count()}} data</p>
         </div>
-        <div class="row">
+        <div class="row" id="list-ikan-holder">
             @forelse($data_spesies as $item)
           
             <div class="col-xl-6">
@@ -65,4 +65,33 @@
         </div>
     </div>
 </section>
+@endsection
+@section("linkfooter")
+<script>
+    $(document).ready(function () {
+        $(".abjad").click(function (e) { 
+            e.preventDefault();
+            let abjad = $(this).data("abjad"); 
+            doAjax(abjad)
+            
+        });
+    });
+
+    function doAjax(abjad) {
+        $.ajax({
+            url : '/explorer/filter',
+            type : 'GET',
+            dataType : 'html',
+            data : {
+                abjad : abjad,
+            },
+            success : function(resp){
+                $("#list-ikan-holder").empty();
+                $("#list-ikan-holder").html(resp);
+            },
+            error : function(resp){
+            }
+        });
+    }
+</script>
 @endsection

@@ -164,6 +164,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<script src="{{asset('assets_frontend/js/masonry.pkgd.min.js')}}"></script>
 	<script src="{{asset('assets_frontend/js/magnific-popup.min.js')}}"></script>
 	<script src="{{asset('assets_frontend/js/main.js')}}"></script>
-	
+	@yield('linkfooter')
 </body>
 </html>

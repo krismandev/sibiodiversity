@@ -113,6 +113,7 @@ Route::group(['middleware' => ['auth','cekstatus:0'],'prefix'=>'dashboard'], fun
 });
 Route::get('/', 'FrontEnd\FrontEndController@index')->name('home.frontend');
 Route::get('/explorer', 'FrontEnd\FrontEndController@explorer')->name('explorer.frontend');
+Route::get('/explorer/filter', 'FrontEnd\FrontEndController@filterExplorer')->name('explorer.filter');
 Route::get('/explorer-detail/{id}', 'FrontEnd\FrontEndController@explorerDetail');
 Route::get('/gallery-sibiodiversity', 'FrontEnd\FrontEndController@gallery')->name('gallery.frontend');
 Route::get('/berita-sibiodiversity', 'FrontEnd\FrontEndController@berita')->name('berita.frontend');
