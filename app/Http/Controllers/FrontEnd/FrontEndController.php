@@ -8,6 +8,8 @@ use App\Spesies;
 use App\Gallery;
 use App\Berita;
 use App\Tentang;
+use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class FrontEndController extends Controller
 {
@@ -25,7 +27,7 @@ class FrontEndController extends Controller
 
     public function explorer()
     {
-        $data_spesies = Spesies::orderBy("nama_latin")->paginate(9);
+        $data_spesies = Spesies::orderBy("nama_latin")->paginate(10);
         return view('frontend.explorer', compact(['data_spesies']));
     }
 
@@ -72,13 +74,57 @@ class FrontEndController extends Controller
     {
         if ($request->abjad == "all") {
             $data_spesies = Spesies::orderBy("nama_latin")->paginate(9);
-        }else{
+        }else if(isset($request->abjad)){
             $data_spesies = Spesies::where(function($query) use($request){
                 $query->where("nama_latin","LIKE",$request->abjad."%")
                     ->orWhere("nama_umum","LIKE",$request->abjad."%");
-            })->paginate(9);
+            })->paginate(10);
+        }else{
+            //berarti param filter nya keyword search
+            $data_spesies = Spesies::where(function($query) use($request){
+                $query->where("nama_latin","LIKE","%".$request->search."%")
+                    ->orWhere("nama_umum","LIKE","%".$request->search."%");
+            })->paginate(10);
         }
         return view('frontend.partials.item-list-explorer',compact(['data_spesies']))->render();
+    }
+
+    public function register()
+    {
+        return view('frontend.register');
+    }
+
+    public function storeRegister(Request $request)
+    {
+        $request->validate([
+            "name"=>"required",
+            "email"=>"required|email",
+            "password"=>"required|min:8|confirmed",
+            // "password_confirmation"=>"required|confirmed",
+            "jenis_kelamin"=>"required",
+            "pekerjaan"=>"nullable",
+            "no_hp"=>"nullable",
+            "alamat"=>"nullable",
+        ]);
+
+        try {
+            $user = User::create([
+                "name"=>$request->name,
+                "email"=>$request->email,
+                "password"=>bcrypt($request->password),
+                "jenis_kelamin"=>$request->jenis_kelamin,
+                "pekerjaan"=>$request->pekerjaan,
+                "no_hp"=>$request->no_hp,
+                "alamat"=>$request->alamat,
+                "role"=>1
+            ]);
+    
+            Auth::attempt(["email"=>$request->email, "password"=>$request->password]);
+    
+        } catch (\Exception $e) {
+            return back()->with('error',$e->getMessage());
+        }
+        return redirect()->route('home.frontend');
     }
 
     

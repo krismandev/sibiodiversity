@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Unica - University Template</title>
+	<title>@yield('title')</title>
 	<meta charset="UTF-8">
 	<meta name="description" content="Unica University Template">
 	<meta name="keywords" content="event, unica, creative, html">
@@ -76,7 +76,7 @@
 	
 
 
-@yield('content')
+	@yield('content')
 
 	
 

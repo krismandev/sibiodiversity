@@ -8,6 +8,9 @@
 		<span>Explorer</span>
 	</div>
 </div>
+{{-- <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+</div> --}}
 <!-- Breadcrumb section end -->
 <section class="explorer-section">
     <div class="container">
@@ -16,8 +19,8 @@
                 <span class="mt-2" style=" font-size: 18px; font-weight: bold; color: #37517e;">Cari Data Ikan :</span>  
                 <form>
                     <div class="input-group ">
-                        <input type="text" class="form-control" placeholder="Kata Kunci ...">
-                        <button class="btn btn-sm btn-outline-dark" type="button">Cari</button>
+                        <input type="text" class="form-control" placeholder="Kata Kunci ..." name="search">
+                        <button class="btn btn-sm btn-outline-dark btn-search" type="button">Cari</button>
                     </div>
                 </form>
             </div>
@@ -72,19 +75,29 @@
         $(".abjad").click(function (e) { 
             e.preventDefault();
             let abjad = $(this).data("abjad"); 
-            doAjax(abjad)
+            let param = {
+                abjad: abjad
+            }
+            doAjax(param)
             
+        });
+
+        $(".btn-search").click(function (e) { 
+            e.preventDefault();
+            let keyword = $("input[name='search']").val();
+            let param = {
+                search: keyword
+            }
+            doAjax(param)
         });
     });
 
-    function doAjax(abjad) {
+    function doAjax(obj) {
         $.ajax({
             url : '/explorer/filter',
             type : 'GET',
             dataType : 'html',
-            data : {
-                abjad : abjad,
-            },
+            data : obj,
             success : function(resp){
                 $("#list-ikan-holder").empty();
                 $("#list-ikan-holder").html(resp);
