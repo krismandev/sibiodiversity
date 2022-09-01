@@ -22,6 +22,9 @@
 	<link rel="stylesheet" href="{{asset('assets_frontend/css/style.css')}}"/>
 
 
+	{{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css"/> --}}
+
 	<!--[if lt IE 9]>
 	  <script src="{{asset('assets_frontend/https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js')}}"></script>
 	  <script src="{{asset('assets_frontend/https://oss.maxcdn.com/respond/1.4.2/respond.min.js')}}"></script>
@@ -61,14 +64,32 @@
 	<nav class="nav-section">
 		<div class="container">
 			<div class="nav-right">
-				<a href="{{route('login')}}"><i class="fa fa-sign-in" aria-hidden="true"></i> Masuk</a>
-				<a href="{{route('register')}}"><i class="fa fa-registered" aria-hidden="true"></i>Daftar</a>
+					@guest
+					<a href="{{route('login')}}"><i class="fa fa-sign-in" aria-hidden="true"></i> Masuk</a>
+                    @if (Route::has('register'))
+					<a href="{{route('register')}}"><i class="fa fa-registered" aria-hidden="true"></i> Daftar</a>
+                    @endif
+                    @else
+					<a href="#">Login Sebagai (Member)</a>
+					<a href="{{route('logout')}}"><i class="fa fa-sign-out" aria-hidden="true"></i> Keluar</a>
+					@endif
+				
+				
 			</div>
+			
 			<ul class="main-menu">
+			@guest
 				<li class="{{(request()->is('/*'))?'active': ''}}"><a href="{{route('home.frontend')}}">Beranda</a></li>
 				<li class="{{(request()->is('explorer*'))?'active': ''}}"><a href="{{route('explorer.frontend')}}">Explorer</a></li>
 				<li class="{{(request()->is('gallery*'))?'active': ''}}"><a href="{{route('gallery.frontend')}}">Gallery</a></li>
 				<li class="{{(request()->is('berita*'))?'active': ''}}"><a href="{{route('berita.frontend')}}">Berita</a></li>
+			@else
+				<li class="{{(request()->is('/*'))?'active': ''}}"><a href="{{route('home.frontend')}}">Beranda</a></li>
+				<li class="{{(request()->is('explorer*'))?'active': ''}}"><a href="{{route('explorer.frontend')}}">Explorer</a></li>
+				<li class="{{(request()->is('gallery*'))?'active': ''}}"><a href="{{route('gallery.frontend')}}">Gallery</a></li>
+				<li class="{{(request()->is('berita*'))?'active': ''}}"><a href="{{route('berita.frontend')}}">Berita</a></li>
+				<li class="{{(request()->is('member*'))?'active': ''}}"><a href="{{route('member-explorer.index')}}">Tambah Spesies</a></li>
+			@endif
 			</ul>
 		</div>
 	</nav>
@@ -77,6 +98,7 @@
 
 
 	@yield('content')
+	
 
 	
 
@@ -164,6 +186,62 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<script src="{{asset('assets_frontend/js/masonry.pkgd.min.js')}}"></script>
 	<script src="{{asset('assets_frontend/js/magnific-popup.min.js')}}"></script>
 	<script src="{{asset('assets_frontend/js/main.js')}}"></script>
-	@yield('linkfooter')
+	<script src="{{asset('asset_dashboard/plugins/sweetalert2/sweetalert2.min.js')}}"></script>
+<script src="{{asset('asset_dashboard/plugins/toastr/toastr.min.js')}}"></script>
+
+<script src="{{asset('asset_dashboard/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('asset_dashboard/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{asset('asset_dashboard/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{asset('asset_dashboard/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+{{-- <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script> --}}
+<script src="{{asset('js/jquery.fancybox.min.js')}}"></script>
+<script src="https://kit.fontawesome.com/ba5890d42b.js" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
+@if (session("success"))
+    <script>
+            $(document).Toasts('create', {
+                class: 'bg-success',
+                title: 'Berhasil',
+                body: '{{session("success")}}'
+            })
+    </script>
+@endif
+@if (session("error"))
+    <script>
+            $(document).Toasts('create', {
+                class: 'bg-danger',
+                title: 'Error',
+                body: '{{session("error")}}'
+            })
+    </script>
+@endif
+
+@if ($errors->any())
+    @php
+        // dd($errors->all());
+        $message = '';
+    @endphp
+    @foreach ($errors->all() as $error)
+        @php
+            $message .= $error.", ";
+        @endphp
+    @endforeach
+
+    <script>
+        $(document).Toasts('create', {
+            class: 'bg-danger',
+            title: 'Error',
+            body: '{{$message}}'
+        })
+    </script>
+
+@endif
+
+@yield('linkfooter')
+
+
 </body>
 </html>

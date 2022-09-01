@@ -111,6 +111,19 @@ Route::group(['middleware' => ['auth','cekstatus:0'],'prefix'=>'dashboard'], fun
     });
 
 });
+
+Route::group(['middleware' => ['auth','cekstatus:1']], function(){
+    Route::group(['prefix'=>'member'], function(){
+        Route::get('/explorer-index','FrontEnd\FrontEndController@explorerIndex')->name('member-explorer.index');
+        Route::get('/explorer-create','FrontEnd\FrontEndController@explorercreate')->name('member-explorer.create');
+        Route::post('/','FrontEnd\FrontEndController@explorerStore')->name('member-explorer.store');
+        Route::get('/{id}','FrontEnd\FrontEndController@explorerEdit')->name('member-explorer.edit');
+        Route::patch('/','FrontEnd\FrontEndController@explorerUpdate')->name('member-explorer.update');
+        Route::get('/delete/{id}','FrontEnd\FrontEndController@explorerDelete')->name('member-explorer.delete');
+    });
+
+});
+
 Route::get('/', 'FrontEnd\FrontEndController@index')->name('home.frontend');
 Route::get('/explorer', 'FrontEnd\FrontEndController@explorer')->name('explorer.frontend');
 Route::get('/explorer/filter', 'FrontEnd\FrontEndController@filterExplorer')->name('explorer.filter');

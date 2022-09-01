@@ -941,6 +941,10 @@ ol {
 	margin-right: 3px;
 }
 
+.table {
+	overflow-y: hidden
+}
+
 /*---------------------
 	Explorer Section
 -----------------------*/

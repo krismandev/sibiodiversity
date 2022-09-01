@@ -18,7 +18,6 @@ class AddColumnToUsers extends Migration
             $table->text('alamat')->nullable();
             $table->string('pekerjaan')->nullable();
             $table->string('no_hp')->nullable();
-
         });
     }
 
