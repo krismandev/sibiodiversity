@@ -107,6 +107,7 @@ class SpesiesController extends Controller
                 "user_id"=>auth()->user()->id,
                 "status"=>$request->status,
                 "rujukan"=>$request->rujukan,
+                "is_approved"=>1,
             ]);
 
             if ($request->hasFile('rantai_dna')) {

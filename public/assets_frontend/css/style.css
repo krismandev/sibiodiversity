@@ -107,8 +107,6 @@ ol {
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center 0;
-	background-image: attr(data-image-src url);
-
 	
 }
 

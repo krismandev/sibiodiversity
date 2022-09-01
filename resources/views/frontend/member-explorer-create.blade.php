@@ -99,10 +99,16 @@
                   <div class="form-group">
                     <label for="status">Status</label>
                       <select class="form-control" name="status" id="status" value="{{$spesies->status ?? ''}}" >
-                        <option value="" selected>---Pilih Status---</option>
+                        <option value="{{$spesies->status ?? ''}}" selected>---Pilih Status---</option>
+                        @if(isset($spesies))
                         <option value="valid"  {{ $spesies->status == "valid" ? 'selected' : '' }}>Valid</option>
                         <option value="verified"  {{ $spesies->status == "verified" ? 'selected' : '' }}>Verified</option>
                         <option value="checking"  {{ $spesies->status == "checking" ? 'selected' : '' }}>Checking</option>
+                        @else
+                        <option value="valid"  >Valid</option>
+                        <option value="verified"  >Verified</option>
+                        <option value="checking"  >Checking</option>
+                        @endif                      
                       </select>  
                   </div>
                   <div class="form-group">
@@ -143,16 +149,11 @@
                         @endif
                     </label>
                     <select class="form-control" name="provinsi_id" id="provinsi" value="{{$spesies->detail_spesimen->lokasi_penemuan->provinsi_id  ?? ''}}" >
-                    <option disable selected>---Pilih Provinsi---</option>
-                        <!-- @if(isset($spesies) && $spesies->detail_spesimen->lokasi_penemuan->provinsi_id != Null)
-                            @foreach($provinsi as $data_provinsi)
-                            <option value="{{$data_provinsi->id}}"  {{ $data_provinsi->id ==  $spesies->detail_spesimen->lokasi_penemuan->provinsi_id   ? 'selected' : '' }}>{{$data_provinsi->nama_provinsi}}</option>
-                            @endforeach  
-                        @else -->
+                    <option value="{{$spesies->detail_spesimen->lokasi_penemuan->provinsi_id  ?? ''}}" disable selected>---Pilih Provinsi---</option>
+                        
                             @foreach($provinsi as $data_provinsi)
                             <option value="{{$data_provinsi->id}}">{{$data_provinsi->nama_provinsi}}</option>
                             @endforeach
-                        <!-- @endif -->
                             
                     </select>
                   </div>
@@ -163,7 +164,7 @@
                         @endif
                     </label>
                       <select class="form-control" name="kabupaten_id" id="kabupaten" value="{{$spesies->detail_spesimen->lokasi_penemuan->kabupaten_id  ?? ''}}">
-                      <option value="" selected>---Pilih Kabupaten---</option>
+                      <option value="{{$spesies->detail_spesimen->lokasi_penemuan->kabupaten_id  ?? ''}}" selected>---Pilih Kabupaten---</option>
                       </select>  
                   </div>
                   <div class="form-group">
@@ -173,7 +174,7 @@
                         @endif
                     </label>
                       <select class="form-control" name="kecamatan_id" id="kecamatan" value="{{$spesies->detail_spesimen->lokasi_penemuan->kecamatan_id  ?? ''}}">
-                        <option value="" selected>---Pilih Kecamatan---</option>
+                        <option value="{{$spesies->detail_spesimen->lokasi_penemuan->kecamatan_id  ?? ''}}" selected>---Pilih Kecamatan---</option>
                       </select> 
                   </div>
                   <div class="form-group">

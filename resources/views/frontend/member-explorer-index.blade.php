@@ -1,5 +1,5 @@
 @extends("layouts.frontend.master")
-@section("title","Tambah Spesies Baru")
+@section("title","Daftar Spesies Anda")
 @section("content")
 
 <!-- Breadcrumb section -->

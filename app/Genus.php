@@ -13,4 +13,8 @@ class Genus extends Model
     {
         return $this->belongsTo(Famili::class);
     }
+    public function spesies()
+    {
+        return $this->hasMany(Spesies::class);
+    }
 }

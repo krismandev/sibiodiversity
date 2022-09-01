@@ -2,7 +2,7 @@
 @section("page_title",$title)
 @section("breadcrumb")
 <li class="breadcrumb-item"><a href="{{route('home.dashboard')}}">Home</a></li>
-<li class="breadcrumb-item active">Spesies</li>
+<li class="breadcrumb-item active">Verifikasi Spesies</li>
 @endsection
 @section("title",$title)
 @section("content")

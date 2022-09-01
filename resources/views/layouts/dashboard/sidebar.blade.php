@@ -32,6 +32,14 @@
                 </p>
             </a>
             </li>
+            <li class="nav-item">
+            <a href="{{route('verifikasi.index')}}" class="nav-link {{(request()->is('verifikasi*'))?'active': ''}}">
+                <i class="nav-icon fa fa-home"></i>
+                <p>
+                Butuh Verifikasi
+                </p>
+            </a>
+            </li>
             @php
               $master_menu_active = (request()->is('dashboard/class*') || request()->is('dashboard/ordo*') || request()->is('dashboard/famili*') || request()->is('dashboard/genus*') || request()->is('dashboard/spesies*')) ? true : false;
             @endphp

@@ -31,6 +31,13 @@ Route::group(['middleware' => ['auth','cekstatus:0'],'prefix'=>'dashboard'], fun
     Route::get('/', 'Dashboard\DashboardController@index')->name('home.dashboard');
 
     
+    Route::group(['prefix'=>'verifikasi'], function(){
+        Route::get('/','Dashboard\VerifikasiController@index')->name('verifikasi.index');
+        Route::get('/detail/{id}','Dashboard\VerifikasiController@detail')->name('verifikasi.detail');
+        Route::get('/spesies/{id}','Dashboard\VerifikasiController@update')->name('verifikasi.update');
+    });
+
+
     Route::group(['prefix'=>'class'], function(){
         Route::get('/','Dashboard\ClassController@index')->name('class.index');
         Route::get('/create','Dashboard\ClassController@create')->name('class.create');

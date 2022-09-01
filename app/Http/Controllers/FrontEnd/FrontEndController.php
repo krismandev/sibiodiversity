@@ -206,6 +206,7 @@ class FrontEndController extends Controller
                 "gambar" =>$nama_gambar,
                 "user_id"=>auth()->user()->id,
                 "status"=>$request->status,
+                "is_approved"=>0,
                 "rujukan"=>$request->rujukan,
             ]);
 
@@ -246,6 +247,7 @@ class FrontEndController extends Controller
 
     public function explorerUpdate(Request $request)
     {
+        // dd($request);
         $this->customValidate($request);
         DB::beginTransaction();
         try {
