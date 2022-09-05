@@ -20,7 +20,7 @@ class Spesies extends Model
         if ($this->gambar != null) {
             return url('spesies/'.$this->gambar);
         }else{
-            return url('asset_dashboard/images/default_fish.png');
+            return asset('asset_dashboard/images/default_fish.png');
         }
     }
 
