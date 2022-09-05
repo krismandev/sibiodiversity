@@ -47,7 +47,7 @@ class SpesiesController extends Controller
             // "provinsi_id" =>"required",
             // "kabupaten_id" =>"required",
             // "kecamatan_id" =>"required",
-            "nama_lokasi" =>"required",
+            // "nama_lokasi" =>"required",
             // "kolektor" =>"required",
             "rantai_dna" =>"nullable|file",
             "lokasi_penyimpanan" =>"nullable",
@@ -87,7 +87,7 @@ class SpesiesController extends Controller
             }
 
             $lokasi_penemuan = LokasiPenemuan::create([
-                "nama_lokasi"=>$request->nama_lokasi,
+                "nama_lokasi"=>"Sungai Batanghari",
                 "provinsi_id"=>8,
                 "kabupaten_id"=>293,
                 "kecamatan_id"=>4133,
