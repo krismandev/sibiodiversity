@@ -14,7 +14,7 @@ class Slider extends Model
         if ($this->gambar != null) {
             return url('slider/'.$this->gambar);
         }else{
-            return url('asset_dashboard/images/default_fish.png');
+            return url('assets_frontend/img/hero-slider/1.jpg');
         }
     }
 }

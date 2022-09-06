@@ -9,6 +9,7 @@ use App\Gallery;
 use App\Berita;
 use App\Tentang;
 use App\User;
+use App\Slider;
 use App\Genus;
 use App\Provinsi;
 use App\StatusKonservasi;
@@ -28,8 +29,9 @@ class FrontEndController extends Controller
     public function index()
     {
         $tentang = Tentang::first();
+        $slider = Slider::all();
         $judul='Tentang Sibiodiversity';
-        return view('frontend.index',compact(['tentang','judul']));
+        return view('frontend.index',compact(['tentang','judul','slider']));
     }
 
     public function explorer()
