@@ -44,11 +44,11 @@ class SpesiesController extends Controller
             "distribusi_global" =>"nullable",
             "gambar" =>"nullable|file|mimes:jpg,jpeg,png,gif",
             "genus_id" =>"required",
-            "provinsi_id" =>"required",
-            "kabupaten_id" =>"required",
-            "kecamatan_id" =>"required",
-            "nama_lokasi" =>"required",
-            "kolektor" =>"required",
+            // "provinsi_id" =>"required",
+            // "kabupaten_id" =>"required",
+            // "kecamatan_id" =>"required",
+            // "nama_lokasi" =>"required",
+            // "kolektor" =>"required",
             "rantai_dna" =>"nullable|file",
             "lokasi_penyimpanan" =>"nullable",
             "rujukan" =>"nullable",
@@ -87,10 +87,10 @@ class SpesiesController extends Controller
             }
 
             $lokasi_penemuan = LokasiPenemuan::create([
-                "nama_lokasi"=>$request->nama_lokasi,
-                "provinsi_id"=>$request->provinsi_id,
-                "kabupaten_id"=>$request->kabupaten_id,
-                "kecamatan_id"=>$request->kecamatan_id,
+                "nama_lokasi"=>"Sungai Batanghari",
+                "provinsi_id"=>8,
+                "kabupaten_id"=>293,
+                "kecamatan_id"=>4133,
             ]);
 
             $spesies = Spesies::create([

@@ -140,5 +140,5 @@ Route::get('/berita-sibiodiversity', 'FrontEnd\FrontEndController@berita')->name
 Route::get('/berita-detail/{id}', 'FrontEnd\FrontEndController@beritaDetail');
 Route::get('/cari-berita', 'FrontEnd\FrontEndController@cariBerita');
 
-Route::get('register','Frontend\FrontendController@register')->name('register');
-Route::post('register','Frontend\FrontendController@storeRegister')->name('storeRegister');
+Route::get('register','FrontEnd\FrontEndController@register')->name('register');
+Route::post('register','FrontEnd\FrontEndController@storeRegister')->name('storeRegister');
