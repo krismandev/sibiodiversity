@@ -160,7 +160,7 @@ class SpesiesController extends Controller
             $nama_gambar = null;
             if ($request->hasFile('gambar')) {
                 $gambar = $request->file('gambar');
-                $nama_gambar = time()."_".$gambar->getClientOriginalName();
+                $nama_gambar = time()."_".$gambar->getClientOriginalExtension();
                 // $tujuan_upload = 'spesies';
                 // $gambar->move($tujuan_upload,$nama_gambar);
                 $upload = Storage::putFileAs('public/spesies',$request->file('gambar'),$nama_gambar);
