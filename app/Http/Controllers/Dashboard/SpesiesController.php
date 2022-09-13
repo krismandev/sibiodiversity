@@ -13,6 +13,7 @@ use App\Kecamatan;
 use App\LokasiPenemuan;
 use Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 
 class SpesiesController extends Controller
@@ -159,8 +160,9 @@ class SpesiesController extends Controller
             if ($request->hasFile('gambar')) {
                 $gambar = $request->file('gambar');
                 $nama_gambar = time()."_".$gambar->getClientOriginalName();
-                $tujuan_upload = 'spesies';
-                $gambar->move($tujuan_upload,$nama_gambar);
+                // $tujuan_upload = 'spesies';
+                // $gambar->move($tujuan_upload,$nama_gambar);
+                $upload = Storage::putFileAs('public/spesies',$request->file('gambar'),$nama_gambar);
             }
 
             $lokasi_penemuan = $detail_spesimen->lokasi_penemuan;
