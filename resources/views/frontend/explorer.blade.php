@@ -63,8 +63,10 @@
             </a>
             </div>
             @empty
+            
             <p><center> Data Tidak Ditemukan </center> </p>
             @endforelse
+            {{$data_spesies->links()}}
         </div>
     </div>
 </section>
