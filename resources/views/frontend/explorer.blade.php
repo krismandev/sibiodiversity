@@ -49,7 +49,7 @@
             <div class="col-xl-6">
             <a href="{{url('/explorer-detail/'.$item->id)}}">
                 <div class="blog-item">
-                    <div class="blog-thumb set-bg" data-setbg="{{$item->getImage()}}" style="max-width: 230px; max-height: 170px; object-fit: cover; object-position: center;"></div>
+                    <div class="blog-thumb set-bg" data-setbg="{{$item->getImage()}}"></div>
                     <div class="blog-content">
                         <h4>{{ $item->nama_umum }}</h4>
                         <span>( <em> {{ $item->nama_latin }} </em> )</span>
@@ -66,7 +66,9 @@
             
             <p><center> Data Tidak Ditemukan </center> </p>
             @endforelse
-            {{$data_spesies->links()}}
+            <div>
+                <center>{{$data_spesies->links()}}</center>
+            </div>
         </div>
     </div>
 </section>

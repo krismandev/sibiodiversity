@@ -82,7 +82,7 @@ class SpesiesController extends Controller
             $nama_gambar = null;
             if ($request->hasFile('gambar')) {
                 $gambar = $request->file('gambar');
-                $nama_gambar = time()."_".$gambar->getClientOriginalName();
+                $nama_gambar = time()."_".$gambar->getClientOriginalExtension();
                 // $tujuan_upload = 'spesies';
                 // $gambar->move($tujuan_upload,$nama_gambar);
                 $upload = Storage::putFileAs('public/spesies',$request->file('gambar'),$nama_gambar);
@@ -115,8 +115,9 @@ class SpesiesController extends Controller
             if ($request->hasFile('rantai_dna')) {
                 $rantai_dna = $request->file('rantai_dna');
                 $nama_rantai_dna = time()."_".$rantai_dna->getClientOriginalName();
-                $tujuan_upload = 'spesies/rantai_dna';
-                $rantai_dna->move($tujuan_upload,$nama_rantai_dna);
+                // $tujuan_upload = 'spesies/rantai_dna';
+                // $rantai_dna->move($tujuan_upload,$nama_rantai_dna);
+                $upload = Storage::putFileAs('public/rantai_dna',$request->file('gambar'),$nama_rantai_dna);
             }
 
             $detail_spesies = DetailSpesimen::create([
@@ -194,8 +195,9 @@ class SpesiesController extends Controller
             if ($request->hasFile('rantai_dna')) {
                 $rantai_dna = $request->file('rantai_dna');
                 $nama_rantai_dna = time()."_".$rantai_dna->getClientOriginalName();
-                $tujuan_upload = 'spesies/rantai_dna';
-                $rantai_dna->move($tujuan_upload,$nama_rantai_dna);
+                // $tujuan_upload = 'spesies/rantai_dna';
+                // $rantai_dna->move($tujuan_upload,$nama_rantai_dna);
+                $upload = Storage::putFileAs('public/rantai_dna',$request->file('gambar'),$nama_rantai_dna);
             }
 
             $detail_spesimen->update([
