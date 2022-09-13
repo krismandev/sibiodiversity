@@ -18,6 +18,7 @@ use App\LokasiPenemuan;
 use Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class FrontEndController extends Controller
 {
@@ -184,8 +185,9 @@ class FrontEndController extends Controller
             if ($request->hasFile('gambar')) {
                 $gambar = $request->file('gambar');
                 $nama_gambar = time()."_".$gambar->getClientOriginalName();
-                $tujuan_upload = 'spesies';
-                $gambar->move($tujuan_upload,$nama_gambar);
+                // $tujuan_upload = 'spesies';
+                // $gambar->move($tujuan_upload,$nama_gambar);
+                $upload = Storage::putFileAs('public/spesies',$request->file('gambar'),$nama_gambar);
             }
 
             $lokasi_penemuan = LokasiPenemuan::create([
