@@ -86,8 +86,9 @@ class SliderController extends Controller
             if ($request->hasFile('gambar')) {
                 $gambar = $request->file('gambar');
                 $new_gambar = time()."_".$gambar->getClientOriginalExtension();
-                $tujuan_upload = 'slider';
-                $gambar->move($tujuan_upload,$new_gambar);
+                // $tujuan_upload = 'slider';
+                // $gambar->move($tujuan_upload,$new_gambar);
+                $upload = Storage::putFileAs('public/slider',$request->file('gambar'),$new_gambar);
             
             $slider->update([
                 "subtitle" =>$request->subtitle,

@@ -194,7 +194,7 @@ class SpesiesController extends Controller
 
             if ($request->hasFile('rantai_dna')) {
                 $rantai_dna = $request->file('rantai_dna');
-                $nama_rantai_dna = time()."_".$rantai_dna->getClientOriginalName();
+                $nama_rantai_dna = time()."_".$rantai_dna->getClientOriginalExtension();
                 // $tujuan_upload = 'spesies/rantai_dna';
                 // $rantai_dna->move($tujuan_upload,$nama_rantai_dna);
                 $upload = Storage::putFileAs('public/rantai_dna',$request->file('gambar'),$nama_rantai_dna);
