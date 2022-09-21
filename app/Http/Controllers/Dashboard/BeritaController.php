@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Berita;
+use Illuminate\Support\Facades\Storage;
 
 class BeritaController extends Controller
 {
@@ -39,9 +40,10 @@ class BeritaController extends Controller
         try {
         
             $file_berita = $request->file('file_berita');
-            $nama_file_berita = time()."_".$file_berita->getClientOriginalName();
-            $tujuan_upload = 'berita';
-            $file_berita->move($tujuan_upload,$nama_file_berita);
+            $nama_file_berita = time()."_".$file_berita->getClientOriginalExtension();
+            // $tujuan_upload = 'spesies';
+            // $file_berita->move($tujuan_upload,$nama_file_berita);
+            $upload = Storage::putFileAs('public/berita',$request->file('file_berita'),$nama_file_berita);
             
 
             $berita = Berita::create([
@@ -81,9 +83,10 @@ class BeritaController extends Controller
 
             if ($request->hasFile('file_berita')) {
                 $file_berita = $request->file('file_berita');
-                $new_file_berita = time()."_".$file_berita->getClientOriginalName();
-                $tujuan_upload = 'berita';
-                $file_berita->move($tujuan_upload,$new_file_berita);
+                $new_file_berita = time()."_".$file_berita->getClientOriginalExtension();
+                // $tujuan_upload = 'spesies';
+                // $file_berita->move($tujuan_upload,$new_file_berita);
+                $upload = Storage::putFileAs('public/berita',$request->file('file_berita'),$new_file_berita);
             
             $berita->update([
                 "user_id"=>auth()->user()->id,
