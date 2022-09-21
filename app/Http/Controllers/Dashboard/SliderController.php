@@ -41,7 +41,7 @@ class SliderController extends Controller
         try {
         
             $gambar = $request->file('gambar');
-            $nama_gambar = time()."_".$gambar->getClientOriginalExtension();
+            $nama_gambar = time()."_.".$gambar->getClientOriginalExtension();
             // $tujuan_upload = 'slider';
             // $gambar->move($tujuan_upload,$nama_gambar);
             $upload = Storage::putFileAs('public/slider',$request->file('gambar'),$nama_gambar);
@@ -85,7 +85,7 @@ class SliderController extends Controller
 
             if ($request->hasFile('gambar')) {
                 $gambar = $request->file('gambar');
-                $new_gambar = time()."_".$gambar->getClientOriginalExtension();
+                $new_gambar = time()."_.".$gambar->getClientOriginalExtension();
                 // $tujuan_upload = 'slider';
                 // $gambar->move($tujuan_upload,$new_gambar);
                 $upload = Storage::putFileAs('public/slider',$request->file('gambar'),$new_gambar);
