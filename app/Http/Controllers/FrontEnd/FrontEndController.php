@@ -31,8 +31,9 @@ class FrontEndController extends Controller
     {
         $tentang = Tentang::first();
         $slider = Slider::all();
+        $data_berita = Berita::latest()->take(4)->get();;
         $judul='Tentang Sibiodiversity';
-        return view('frontend.index',compact(['tentang','judul','slider']));
+        return view('frontend.index',compact(['tentang','judul','slider','data_berita']));
     }
 
     public function explorer()

@@ -39,6 +39,36 @@
 	</section>
 	<!-- About section end-->
 
+	<!-- Blog section -->
+	<section class="blog-section spad">
+		<div class="container">
+			<div class="section-title text-center">
+				<h3>Berita Terbaru</h3>
+				<p>Dapatkan informasi terbaru disini!</p>
+			</div>
+			<div class="row">
+				@forelse($data_berita as $berita)
+				<div class="col-xl-6">
+					<div class="blog-item">
+						<div class="blog-thumb set-bg" data-setbg="{{$berita->getBerita()}}"></div>
+						<div class="blog-content">
+							<h4>{{$berita->judul}}</h4>
+							<div class="blog-meta">
+								<span><i class="fa fa-calendar-o"></i> {{$berita->created_at}}</span>
+								<span><i class="fa fa-user"></i>Admin</span>
+							</div>
+							<p>{!!Str::limit($berita->isi,100)!!}</p>
+						</div>
+					</div>
+				</div>
+				@empty
+				<h4>Tidak ada berita</h4>
+				@endforelse
+			</div>
+		</div>
+	</section>
+	<!-- Blog section -->
+
  
 
 @endsection
