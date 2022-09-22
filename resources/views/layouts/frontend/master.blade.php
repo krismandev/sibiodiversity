@@ -40,20 +40,20 @@
 	<!-- header section -->
 	<header class="header-section">
 		<div class="container">
-			<!-- logo -->
+			
 			<a href="index.html" class="site-logo"><img src="{{asset('assets_frontend/img/logo.png')}}" alt=""></a>
 			<div class="nav-switch">
 				<i class="fa fa-bars"></i>
 			</div>
 			<div class="header-info">
-				<!-- <div class="hf-item">
+				<div class="hf-item">
 					<i class="fa fa-clock-o"></i>
 					<p><span>Working time:</span>Monday - Friday: 08 AM - 06 PM</p>
 				</div>
 				<div class="hf-item">
 					<i class="fa fa-map-marker"></i>
 					<p><span>Find us:</span>40 Baria Street 133/2, New York City, US</p>
-				</div> -->
+				</div>
 			</div>
 		</div>
 	</header>
@@ -73,12 +73,14 @@
 					<a href="#">Login Sebagai (Member)</a>
 					<a href="{{route('logout')}}"><i class="fa fa-sign-out" aria-hidden="true"></i> Keluar</a>
 					@endif
+					
 				
 				
 			</div>
 			
 			<ul class="main-menu">
 			@guest
+				<li><a href="#"><img src="{{asset('assets_frontend/img/logo.png')}}" alt=""></a></li>
 				<li class="{{(request()->is('/*'))?'active': ''}}"><a href="{{route('home.frontend')}}">Beranda</a></li>
 				<li class="{{(request()->is('explorer*'))?'active': ''}}"><a href="{{route('explorer.frontend')}}">Explorer</a></li>
 				<li class="{{(request()->is('gallery*'))?'active': ''}}"><a href="{{route('gallery.frontend')}}">Gallery</a></li>
