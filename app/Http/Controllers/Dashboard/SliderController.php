@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Slider;
+use Illuminate\Support\Facades\Storage;
 
 class SliderController extends Controller
 {
@@ -40,9 +41,10 @@ class SliderController extends Controller
         try {
         
             $gambar = $request->file('gambar');
-            $nama_gambar = time()."_".$gambar->getClientOriginalName();
-            $tujuan_upload = 'slider';
-            $gambar->move($tujuan_upload,$nama_gambar);
+            $nama_gambar = time()."_".$gambar->getClientOriginalExtension();
+            // $tujuan_upload = 'spesies';
+            // $gambar->move($tujuan_upload,$nama_gambar);
+            $upload = Storage::putFileAs('public/slider',$request->file('gambar'),$nama_gambar);
             
 
             $slider = Slider::create([
@@ -83,9 +85,10 @@ class SliderController extends Controller
 
             if ($request->hasFile('gambar')) {
                 $gambar = $request->file('gambar');
-                $new_gambar = time()."_".$gambar->getClientOriginalName();
-                $tujuan_upload = 'slider';
-                $gambar->move($tujuan_upload,$new_gambar);
+                $new_gambar = time()."_".$gambar->getClientOriginalExtension();
+                // $tujuan_upload = 'spesies';
+                // $gambar->move($tujuan_upload,$new_gambar);
+                $upload = Storage::putFileAs('public/slider',$request->file('gambar'),$new_gambar);
             
             $slider->update([
                 "subtitle" =>$request->subtitle,

@@ -18,7 +18,7 @@ class Spesies extends Model
     public function getImage()
     {
         if ($this->gambar != null) {
-            return url('spesies/'.$this->gambar);
+            return asset('storage/spesies/'.$this->gambar);
         }else{
             return asset('asset_dashboard/images/default_fish.png');
         }

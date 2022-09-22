@@ -18,6 +18,7 @@ use App\LokasiPenemuan;
 use Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class FrontEndController extends Controller
 {
@@ -183,9 +184,10 @@ class FrontEndController extends Controller
             $nama_gambar = null;
             if ($request->hasFile('gambar')) {
                 $gambar = $request->file('gambar');
-                $nama_gambar = time()."_".$gambar->getClientOriginalName();
-                $tujuan_upload = 'spesies';
-                $gambar->move($tujuan_upload,$nama_gambar);
+                $nama_gambar = time()."_".$gambar->getClientOriginalExtension();
+                // $tujuan_upload = 'spesies';
+                // $gambar->move($tujuan_upload,$nama_gambar);
+                $upload = Storage::putFileAs('public/spesies',$request->file('gambar'),$nama_gambar);
             }
 
             $lokasi_penemuan = LokasiPenemuan::create([
@@ -215,8 +217,9 @@ class FrontEndController extends Controller
             if ($request->hasFile('rantai_dna')) {
                 $rantai_dna = $request->file('rantai_dna');
                 $nama_rantai_dna = time()."_".$rantai_dna->getClientOriginalName();
-                $tujuan_upload = 'spesies/rantai_dna';
-                $rantai_dna->move($tujuan_upload,$nama_rantai_dna);
+                // $tujuan_upload = 'spesies/rantai_dna';
+                // $rantai_dna->move($tujuan_upload,$nama_rantai_dna);
+                $upload = Storage::putFileAs('public/rantai_dna',$request->file('gambar'),$nama_rantai_dna);
             }
 
             $detail_spesies = DetailSpesimen::create([
@@ -260,9 +263,10 @@ class FrontEndController extends Controller
             $nama_gambar = null;
             if ($request->hasFile('gambar')) {
                 $gambar = $request->file('gambar');
-                $nama_gambar = time()."_".$gambar->getClientOriginalName();
-                $tujuan_upload = 'spesies';
-                $gambar->move($tujuan_upload,$nama_gambar);
+                $nama_gambar = time()."_".$gambar->getClientOriginalExtension();
+                // $tujuan_upload = 'spesies';
+                // $gambar->move($tujuan_upload,$nama_gambar);
+                $upload = Storage::putFileAs('public/spesies',$request->file('gambar'),$nama_gambar);
             }
 
             $lokasi_penemuan = $detail_spesimen->lokasi_penemuan;
@@ -293,8 +297,9 @@ class FrontEndController extends Controller
             if ($request->hasFile('rantai_dna')) {
                 $rantai_dna = $request->file('rantai_dna');
                 $nama_rantai_dna = time()."_".$rantai_dna->getClientOriginalName();
-                $tujuan_upload = 'spesies/rantai_dna';
-                $rantai_dna->move($tujuan_upload,$nama_rantai_dna);
+                // $tujuan_upload = 'spesies/rantai_dna';
+                // $rantai_dna->move($tujuan_upload,$nama_rantai_dna);
+                $upload = Storage::putFileAs('public/rantai_dna',$request->file('gambar'),$nama_rantai_dna);
             }
 
             $detail_spesimen->update([

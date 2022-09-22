@@ -12,7 +12,7 @@ class Slider extends Model
     public function getSlider()
     {
         if ($this->gambar != null) {
-            return url('slider/'.$this->gambar);
+            return asset('storage/slider/'.$this->gambar);
         }else{
             return url('assets_frontend/img/hero-slider/1.jpg');
         }

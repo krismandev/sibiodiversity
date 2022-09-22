@@ -12,7 +12,7 @@ class Berita extends Model
     public function getBerita()
     {
         if ($this->file_berita != null) {
-            return url('berita/'.$this->file_berita);
+            return asset('storage/berita/'.$this->file_berita);
         }else{
             return url('asset_dashboard/images/default_fish.png');
         }
