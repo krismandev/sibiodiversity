@@ -52,7 +52,7 @@
 					<div class="blog-item">
 						<div class="blog-thumb set-bg" data-setbg="{{$berita->getBerita()}}"></div>
 						<div class="blog-content">
-							<h4>{{$berita->judul}}</h4>
+							<h4><a href="{{url('/berita-detail/'.$berita->id)}}">{{$berita->judul}}</a></h4>
 							<div class="blog-meta">
 								<span><i class="fa fa-calendar-o"></i> {{$berita->created_at}}</span>
 								<span><i class="fa fa-user"></i>Admin</span>
