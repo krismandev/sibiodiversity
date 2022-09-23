@@ -31,13 +31,32 @@ class FrontEndController extends Controller
     {
         $tentang = Tentang::first();
         $slider = Slider::all();
+        $data_berita = Berita::latest()->take(4)->get();;
         $judul='Tentang Sibiodiversity';
-        return view('frontend.index',compact(['tentang','judul','slider']));
+        return view('frontend.index',compact(['tentang','judul','slider','data_berita']));
     }
 
-    public function explorer()
+    public function explorer(Request $request)
     {
-        $data_spesies = Spesies::orderBy("nama_latin")->paginate(10);
+
+        if ($request->abjad == "all") {
+            $data_spesies = Spesies::orderBy("nama_latin");
+        }else if(isset($request->abjad)){
+            $data_spesies = Spesies::where(function($query) use($request){
+                $query->where("nama_latin","LIKE",$request->abjad."%")
+                    ->orWhere("nama_umum","LIKE",$request->abjad."%");
+            });
+        }else if(isset($request->search)){
+            //berarti param filter nya keyword search
+            $data_spesies = Spesies::where(function($query) use($request){
+                $query->where("nama_latin","LIKE","%".$request->search."%")
+                    ->orWhere("nama_umum","LIKE","%".$request->search."%");
+            });
+        }else{
+            $data_spesies = Spesies::orderBy("nama_latin");
+        }
+
+        $data_spesies = $data_spesies->paginate(12);
         return view('frontend.explorer', compact(['data_spesies']));
     }
 
@@ -83,7 +102,7 @@ class FrontEndController extends Controller
     public function filterExplorer(Request $request)
     {
         if ($request->abjad == "all") {
-            $data_spesies = Spesies::orderBy("nama_latin")->paginate(9);
+            $data_spesies = Spesies::orderBy("nama_latin")->paginate(12);
         }else if(isset($request->abjad)){
             $data_spesies = Spesies::where(function($query) use($request){
                 $query->where("nama_latin","LIKE",$request->abjad."%")
