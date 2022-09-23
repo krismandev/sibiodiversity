@@ -57,6 +57,8 @@
                             <span><i class="fa fa-calendar-o"></i> ( <em> {{ $item->created_at }} </em> )</span>
                             <span><i class="fa fa-user"></i> {{$item->user_id}}</span>
                         </div>
+							<p>{!!Str::limit($item->deskripsi,250)!!}</p>
+
                         <!-- <p>Integer luctus diam ac scerisque consectetur. Vimus dot euismod neganeco lacus sit amet. Aenean interdus mid vitae sed accumsan...</p> -->
                     </div>
                 </div>
