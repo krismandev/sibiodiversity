@@ -24,12 +24,7 @@
                       <source src="{{$item->getGallery()}}" type="video" alt="{{asset('assets_frontend/img/course/1.jpg')}}"/>
                     </video>
                     @endif
-                    <div class="course-cat">
-                        <span>{{$item->jenis_file}}</span>
-                    </div>
-                </div>
-                <div class="course-info">
-                    <h4>{{$item->judul}}</h4>
+
                 </div>
             </div>
             @empty
