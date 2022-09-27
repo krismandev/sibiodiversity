@@ -55,6 +55,12 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ $item->nama_umum }}</h5>
                         <p class="card-text">( <em> {{ $item->nama_latin }} </em> )</p>
+                        @php
+                            $trancated = Str::of($item->deskripsi)->limit(200);
+                        @endphp
+                        <p>
+                            {!!$trancated!!}
+                        </p>
                         <a href="{{url('/explorer-detail/'.$item->id)}}" style="align:text-right" class="btn btn-primary">Detail</a>
                     </div>
                     </div>
@@ -78,21 +84,42 @@
         $(".abjad").click(function (e) { 
             e.preventDefault();
             let abjad = $(this).data("abjad"); 
-            let param = {
-                abjad: abjad
-            }
-            doAjax(param)
+            url = "/explorer?abjad="+abjad
+            // let param = {
+            //     abjad: abjad
+            // }
+            // doAjax(param)
+            window.location.href = url
             
         });
+        // $(".abjad").click(function (e) { 
+        //     e.preventDefault();
+        //     let abjad = $(this).data("abjad"); 
+        //     let param = {
+        //         abjad: abjad
+        //     }
+        //     doAjax(param)
+            
+        // });
 
         $(".btn-search").click(function (e) { 
             e.preventDefault();
             let keyword = $("input[name='search']").val();
-            let param = {
-                search: keyword
-            }
-            doAjax(param)
+            url = "/explorer?search="+keyword
+            // let param = {
+            //     abjad: abjad
+            // }
+            // doAjax(param)
+            window.location.href = url
         });
+        // $(".btn-search").click(function (e) { 
+        //     e.preventDefault();
+        //     let keyword = $("input[name='search']").val();
+        //     let param = {
+        //         search: keyword
+        //     }
+        //     doAjax(param)
+        // });
     });
 
     function doAjax(obj) {

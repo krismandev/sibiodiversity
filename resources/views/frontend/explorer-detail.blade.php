@@ -83,7 +83,42 @@
                         <td scope="col">:</td>
                         <td scope="col">{{$data->distribusi_global}}</td>
                     </tr>
-                
+                    <tr>
+                        <td scope="col">Kode Spesimen</td>
+                        <td scope="col">:</td>
+                        <td scope="col">{{$data->detail_spesimen->kd_spesimen}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="col">Kolektor</td>
+                        <td scope="col">:</td>
+                        <td scope="col">{{$data->detail_spesimen->kolektor}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="col">Tanggal Penemuan</td>
+                        <td scope="col">:</td>
+                        <td scope="col">{{date("d-m-Y",strtotime($data->detail_spesimen->tanggal_penemuan))}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="col">Lokasi Penemuan</td>
+                        <td scope="col">:</td>
+                        <td scope="col">
+                            {{$data->detail_spesimen->lokasi_penemuan->nama_lokasi}}, Kec. {{$data->detail_spesimen->lokasi_penemuan->kecamatan->nama_kecamatan}}, Kab. {{$data->detail_spesimen->lokasi_penemuan->kabupaten->nama_kabupaten}}, {{$data->detail_spesimen->lokasi_penemuan->provinsi->nama_provinsi}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="col">Lokasi Penyimpanan</td>
+                        <td scope="col">:</td>
+                        <td scope="col">{{$data->detail_spesimen->lokasi_penyimpanan}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="col">Rantai DNA</td>
+                        <td scope="col">:</td>
+                        <td scope="col">
+                            @if ($data->detail_spesimen->rantai_dna != null)
+                                <a href="{{asset('storage/rantai_dna/'.$data->detail_spesimen->rantai_dna)}}">Download</a>
+                            @endif
+                        </td>
+                    </tr>
                 </tbody>
                 </table>
 
