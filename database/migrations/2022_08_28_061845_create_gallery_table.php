@@ -15,11 +15,11 @@ class CreateGalleryTable extends Migration
     {
         Schema::create('gallery', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
-            $table->text('judul');
-            $table->text('keterangan');
+            $table->integer('user_id')->nullable();
+            $table->text('judul')->nullable();
+            $table->text('keterangan')->nullable();
             $table->text('file_gallery');
-            $table->text('jenis_file');
+            $table->text('jenis_file')->nullable();
             $table->timestamps();
         });
     }

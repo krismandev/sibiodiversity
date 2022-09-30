@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\DetailSpesimen;
+use App\Gallery;
 use App\Genus;
 use App\Http\Controllers\Controller;
 use App\Spesies;
@@ -86,6 +87,13 @@ class SpesiesController extends Controller
                 // $tujuan_upload = 'spesies';
                 // $gambar->move($tujuan_upload,$nama_gambar);
                 $upload = Storage::putFileAs('public/spesies',$request->file('gambar'),$nama_gambar);
+
+                Gallery::create([
+                    "user_id"=>auth()->user()->id,
+                    "judul" =>$request->nama_latin,
+                    "file_gallery" =>$nama_gambar,
+                    "jenis_file" =>"Gambar",
+                ]);
             }
 
             $lokasi_penemuan = LokasiPenemuan::create([
@@ -165,6 +173,13 @@ class SpesiesController extends Controller
                 // $tujuan_upload = 'spesies';
                 // $gambar->move($tujuan_upload,$nama_gambar);
                 $upload = Storage::putFileAs('public/spesies',$request->file('gambar'),$nama_gambar);
+
+                Gallery::create([
+                    "user_id"=>auth()->user()->id,
+                    "judul" =>$request->nama_latin,
+                    "file_gallery" =>$nama_gambar,
+                    "jenis_file" =>"Gambar",
+                ]);
             }
 
             $lokasi_penemuan = $detail_spesimen->lokasi_penemuan;

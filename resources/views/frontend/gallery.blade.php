@@ -18,7 +18,9 @@
             <div class="col-lg-4 col-md-6 course-item">
                 <div class="course-thumb">
                     @if($item->jenis_file == "Gambar")
-                    <img  src="{{$item->getGallery()}}" alt="{{asset('assets_frontend/img/course/1.jpg')}}" alt="">
+                    <a href="{{$item->getGallery()}}">
+                        <img  src="{{$item->getGallery()}}" alt="{{asset('assets_frontend/img/course/1.jpg')}}" alt="">
+                    </a>
                     @else
                     <video controls>
                       <source src="{{$item->getGallery()}}" type="video" alt="{{asset('assets_frontend/img/course/1.jpg')}}"/>

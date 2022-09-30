@@ -6,16 +6,17 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Gallery;
+use Illuminate\Support\Facades\Storage;
 
 class GalleryController extends Controller
 {
     public function customValidate($request)
     {
         $fields = [
-            "judul" =>"required",
+            // "judul" =>"required",
             "jenis_file" =>"required",
             "file_gallery" =>"file",
-            "keterangan" =>"required",
+            // "keterangan" =>"required",
         ];
         $request->validate($fields);
     }
@@ -40,9 +41,10 @@ class GalleryController extends Controller
         try {
         
             $file_gallery = $request->file('file_gallery');
-            $nama_file_gallery = time()."_".$file_gallery->getClientOriginalName();
-            $tujuan_upload = 'gallery';
-            $file_gallery->move($tujuan_upload,$nama_file_gallery);
+            $nama_file_gallery = time()."_".$file_gallery->getClientOriginalExtension();
+            // $tujuan_upload = 'gallery';
+            // $file_gallery->move($tujuan_upload,$nama_file_gallery);
+            $upload = Storage::putFileAs('public/gallery',$request->file('file_gallery'),$nama_file_gallery);
             
 
             $gallery = Gallery::create([
@@ -83,14 +85,15 @@ class GalleryController extends Controller
 
             if ($request->hasFile('file_gallery')) {
                 $file_gallery = $request->file('file_gallery');
-                $new_file_gallery = time()."_".$file_gallery->getClientOriginalName();
-                $tujuan_upload = 'gallery';
-                $file_gallery->move($tujuan_upload,$new_file_gallery);
+                $nama_file_gallery = time()."_".$file_gallery->getClientOriginalExtension();
+                // $tujuan_upload = 'gallery';
+                // $file_gallery->move($tujuan_upload,$nama_file_gallery);
+                $upload = Storage::putFileAs('public/gallery',$request->file('file_gallery'),$nama_file_gallery);
             
             $gallery->update([
                 "user_id"=>auth()->user()->id,
                 "judul" =>$request->judul,
-                "file_gallery" =>$new_file_gallery,
+                "file_gallery" =>$nama_file_gallery,
                 "jenis_file" =>$request->jenis_file,
                 "keterangan"=>$request->keterangan,
             ]);
