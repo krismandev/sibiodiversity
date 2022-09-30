@@ -44,7 +44,7 @@ class GalleryController extends Controller
             $nama_file_gallery = time()."_".$file_gallery->getClientOriginalExtension();
             // $tujuan_upload = 'gallery';
             // $file_gallery->move($tujuan_upload,$nama_file_gallery);
-            $upload = Storage::putFileAs('public/gallery',$request->file('file_gallery'),$nama_file_gallery);
+            $upload = Storage::putFileAs('public/spesies',$request->file('file_gallery'),$nama_file_gallery);
             
 
             $gallery = Gallery::create([
@@ -88,7 +88,7 @@ class GalleryController extends Controller
                 $nama_file_gallery = time()."_".$file_gallery->getClientOriginalExtension();
                 // $tujuan_upload = 'gallery';
                 // $file_gallery->move($tujuan_upload,$nama_file_gallery);
-                $upload = Storage::putFileAs('public/gallery',$request->file('file_gallery'),$nama_file_gallery);
+                $upload = Storage::putFileAs('public/spesies',$request->file('file_gallery'),$nama_file_gallery);
             
             $gallery->update([
                 "user_id"=>auth()->user()->id,

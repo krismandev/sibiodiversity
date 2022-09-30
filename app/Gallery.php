@@ -12,7 +12,7 @@ class Gallery extends Model
     public function getGallery()
     {
         if ($this->file_gallery != null) {
-            return asset('storage/gallery/'.$this->gambar);
+            return asset('storage/spesies/'.$this->file_gallery);
         }else{
             return asset('asset_dashboard/images/default_fish.png');
         }
