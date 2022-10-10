@@ -65,7 +65,7 @@
 		<div class="container">
 			<div class="nav-right">
 					@guest
-					<a href="{{route('login')}}"><i class="fa fa-sign-in" aria-hidden="true"></i> Masuk</a>
+					<a href="#" data-toggle="modal" data-target="#myModal"><i class="fa fa-sign-in" aria-hidden="true"></i> Masuk</a>
                     @if (Route::has('register'))
 					<a href="{{route('register')}}"><i class="fa fa-registered" aria-hidden="true"></i> Daftar</a>
                     @endif
@@ -164,6 +164,29 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<!-- Footer section end-->
 
 
+	<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+			<div class="form-group">
+				<label for="">Email</label>
+				<input type="email" class="form-control" placeholder="Email" name="email">
+			</div>
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		  <button type="button" class="btn btn-primary">Save changes</button>
+		</div>
+	  </div>
+	</div>
+</div>
 
 	<!--====== Javascripts & Jquery ======-->
 	<script src="{{asset('assets_frontend/js/jquery-3.2.1.min.js')}}"></script>
