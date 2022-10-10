@@ -8,7 +8,7 @@ class AuthController extends Controller
 {
     public function login()
     {
-        return view("auth.login");
+        return view("frontend.login");
     }
 
     public function postLogin(Request $request)
