@@ -62,11 +62,11 @@
                   </div>
                   <div class="form-group">
                     <label for="namaLatin">Nama Latin</label>
-                    <input type="text" class="form-control" placeholder="" name="nama_latin" value="{{$spesies->nama_latin ?? ''}}">
+                    <textarea name="nama_latin" cols="30" rows="5" class="form-control ckeditor">{{$spesies->nama_latin ?? ''}}</textarea>
                   </div>
                   <div class="form-group">
                     <label for="namaLatin">Nama Umum</label>
-                    <input type="text" class="form-control" placeholder="" name="nama_umum" value="{{$spesies->nama_umum ?? ''}}"> 
+                    <textarea name="nama_umum" cols="30" rows="5" class="form-control ckeditor">{{$spesies->nama_umum ?? ''}}</textarea>
                   </div>
                   <div class="form-group">
                     <label for="namaLatin">Meristik</label>

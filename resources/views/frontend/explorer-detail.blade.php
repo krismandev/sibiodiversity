@@ -31,12 +31,12 @@
                     <tr>
                         <td scope="col">Nama Umum</td>
                         <td>:</td>
-                        <td scope="col">{{$data->nama_umum}}</td>
+                        <td scope="col">{!! $data->nama_umum !!}</td>
                     </tr>
                     <tr>
                         <td scope="col">Nama Latin</td>
                         <td scope="col">:</td>
-                        <td scope="col"><em>{{$data->nama_latin}}</em></td>
+                        <td scope="col"><em>{!! $data->nama_latin !!}</em></td>
                     </tr>
                     <tr>
                         <td scope="col">Genus</td>

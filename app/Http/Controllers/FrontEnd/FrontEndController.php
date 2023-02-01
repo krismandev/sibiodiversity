@@ -71,7 +71,7 @@ class FrontEndController extends Controller
 
     public function gallery()
     {
-        $gallery = Gallery::latest()->paginate(5);
+        $gallery = Gallery::latest()->paginate(6);
         return view('frontend.gallery',compact(['gallery']));
     }
 

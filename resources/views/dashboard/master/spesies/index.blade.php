@@ -40,8 +40,8 @@
                 @if ($spesieses != null)
                 @foreach ($spesieses as $spesies)
                 <tr>
-                  <td>{{$spesies->nama_latin}}</td>
-                  <td>{{$spesies->nama_umum}}</td>
+                  <td>{!! $spesies->nama_latin !!}</td>
+                  <td>{!! $spesies->nama_umum !!}</td>
                   <td>{{$spesies->genus->nama_latin}}</td>
                   <td>{!!Str::limit($spesies->deskripsi,200)!!}</td>
                   <td>
