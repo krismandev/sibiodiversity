@@ -145,7 +145,7 @@
                       <div class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
                           <div class="detials">
                               <p>Prev Spesies</p>
-                              <a href="{{url('/explorer-detail/'.$data->previous()->id)}}"><h4>{{$data->previous()->nama_umum}}</h4></a>
+                              <a href="{{url('/explorer-detail/'.$data->previous()->id)}}"><h4>{!! $data->previous()->nama_umum !!}</h4></a>
                           </div>
                       </div>
                       @else
@@ -160,7 +160,7 @@
                       <div class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
                           <div class="detials">
                               <p>Next Spesies</p>
-                              <a href="{{url('/explorer-detail/'.$data->next()->id)}}"><h4>{{$data->next()->nama_umum}}</h4></a>
+                              <a href="{{url('/explorer-detail/'.$data->next()->id)}}"><h4>{!! $data->next()->nama_umum !!}</h4></a>
                           </div>
                       </div>
                       @else
