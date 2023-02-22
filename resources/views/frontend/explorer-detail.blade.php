@@ -194,7 +194,7 @@
                         <div class="rp-item">
                             <div class="rp-thumb set-bg" data-setbg="#"><img src="{{$data_terbaru->getImage()}}"></div>
                             <div class="rp-content">
-                                <h6>{{$data_terbaru->nama_umum}}</h6>
+                                <h6>{!! $data_terbaru->nama_umum !!}</h6>
                                 <p><i class="fa fa-clock-o"></i> {{$data_terbaru->created_at}}</p>
                             </div>
                         </div>
