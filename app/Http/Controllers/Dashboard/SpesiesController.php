@@ -20,14 +20,14 @@ use Illuminate\Support\Facades\DB;
 class SpesiesController extends Controller
 {
     public function getKabupaten(Request $request){
-    
+
         $kabupaten = Kabupaten::where("provinsi_id",$request->provinsi_id)->pluck('id','nama_kabupaten');
-    
+
         return response()->json($kabupaten);
     }
-    
+
     public function getKecamatan(Request $request){
-    
+
         $kecamatan = Kecamatan::where("kabupaten_id",$request->kabupaten_id)->pluck('id','nama_kecamatan');
         return response()->json($kecamatan);
     }
@@ -97,10 +97,10 @@ class SpesiesController extends Controller
             }
 
             $lokasi_penemuan = LokasiPenemuan::create([
-                "nama_lokasi"=>"Sungai Batanghari",
-                "provinsi_id"=>8,
-                "kabupaten_id"=>293,
-                "kecamatan_id"=>4133,
+                "nama_lokasi"=>$request->nama_lokasi,
+                "provinsi_id"=>$request->provinsi_id,
+                "kabupaten_id"=>$request->kabupaten_id,
+                "kecamatan_id"=>$request->kecamatan_id,
             ]);
 
             $spesies = Spesies::create([
@@ -117,6 +117,8 @@ class SpesiesController extends Controller
                 "user_id"=>auth()->user()->id,
                 "status"=>$request->status,
                 "rujukan"=>$request->rujukan,
+                "kondisi_air"=>$request->kondisi_air,
+                "etnosains"=>$request->etnosains,
                 "is_approved"=>1,
             ]);
 
@@ -204,6 +206,8 @@ class SpesiesController extends Controller
                 "gambar" =>$nama_gambar,
                 "user_id"=>auth()->user()->id,
                 "status"=>$request->status,
+                "kondisi_air"=>$request->kondisi_air,
+                "etnosains"=>$request->etnosains,
                 "rujukan"=>$request->rujukan,
             ]);
 
@@ -243,7 +247,7 @@ class SpesiesController extends Controller
         } catch (\Exception $e) {
             return back()->with('error',$e->getMessage());
         }
-        
+
         return redirect()->route('spesies.index')->with('success','Berhasil menghapus data');
     }
 }

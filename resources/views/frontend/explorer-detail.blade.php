@@ -16,17 +16,17 @@
             <div class="col-md-8">
                 <table class="table table-striped">
                 <thead>
-                    <h3>Data Informasi {{$data->nama_umum}} </h3>
-                    <h5><em> ( {{$data->nama_latin}} )</em></h5>
+                    <h3>Data Informasi {{$data->nama_umum ?? ''}} </h3>
+                    <h5><em> ( {{$data->nama_latin ?? ''}} )</em></h5>
                     <tr>
                         <th colspan="3"><center><img src="{{$data->getImage()}}"></center></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        
+
                         <td colspan="3"><b>Deskripsi :</b> <p>{!! $data->deskripsi !!}</p></td>
-                        
+
                     </tr>
                     <tr>
                         <td scope="col">Nama Umum</td>
@@ -39,25 +39,30 @@
                         <td scope="col"><em>{!! $data->nama_latin !!}</em></td>
                     </tr>
                     <tr>
-                        <td scope="col">Genus</td>
+                        <td scope="col">Class</td>
                         <td scope="col">:</td>
-                        <td scope="col">{{$data->genus->nama_umum}}</td>
+                        <td scope="col">{{$data->genus->famili->ordo->class->nama_umum}}</td>
                     </tr>
-                    <tr>
-                        <td scope="col">Famili</td>
-                        <td scope="col">:</td>
-                        <td scope="col">{{$data->genus->famili->nama_umum}}</td>
-                    </tr>
+
                     <tr>
                         <td scope="col">Ordo</td>
                         <td scope="col">:</td>
                         <td scope="col">{{$data->genus->famili->ordo->nama_umum}}</td>
                     </tr>
+
                     <tr>
-                        <td scope="col">Class</td>
+                        <td scope="col">Famili</td>
                         <td scope="col">:</td>
-                        <td scope="col">{{$data->genus->famili->ordo->class->nama_umum}}</td>
+                        <td scope="col">{{$data->genus->famili->nama_umum}}</td>
                     </tr>
+
+                    <tr>
+                        <td scope="col">Genus</td>
+                        <td scope="col">:</td>
+                        <td scope="col">{{$data->genus->nama_umum}}</td>
+                    </tr>
+
+
                     <tr>
                         <td scope="col">Meristik</td>
                         <td scope="col">:</td>
@@ -96,13 +101,13 @@
                     <tr>
                         <td scope="col">Tanggal Penemuan</td>
                         <td scope="col">:</td>
-                        <td scope="col">{{date("d-m-Y",strtotime($data->detail_spesimen->tanggal_penemuan))}}</td>
+                        <td scope="col">@if($data->detail_spesimen->tanggal_penemuan) {{date("d-m-Y",strtotime($data->detail_spesimen->tanggal_penemuan)) ?? ''}} @else - @endif </td>
                     </tr>
                     <tr>
                         <td scope="col">Lokasi Penemuan</td>
                         <td scope="col">:</td>
                         <td scope="col">
-                            {{$data->detail_spesimen->lokasi_penemuan->nama_lokasi}}, Kec. {{$data->detail_spesimen->lokasi_penemuan->kecamatan->nama_kecamatan}}, Kab. {{$data->detail_spesimen->lokasi_penemuan->kabupaten->nama_kabupaten}}, {{$data->detail_spesimen->lokasi_penemuan->provinsi->nama_provinsi}}
+                            {{$data->detail_spesimen->lokasi_penemuan->nama_lokasi ?? ''}}, Kec. {{$data->detail_spesimen->lokasi_penemuan->kecamatan->nama_kecamatan ?? '-'}}, Kab. {{$data->detail_spesimen->lokasi_penemuan->kabupaten->nama_kabupaten ?? '-'}}, {{$data->detail_spesimen->lokasi_penemuan->provinsi->nama_provinsi ?? '-'}}
                         </td>
                     </tr>
                     <tr>
@@ -118,6 +123,18 @@
                                 <a href="{{asset('storage/rantai_dna/'.$data->detail_spesimen->rantai_dna)}}">Download</a>
                             @endif
                         </td>
+                    </tr>
+                    <tr>
+                        <td scope="col">Kondisi Air</td>
+                        <td scope="col">:</td>
+                        <td scope="col"> <p>{!! $data->kondisi_air !!}</p></td>
+
+                    </tr>
+                    <tr>
+                        <td scope="col">Etnosains</td>
+                        <td scope="col">:</td>
+                        <td scope="col"> <p>{!! $data->etnosains !!}</p></td>
+
                     </tr>
                 </tbody>
                 </table>
@@ -138,13 +155,13 @@
                               <a href="#"><h4>-</h4></a>
                           </div>
                       </div>
-                      @endif	
+                      @endif
                       @if (isset($next))
                       <div class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
                           <div class="detials">
                               <p>Next Spesies</p>
                               <a href="{{url('/explorer-detail/'.$data->next()->id)}}"><h4>{{$data->next()->nama_umum}}</h4></a>
-                          </div>										
+                          </div>
                       </div>
                       @else
                       <div class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
@@ -153,7 +170,7 @@
                               <a href="#"><h4>-</h4></a>
                           </div>
                       </div>
-                      @endif									
+                      @endif
                   </div>
                 </div>
 

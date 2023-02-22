@@ -6,7 +6,7 @@
 	<meta name="description" content="Unica University Template">
 	<meta name="keywords" content="event, unica, creative, html">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<!-- Favicon -->   
+	<!-- Favicon -->
 	<link href="{{asset('assets_frontend/img/favicon.ico')}}" rel="shortcut icon"/>
 
 	<!-- Google Fonts -->
@@ -40,7 +40,7 @@
 	<!-- header section -->
 	<header class="header-section">
 		<div class="container">
-			
+
 			<a href="index.html" class="site-logo"><img src="{{asset('assets_frontend/img/logo.png')}}" alt=""></a>
 			<div class="nav-switch">
 				<i class="fa fa-bars"></i>
@@ -73,11 +73,11 @@
 					<a href="#">Login Sebagai (Member)</a>
 					<a href="{{route('logout')}}"><i class="fa fa-sign-out" aria-hidden="true"></i> Keluar</a>
 					@endif
-					
-				
-				
+
+
+
 			</div>
-			
+
 			<ul class="main-menu">
 			@guest
 				<li class="{{(request()->is('/*'))?'active': ''}}"><a href="{{route('home.frontend')}}">Beranda</a></li>
@@ -95,11 +95,13 @@
 		</div>
 	</nav>
 	<!-- Header section end -->
-	
+
 
 
 	@yield('content')
-	
+
+    
+
 
 	<!-- Footer section -->
 	<footer class="footer-section">
@@ -158,7 +160,7 @@
 				<p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-			</div>		
+			</div>
 		</div>
 	</footer>
 	<!-- Footer section end-->

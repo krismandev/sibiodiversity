@@ -2,7 +2,7 @@
 ------------------------------------
   Unica - University Template
   Version: 1.0
- ------------------------------------ 
+ ------------------------------------
  ====================================*/
 
 /*----------------------------------------*/
@@ -107,7 +107,7 @@ ol {
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center 0;
-	
+
 }
 
 .text-white h1,
@@ -829,8 +829,9 @@ ol {
 -----------------------*/
 
 .gallery .gallery-item {
-	width: 12.5%;
+	width: 8%;
 	position: relative;
+
 }
 
 .gallery .gallery-item:after {
@@ -958,13 +959,13 @@ ol {
 	  margin-top: 20px;
 	}
   }
-  
+
   .explorer-section #nav-abjad h2 {
 	font-size: 28px;
 	font-weight: 600;
 	color: #37517e;
   }
-  
+
   .explorer-section #nav-abjad ol {
 	display: flex;
 	flex-wrap: wrap;
@@ -973,18 +974,18 @@ ol {
 	margin: 0;
 	font-size: 14px;
   }
-  
+
   .explorer-section #nav-abjad ol li + li {
 	padding-left: 10px;
   }
-  
+
   .explorer-section #nav-abjad ol li + li::before {
 	display: inline-block;
 	padding-right: 0px;
 	color: #4668a2;
 	content: "|";
   }
-  
+
 /*---------------------
 	Newsletter Section
 -----------------------*/

@@ -15,7 +15,7 @@
 					@if(isset($tentang))
 					<p>{!! $tentang->isi !!}</p>
 					@else
-					<p>Informasi Sibiodiversity Belum DiInputkan</p>
+					<p>Informasi Biodiversity Belum DiInputkan</p>
 					@endif
 					<!-- <h5 class="pt-4">Our history</h5>
 					<p>Led at felis arcu. Integer lorem lorem, tincidunt eu congue et, mattis ut ante. Nami suscipit, lectus id efficitur ornare, leo libero convalis nulla, vitae dignissim .</p>
@@ -28,7 +28,7 @@
 				</div>
 				<div class="col-lg-6 pt-5 pt-lg-0">
 					@if(isset($tentang))
-					
+
 					<img src="{{$tentang->getTentang()}}" alt="">
 					@else
 					<img src="{{asset('assets_frontend/img/about.jpg')}}" alt="">
@@ -68,8 +68,31 @@
 		</div>
 	</section>
 	<!-- Blog section -->
+    <div class="gallery-section">
+        <div class="section-title text-center">
+            <h3>Mitra</h3>
 
- 
+        </div>
+		<div class="gallery">
+			<div class="grid-sizer"></div>
+			<div class="gallery-item gi-big set-bg" data-setbg="{{asset('assets_frontend/img/gallery/unja.png')}}">
+				<a class="img-popup" href="{{asset('assets_frontend/img/gallery/unja.png')}}"><i class="ti-plus"></i></a>
+			</div>
+
+			<div class="gallery-item gi-big set-bg" data-setbg="{{asset('assets_frontend/img/gallery/bpbat.jpg')}}">
+				<a class="img-popup" href="{{asset('assets_frontend/img/gallery/bpbat.jpg')}}"><i class="ti-plus"></i></a>
+			</div>
+            <div class="gallery-item gi-big set-bg" data-setbg="{{asset('assets_frontend/img/gallery/bkipm.png')}}">
+                <a class="img-popup" href="{{asset('assets_frontend/img/gallery/1.jpg')}}"><i class="ti-plus"></i></a>
+            </div>
+            <div class="gallery-item gi-big set-bg" data-setbg="{{asset('assets_frontend/img/gallery/kkp.png')}}">
+                <a class="img-popup" href="{{asset('assets_frontend/img/gallery/kkp.png')}}"><i class="ti-plus"></i></a>
+            </div>
+
+		</div>
+	</div>
+    <br/>
+
 
 @endsection
 

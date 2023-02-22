@@ -46,12 +46,12 @@
                   </div>
                   <div class="form-group">
                     <label for="namaLatin">Meristik</label>
-                    <input type="text" class="form-control" placeholder="" name="meristik" value="{{$spesies->meristik ?? ''}}"> 
+                    <input type="text" class="form-control" placeholder="" name="meristik" value="{{$spesies->meristik ?? ''}}">
                   </div>
                   <div class="form-group">
                     <label for="namaLatin">Status Konservasi</label>
                     <select class="form-control" name="status_konservasi_id">
-                      <option>Pilih Status Konservasi</option>
+                      <option disabled selected>Pilih Status Konservasi</option>
                       @if(isset($spesies))
                       <option value="{{$spesies->status_konservasi_id}}" selected>{{$spesies->status_konservasi->status_konservasi}}</option>
                       @endif
@@ -62,15 +62,15 @@
                   </div>
                   <div class="form-group">
                     <label for="namaLatin">Potensi</label>
-                    <input type="text" class="form-control" placeholder="" name="potensi" value="{{$spesies->potensi ?? ''}}"> 
+                    <input type="text" class="form-control" placeholder="" name="potensi" value="{{$spesies->potensi ?? ''}}">
                   </div>
                   <div class="form-group">
                     <label for="namaLatin">Keaslian Jenis</label>
-                    <input type="text" class="form-control" placeholder="" name="keaslian_jenis" value="{{$spesies->keaslian_jenis ?? ''}}"> 
+                    <input type="text" class="form-control" placeholder="" name="keaslian_jenis" value="{{$spesies->keaslian_jenis ?? ''}}">
                   </div>
                   <div class="form-group">
                     <label for="namaLatin">Distribusi Global</label>
-                    <input type="text" class="form-control" placeholder="" name="distribusi_global" value="{{$spesies->distribusi_global ?? ''}}"> 
+                    <input type="text" class="form-control" placeholder="" name="distribusi_global" value="{{$spesies->distribusi_global ?? ''}}">
                   </div>
                   <div class="form-group">
                     <label for="status">Status</label>
@@ -79,7 +79,7 @@
                         <option value="valid">Valid</option>
                         <option value="verified">Verified</option>
                         <option value="checking">Checking</option>
-                      </select>  
+                      </select>
                   </div>
                   <div class="form-group">
                     <label for="exampleInputFile">Gambar</label>
@@ -88,14 +88,23 @@
                         <input type="file" class="form-control" id="exampleInputFile" name="gambar">
                         {{-- <label class="custom-file-label" for="exampleInputFile">Pilih File</label> --}}
                         @if (isset($spesies) && $spesies->gambar != null)
-                          <small>Abaikan jika tidak ingin mengubah gambar</small>                            
+                          <small>Abaikan jika tidak ingin mengubah gambar</small>
                         @endif
                       {{-- </div> --}}
                     {{-- </div> --}}
                   </div>
                   <div class="form-group">
+                    <label for="namaLatin">Kondisi Air</label>
+                    <textarea name="kondisi_air" cols="15" rows="2" class="form-control ckeditor">{{$spesies->kondisi_air ?? ''}}</textarea>
+                  </div>
+                  <div class="form-group">
                     <label for="ciriCiri">Deskripsi</label>
                     <textarea name="deskripsi" cols="30" rows="5" class="form-control ckeditor">{{$spesies->deskripsi ?? ''}}</textarea>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="namaLatin">Etnosains</label>
+                    <textarea name="etnosains" cols="15" rows="2" class="form-control ckeditor">{{$spesies->etnosains ?? ''}}</textarea>
                   </div>
                 </div>
                 <div class="card-header">
@@ -120,28 +129,28 @@
                         @endif
                         @foreach($provinsi as $data_provinsi)
                         <option value="{{$data_provinsi->id}}">{{$data_provinsi->nama_provinsi}}</option>
-                        @endforeach    
+                        @endforeach
                     </select>
                   </div>
                   <div class="form-group">
                     <label for="namaLatin">Kabupaten Penemuan</label>
                       <select class="form-control" name="kabupaten_id" id="kabupaten">
                         <option value="" selected>---Pilih Kabupaten---</option>
-                      </select>  
+                      </select>
                   </div>
                   <div class="form-group">
                     <label for="namaLatin">Kecamatan Penemuan</label>
                       <select class="form-control" name="kecamatan_id" id="kecamatan">
                         <option value="" selected>---Pilih Kecamatan---</option>
-                      </select> 
+                      </select>
                   </div>
                   <div class="form-group">
                     <label for="namaLatin">Tanggal Penemuan</label>
-                    <input type="date" class="form-control" name="tanggal_penemuan" value="{{$spesies->tanggal_penemuan ?? ''}}"> 
+                    <input type="date" class="form-control" name="tanggal_penemuan" value="{{$spesies->tanggal_penemuan ?? ''}}">
                   </div>
                   <div class="form-group">
                     <label for="namaLatin">Kolektor</label>
-                    <input type="text" class="form-control" name="kolektor" value="{{$spesies->kolektor ?? ''}}"> 
+                    <input type="text" class="form-control" name="kolektor" value="{{$spesies->kolektor ?? ''}}">
                   </div>
                   <div class="form-group">
                     <label for="exampleInputFile">Rantai DNA</label>
@@ -179,6 +188,6 @@
 {{-- <script src="{{asset('js/wilayah.js')}}"></script> --}}
 <script src="{{asset('asset_dashboard/plugins/ckeditor/ckeditor.js')}}"></script>
 <script type="text/javascript">
-   
+
 </script>
 @endsection

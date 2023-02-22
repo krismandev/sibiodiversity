@@ -15,55 +15,44 @@
               </div>
               <div class="card-body">
               <div class="row">
-              <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+              <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                   <div class="card card-statistic-1">
                     <div class="card-wrap">
                       <div class="card-header">
                         <h5>Member</h5>
                       </div>
                       <div class="card-body">
-                        5 Orang
+                       {{$member}} Orang
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                   <div class="card card-statistic-1">
                     <div class="card-wrap">
                       <div class="card-header">
                         <h5>Spesies</h5>
                       </div>
                       <div class="card-body">
-                        100 Data
+                        1{{$spesies}} Data
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+
+                <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                   <div class="card card-statistic-1">
                     <div class="card-wrap">
                       <div class="card-header">
-                        <h5>Valid</h5>
+                        <h5>Ordo</h5>
                       </div>
                       <div class="card-body">
-                        80 Data
+                       {{$ordo}} Data
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                  <div class="card card-statistic-1">
-                    <div class="card-wrap">
-                      <div class="card-header">
-                        <h5>Tidak Valid</h5>
-                      </div>
-                      <div class="card-body">
-                        20 Data
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>    
+              </div>
               </div>
               <div class="card-footer bg-whitesmoke">
                 Anda Login Sebagai ( Admin )
