@@ -54,7 +54,7 @@
                     <img src="{{$item->getImage()}}" class="card-img-top" alt="{{$item->getImage()}}">
                     <div class="card-body">
                         <h5 class="card-title">{!! $item->nama_umum !!}</h5>
-                        <p class="card-text">( {!! $item->nama_latin !!}  )</p>
+                        <p class="card-text">{!! $item->nama_latin !!}  </p>
                         @php
                             $trancated = Str::of($item->deskripsi)->limit(200);
                         @endphp
