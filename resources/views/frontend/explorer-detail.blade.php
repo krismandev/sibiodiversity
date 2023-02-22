@@ -17,7 +17,7 @@
                 <table class="table table-striped">
                 <thead>
                     <h3>Data Informasi {!! $data->nama_umum ?? '' !!} </h3>
-                    <h5><em> ( {!! $data->nama_latin ?? '' !!} )</em></h5>
+                    <h5> {!! $data->nama_latin ?? '' !!} </h5>
                     <tr>
                         <th colspan="3"><center><img src="{{$data->getImage()}}"></center></th>
                     </tr>
