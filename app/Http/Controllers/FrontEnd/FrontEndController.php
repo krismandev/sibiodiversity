@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Storage;
 use Stichoza\GoogleTranslate\GoogleTranslate;
 use App;
 use Config;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 
@@ -78,8 +79,9 @@ class FrontEndController extends Controller
         return view('frontend.explorer', compact(['data_spesies']));
     }
 
-    public function explorerDetail($id)
+    public function explorerDetail(Request $request,$id)
     {
+        $page_url = url()->full();
         $data = Spesies::find($id);
         $data->list_gambar = json_decode($data->gambar) ?? [];
         $data->gambar = json_decode($data->gambar) ? json_decode($data->gambar)[0] : "";
@@ -395,6 +397,11 @@ class FrontEndController extends Controller
         }
 
         return redirect()->route('member-explorer.index')->with('success','Berhasil menghapus data');
+    }
+
+    public function storeToCookie(array $data)
+    {
+        // dd($data);
     }
 
 
