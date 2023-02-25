@@ -1,12 +1,15 @@
 @extends("layouts.frontend.master")
 @section("title","Detail Spesies")
 @section("content")
+<?php
+$existincookie = $hasCookie ?? false;
+?>
 <!-- Breadcrumb section -->
 <div class="site-breadcrumb">
 	<div class="container">
-		<a href="{{route('home.frontend')}}"><i class="fa fa-home"></i> Beranda</a> <i class="fa fa-angle-right"></i>
+		<a href="{{route('home.frontend')}}"><i class="fa fa-home"></i> {{GoogleTranslate::trans('Beranda', app()->getLocale())}}</a> <i class="fa fa-angle-right"></i>
 		<a href="{{route('explorer.frontend')}}"> Explorer</a> <i class="fa fa-angle-right"></i>
-		<span>Detail Explorer</span>
+		<span>{{GoogleTranslate::trans('Detail Explorer', app()->getLocale())}}</span>
 	</div>
 </div>
 <!-- Breadcrumb section end -->
@@ -16,8 +19,8 @@
             <div class="col-md-8">
                 <table class="table table-striped">
                 <thead>
-                    <h3>Data Informasi {!! $data->nama_umum ?? '' !!} </h3>
-                    <h5> {!! $data->nama_latin ?? '' !!} </h5>
+                    <h3>{{GoogleTranslate::trans('Data Informasi', app()->getLocale())}} {!! GoogleTranslate::trans($data->nama_umum ?? '-', app()->getLocale()) !!} </h3>
+                    <h5> {!! GoogleTranslate::trans($data->nama_latin ?? '', app()->getLocale())  !!} </h5>
                     <tr>
                         <th colspan="3"><center><img src="{{$data->getImage()}}"></center></th>
                     </tr>
@@ -25,16 +28,16 @@
                 <tbody>
                     <tr>
 
-                        <td colspan="3"><b>Deskripsi :</b> <p>{!! $data->deskripsi !!}</p></td>
+                        <td colspan="3"><b>{{GoogleTranslate::trans('Deskripsi :', app()->getLocale())}} </b> <p>{!! GoogleTranslate::trans($data->deskripsi ?? '-', app()->getLocale()) !!}</p></td>
 
                     </tr>
                     <tr>
-                        <td scope="col">Nama Umum</td>
+                        <td scope="col">{{GoogleTranslate::trans('Nama Umum', app()->getLocale())}} </td>
                         <td>:</td>
                         <td scope="col">{!! $data->nama_umum !!}</td>
                     </tr>
                     <tr>
-                        <td scope="col">Nama Latin</td>
+                        <td scope="col">{{GoogleTranslate::trans('Nama Latin', app()->getLocale())}} </td>
                         <td scope="col">:</td>
                         <td scope="col"><em>{!! $data->nama_latin !!}</em></td>
                     </tr>
@@ -64,59 +67,59 @@
 
 
                     <tr>
-                        <td scope="col">Meristik</td>
+                        <td scope="col">{{GoogleTranslate::trans('Meristik', app()->getLocale())}} </td>
                         <td scope="col">:</td>
-                        <td scope="col">{{$data->meristik}}</td>
+                        <td scope="col">{{$data->meristik ?? '-'}}</td>
                     </tr>
                     <tr>
-                        <td scope="col">Status Konservasi</td>
+                        <td scope="col">{{GoogleTranslate::trans('Status Konservasi', app()->getLocale())}}</td>
                         <td scope="col">:</td>
-                        <td scope="col">{{$data->status_konservasi->status_konservasi}}</td>
+                        <td scope="col">{{GoogleTranslate::trans($data->status_konservasi->status_konservasi ?? '-', app()->getLocale()) }}</td>
                     </tr>
                     <tr>
-                        <td scope="col">Potensi</td>
+                        <td scope="col">{{GoogleTranslate::trans('Potensi', app()->getLocale())}} i</td>
                         <td scope="col">:</td>
-                        <td scope="col">{{$data->potensi}}</td>
+                        <td scope="col">{{GoogleTranslate::trans($data->potensi ?? '-', app()->getLocale()) }}</td>
                     </tr>
                     <tr>
-                        <td scope="col">Keaslian Jenis</td>
+                        <td scope="col">{{GoogleTranslate::trans('Keaslian Jenis', app()->getLocale())}} </td>
                         <td scope="col">:</td>
-                        <td scope="col">{{$data->keaslian_jenis}}</td>
+                        <td scope="col">{{GoogleTranslate::trans($data->keaslian_jenis ?? '-', app()->getLocale()) }}</td>
                     </tr>
                     <tr>
-                        <td scope="col">Distribusi Global</td>
+                        <td scope="col">{{GoogleTranslate::trans('Distribusi Global', app()->getLocale())}} </td>
                         <td scope="col">:</td>
-                        <td scope="col">{{$data->distribusi_global}}</td>
+                        <td scope="col">{{GoogleTranslate::trans($data->distribusi_global ?? '-', app()->getLocale()) }}</td>
                     </tr>
                     <tr>
-                        <td scope="col">Kode Spesimen</td>
+                        <td scope="col">{{GoogleTranslate::trans(' Kode Spesimen', app()->getLocale())}}</td>
                         <td scope="col">:</td>
                         <td scope="col">{{$data->detail_spesimen->kd_spesimen}}</td>
                     </tr>
                     <tr>
-                        <td scope="col">Kolektor</td>
+                        <td scope="col">{{GoogleTranslate::trans('Kolektor', app()->getLocale())}} </td>
                         <td scope="col">:</td>
-                        <td scope="col">{{$data->detail_spesimen->kolektor}}</td>
+                        <td scope="col">{{GoogleTranslate::trans($data->detail_spesimen->kolektor ?? '-', app()->getLocale()) }}</td>
                     </tr>
                     <tr>
-                        <td scope="col">Tanggal Penemuan</td>
+                        <td scope="col">{{GoogleTranslate::trans('Tanggal Penemuan', app()->getLocale())}} </td>
                         <td scope="col">:</td>
                         <td scope="col">@if($data->detail_spesimen->tanggal_penemuan) {{date("d-m-Y",strtotime($data->detail_spesimen->tanggal_penemuan)) ?? ''}} @else - @endif </td>
                     </tr>
                     <tr>
-                        <td scope="col">Lokasi Penemuan</td>
+                        <td scope="col">{{GoogleTranslate::trans('Lokasi Penemuan', app()->getLocale())}}</td>
                         <td scope="col">:</td>
                         <td scope="col">
-                            {{$data->detail_spesimen->lokasi_penemuan->nama_lokasi ?? ''}}, Kec. {{$data->detail_spesimen->lokasi_penemuan->kecamatan->nama_kecamatan ?? '-'}}, Kab. {{$data->detail_spesimen->lokasi_penemuan->kabupaten->nama_kabupaten ?? '-'}}, {{$data->detail_spesimen->lokasi_penemuan->provinsi->nama_provinsi ?? '-'}}
+                            {{ GoogleTranslate::trans($data->detail_spesimen->lokasi_penemuan->nama_lokasi ?? '-', app()->getLocale()) }}, Kec. {{ GoogleTranslate::trans($data->detail_spesimen->lokasi_penemuan->kecamatan->nama_kecamatan ?? '-', app()->getLocale()) }}, Kab. {{ GoogleTranslate::trans($data->detail_spesimen->lokasi_penemuan->kabupaten->nama_kabupaten ?? '-', app()->getLocale()) }}, {{GoogleTranslate::trans($data->detail_spesimen->lokasi_penemuan->provinsi->nama_provinsi ?? '-', app()->getLocale()) }}
                         </td>
                     </tr>
                     <tr>
-                        <td scope="col">Lokasi Penyimpanan</td>
+                        <td scope="col">{{GoogleTranslate::trans('Lokasi Penyimpanan', app()->getLocale())}} </td>
                         <td scope="col">:</td>
-                        <td scope="col">{{$data->detail_spesimen->lokasi_penyimpanan}}</td>
+                        <td scope="col">{{ GoogleTranslate::trans($data->detail_spesimen->lokasi_penyimpanan ?? '-', app()->getLocale()) }}</td>
                     </tr>
                     <tr>
-                        <td scope="col">Rantai DNA</td>
+                        <td scope="col">{{GoogleTranslate::trans('Rantai DNA', app()->getLocale())}} </td>
                         <td scope="col">:</td>
                         <td scope="col">
                             @if ($data->detail_spesimen->rantai_dna != null)
@@ -125,15 +128,15 @@
                         </td>
                     </tr>
                     <tr>
-                        <td scope="col">Kondisi Air</td>
+                        <td scope="col">{{GoogleTranslate::trans('Kondisi Air', app()->getLocale())}} </td>
                         <td scope="col">:</td>
-                        <td scope="col"> <p>{!! $data->kondisi_air !!}</p></td>
+                        <td scope="col"> <p>{!! GoogleTranslate::trans($data->kondisi_air ?? '-', app()->getLocale())  !!}</p></td>
 
                     </tr>
                     <tr>
-                        <td scope="col">Etnosains</td>
+                        <td scope="col">{{GoogleTranslate::trans('Etnosains', app()->getLocale())}} </td>
                         <td scope="col">:</td>
-                        <td scope="col"> <p>{!! $data->etnosains !!}</p></td>
+                        <td scope="col"> <p>{!! GoogleTranslate::trans($data->etnosains ?? '-', app()->getLocale()) !!}</p></td>
 
                     </tr>
                 </tbody>
@@ -194,12 +197,12 @@
                         <div class="rp-item">
                             <div class="rp-thumb set-bg" data-setbg="#"><img src="{{$data_terbaru->getImage()}}"></div>
                             <div class="rp-content">
-                                <h6>{!! $data_terbaru->nama_umum !!}</h6>
+                                <h6>{!! GoogleTranslate::trans($data_terbaru->nama_umum, app()->getLocale())  !!}</h6>
                                 <p><i class="fa fa-clock-o"></i> {{$data_terbaru->created_at}}</p>
                             </div>
                         </div>
                         @empty
-                        <p>Belum ada data</p>
+                        <p>{{GoogleTranslate::trans('Belum ada data', app()->getLocale())}}</p>
                         @endforelse
                     </div>
                 </div>

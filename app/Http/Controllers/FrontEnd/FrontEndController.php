@@ -19,6 +19,11 @@ use Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Stichoza\GoogleTranslate\GoogleTranslate;
+use App;
+use Config;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 
 class FrontEndController extends Controller
 {
@@ -27,6 +32,15 @@ class FrontEndController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function switchLang($lang)
+    {
+        if (array_key_exists($lang, Config::get('languages'))) {
+            Session::put('applocale', $lang);
+        }
+        return Redirect::back();
+    }
+
     public function index()
     {
         $tentang = Tentang::first();
@@ -92,11 +106,11 @@ class FrontEndController extends Controller
     }
 
     public function cariBerita(Request $request){
-       
+
         $data_berita = Berita::where('judul' , $request->cari)->orWhere('judul','like','%'.$request->cari.'%')->paginate(5);
         $berita_terbaru = Berita::latest()->paginate(5);
         return view('frontend.berita',compact(['data_berita','berita_terbaru']));
-       
+
     }
 
     public function filterExplorer(Request $request)
@@ -147,9 +161,9 @@ class FrontEndController extends Controller
                 "alamat"=>$request->alamat,
                 "role"=>1
             ]);
-    
+
             Auth::attempt(["email"=>$request->email, "password"=>$request->password]);
-    
+
         } catch (\Exception $e) {
             return back()->with('error',$e->getMessage());
         }
@@ -349,9 +363,9 @@ class FrontEndController extends Controller
         } catch (\Exception $e) {
             return back()->with('error',$e->getMessage());
         }
-        
+
         return redirect()->route('member-explorer.index')->with('success','Berhasil menghapus data');
     }
 
-    
+
 }

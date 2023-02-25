@@ -4,8 +4,8 @@
 <!-- Breadcrumb section -->
 <div class="site-breadcrumb">
     <div class="container">
-        <a href="#"><i class="fa fa-home"></i> Beranda</a> <i class="fa fa-angle-right"></i>
-        <span>Gallery</span>
+        <a href="#"><i class="fa fa-home"></i> {{GoogleTranslate::trans('Beranda', app()->getLocale())}}</a> <i class="fa fa-angle-right"></i>
+        <span>{{GoogleTranslate::trans('Gallery', app()->getLocale())}}</span>
     </div>
 </div>
 <!-- Breadcrumb section end -->

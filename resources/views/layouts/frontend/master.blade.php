@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 	<title>@yield('title')</title>
 	<meta charset="UTF-8">
@@ -20,7 +20,9 @@
 	<link rel="stylesheet" href="{{asset('assets_frontend/css/animate.css')}}"/>
 	<link rel="stylesheet" href="{{asset('assets_frontend/css/owl.carousel.css')}}"/>
 	<link rel="stylesheet" href="{{asset('assets_frontend/css/style.css')}}"/>
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 	{{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css"/> --}}
@@ -65,13 +67,13 @@
 		<div class="container">
 			<div class="nav-right">
 					@guest
-					<a href="{{route('login')}}"><i class="fa fa-sign-in" aria-hidden="true"></i> Masuk</a>
+					<a href="{{route('login')}}"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
                     @if (Route::has('register'))
-					<a href="{{route('register')}}"><i class="fa fa-registered" aria-hidden="true"></i> Daftar</a>
+					<a href="{{route('register')}}"><i class="fa fa-registered" aria-hidden="true"></i>Register</a>
                     @endif
                     @else
 					<a href="#">Login Sebagai (Member)</a>
-					<a href="{{route('logout')}}"><i class="fa fa-sign-out" aria-hidden="true"></i> Keluar</a>
+					<a href="{{route('logout')}}"><i class="fa fa-sign-out" aria-hidden="true"></i> {{ GoogleTranslate::trans('Logout', app()->getLocale()) }}</a>
 					@endif
 
 
@@ -80,16 +82,30 @@
 
 			<ul class="main-menu">
 			@guest
-				<li class="{{(request()->is('/*'))?'active': ''}}"><a href="{{route('home.frontend')}}">Beranda</a></li>
-				<li class="{{(request()->is('explorer*'))?'active': ''}}"><a href="{{route('explorer.frontend')}}">Explorer</a></li>
-				<li class="{{(request()->is('gallery*'))?'active': ''}}"><a href="{{route('gallery.frontend')}}">Gallery</a></li>
-				<li class="{{(request()->is('berita*'))?'active': ''}}"><a href="{{route('berita.frontend')}}">Berita</a></li>
-			@else
-				<li class="{{(request()->is('/*'))?'active': ''}}"><a href="{{route('home.frontend')}}">Beranda</a></li>
-				<li class="{{(request()->is('explorer*'))?'active': ''}}"><a href="{{route('explorer.frontend')}}">Explorer</a></li>
-				<li class="{{(request()->is('gallery*'))?'active': ''}}"><a href="{{route('gallery.frontend')}}">Gallery</a></li>
-				<li class="{{(request()->is('berita*'))?'active': ''}}"><a href="{{route('berita.frontend')}}">Berita</a></li>
-				<li class="{{(request()->is('member*'))?'active': ''}}"><a href="{{route('member-explorer.index')}}">Tambah Spesies</a></li>
+				<li class="{{(request()->is('/*'))?'active': ''}}"><a href="{{route('home.frontend')}}">{{ GoogleTranslate::trans('Beranda', app()->getLocale()) }}</a></li>
+				<li class="{{(request()->is('explorer*'))?'active': ''}}"><a href="{{route('explorer.frontend')}}">{{ GoogleTranslate::trans('Explorer', app()->getLocale()) }}</a></li>
+				<li class="{{(request()->is('gallery*'))?'active': ''}}"><a href="{{route('gallery.frontend')}}">{{ GoogleTranslate::trans('Gallery', app()->getLocale()) }}</a></li>
+				<li class="{{(request()->is('berita*'))?'active': ''}}"><a href="{{route('berita.frontend')}}">{{ GoogleTranslate::trans('Berita', app()->getLocale()) }}</a></li>
+
+                    @if (Config::get('languages')[App::getLocale()] == 'English' )
+                    <li class=""><a href="{{ route('lang.switch', 'id') }}">In</a></li>
+                    @elseif(Config::get('languages')[App::getLocale()] == 'Indonesian')
+                    <li class=""><a href="{{ route('lang.switch', 'en') }}">En</a></li>
+
+                    @endif
+
+                @else
+				<li class="{{(request()->is('/*'))?'active': ''}}"><a href="{{route('home.frontend')}}">{{ GoogleTranslate::trans('Beranda', app()->getLocale()) }}</a></li>
+				<li class="{{(request()->is('explorer*'))?'active': ''}}"><a href="{{route('explorer.frontend')}}">{{ GoogleTranslate::trans('Explorer', app()->getLocale()) }}</a></li>
+				<li class="{{(request()->is('gallery*'))?'active': ''}}"><a href="{{route('gallery.frontend')}}">{{ GoogleTranslate::trans('Gallery', app()->getLocale()) }}</a></li>
+				<li class="{{(request()->is('berita*'))?'active': ''}}"><a href="{{route('berita.frontend')}}">{{ GoogleTranslate::trans('Berita', app()->getLocale()) }}</a></li>
+				<li class="{{(request()->is('member*'))?'active': ''}}"><a href="{{route('member-explorer.index')}}">{{ GoogleTranslate::trans('Tambah Spesies', app()->getLocale()) }}</a></li>
+                @if (Config::get('languages')[App::getLocale()] == 'English' )
+                <li class=""><a href="{{ route('lang.switch', 'id') }}">In</a></li>
+                @elseif(Config::get('languages')[App::getLocale()] == 'Indonesian')
+                <li class=""><a href="{{ route('lang.switch', 'en') }}">En</a></li>
+
+                @endif
 			@endif
 			</ul>
 		</div>
@@ -100,7 +116,7 @@
 
 	@yield('content')
 
-    
+
 
 
 	<!-- Footer section -->
@@ -111,9 +127,9 @@
 
 			<div class="col-lg-6 col-md-6 footer-contact">
 				<p>
-				Jl. Jambi - Muara Bulian No.KM. 15, <br>
-				Mendalo Darat, Kec. Jambi Luar Kota, <br>
-				Kabupaten Muaro Jambi, Jambi <br><br>
+                {{ GoogleTranslate::trans('Jl. Jambi - Muara Bulian No.KM. 15', app()->getLocale()) }}, <br>
+                {{ GoogleTranslate::trans('Mendalo Darat, Kecamatan. Jambi Luar Kota', app()->getLocale()) }}, <br>
+                {{ GoogleTranslate::trans('Kabupaten Muaro Jambi, Jambi', app()->getLocale()) }} <br><br>
 				<strong>Phone:</strong> +628 xxx xxx xx<br>
 				<strong>Email:</strong> ikanjambi@unja.ac.id<br>
 				</p>
@@ -121,10 +137,10 @@
 
 			<div class="col-lg-6 col-md-6 footer-links">
 				<ul>
-				<li><i class="bx bx-chevron-right"></i> <a href="{{route('home.frontend')}}">Home</a></li>
-				<li><i class="bx bx-chevron-right"></i> <a href="{{route('explorer.frontend')}}">Explorer</a></li>
-				<li><i class="bx bx-chevron-right"></i> <a href="{{route('gallery.frontend')}}">Gallery</a></li>
-				<li><i class="bx bx-chevron-right"></i> <a href="{{route('berita.frontend')}}">Berita</a></li>
+				<li><i class="bx bx-chevron-right"></i> <a href="{{route('home.frontend')}}">{{ GoogleTranslate::trans('Beranda', app()->getLocale()) }}</a></li>
+				<li><i class="bx bx-chevron-right"></i> <a href="{{route('explorer.frontend')}}">{{ GoogleTranslate::trans('Explorer', app()->getLocale()) }} </a></li>
+				<li><i class="bx bx-chevron-right"></i> <a href="{{route('gallery.frontend')}}">{{ GoogleTranslate::trans('Gallery', app()->getLocale()) }} </a></li>
+				<li><i class="bx bx-chevron-right"></i> <a href="{{route('berita.frontend')}}">{{ GoogleTranslate::trans('Berita', app()->getLocale()) }} </a></li>
 				</ul>
 			</div>
 
