@@ -20,7 +20,8 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-       
+        \Illuminate\Session\Middleware\StartSession::class, // Karena kita menggunakan Session, maka tambahkan Middleware ini
+        // \App\Http\Middleware\LocalizationMiddleware::class, // Middleware untuk Cek Bahasa
     ];
 
     /**
@@ -37,6 +38,8 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \App\Http\Middleware\Language::class,
+
         ],
 
         'api' => [
@@ -64,5 +67,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'cekstatus' => \App\Http\Middleware\CekStatus::class,
+
     ];
 }

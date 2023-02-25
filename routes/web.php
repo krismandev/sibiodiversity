@@ -30,7 +30,7 @@ Route::get('/getkecamatan', 'Dashboard\SpesiesController@getKecamatan');
 Route::group(['middleware' => ['auth','cekstatus:0'],'prefix'=>'dashboard'], function(){
     Route::get('/', 'Dashboard\DashboardController@index')->name('home.dashboard');
 
-    
+
     Route::group(['prefix'=>'verifikasi'], function(){
         Route::get('/','Dashboard\VerifikasiController@index')->name('verifikasi.index');
         Route::get('/detail/{id}','Dashboard\VerifikasiController@detail')->name('verifikasi.detail');
@@ -46,7 +46,7 @@ Route::group(['middleware' => ['auth','cekstatus:0'],'prefix'=>'dashboard'], fun
         Route::patch('/','Dashboard\ClassController@update')->name('class.update');
         Route::get('/delete/{id}','Dashboard\ClassController@delete')->name('class.delete');
     });
-    
+
     Route::group(['prefix'=>'ordo'], function(){
         Route::get('/','Dashboard\OrdoController@index')->name('ordo.index');
         Route::get('/create','Dashboard\OrdoController@create')->name('ordo.create');
@@ -64,7 +64,7 @@ Route::group(['middleware' => ['auth','cekstatus:0'],'prefix'=>'dashboard'], fun
         Route::patch('/','Dashboard\FamiliController@update')->name('famili.update');
         Route::get('/delete/{id}','Dashboard\FamiliController@delete')->name('famili.delete');
     });
-    
+
     Route::group(['prefix'=>'genus'], function(){
         Route::get('/','Dashboard\GenusController@index')->name('genus.index');
         Route::get('/create','Dashboard\GenusController@create')->name('genus.create');
@@ -73,7 +73,7 @@ Route::group(['middleware' => ['auth','cekstatus:0'],'prefix'=>'dashboard'], fun
         Route::patch('/','Dashboard\GenusController@update')->name('genus.update');
         Route::get('/delete/{id}','Dashboard\GenusController@delete')->name('genus.delete');
     });
-    
+
     Route::group(['prefix'=>'spesies'], function(){
         Route::get('/','Dashboard\SpesiesController@index')->name('spesies.index');
         Route::get('/create','Dashboard\SpesiesController@create')->name('spesies.create');
@@ -133,6 +133,9 @@ Route::group(['middleware' => ['auth','cekstatus:1']], function(){
 });
 
 Route::get('/', 'FrontEnd\FrontEndController@index')->name('home.frontend');
+Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'FrontEnd\FrontEndController@switchLang']);
+// Route::get('/change-to-english', 'FrontEnd\FrontEndController@changeBahasaEnglish')->name('change.english');
+// Route::get('/change-to-indonesia', 'FrontEnd\FrontEndController@changeBahasaIndonesia')->name('change.indonesia');
 Route::get('/explorer', 'FrontEnd\FrontEndController@explorer')->name('explorer.frontend');
 Route::get('/explorer/filter', 'FrontEnd\FrontEndController@filterExplorer')->name('explorer.filter');
 Route::get('/explorer-detail/{id}', 'FrontEnd\FrontEndController@explorerDetail')->name('explorer.detail');
