@@ -81,6 +81,7 @@ Route::group(['middleware' => ['auth','cekstatus:0'],'prefix'=>'dashboard'], fun
         Route::get('/{id}','Dashboard\SpesiesController@edit')->name('spesies.edit');
         Route::patch('/','Dashboard\SpesiesController@update')->name('spesies.update');
         Route::get('/delete/{id}','Dashboard\SpesiesController@delete')->name('spesies.delete');
+        Route::get('/gambar/delete/{nama_gambar}/{id}','Dashboard\SpesiesController@deleteGambar')->name('spesies.deleteGambar');
     });
 
     Route::group(['prefix'=>'gallery'], function(){
@@ -134,7 +135,7 @@ Route::group(['middleware' => ['auth','cekstatus:1']], function(){
 Route::get('/', 'FrontEnd\FrontEndController@index')->name('home.frontend');
 Route::get('/explorer', 'FrontEnd\FrontEndController@explorer')->name('explorer.frontend');
 Route::get('/explorer/filter', 'FrontEnd\FrontEndController@filterExplorer')->name('explorer.filter');
-Route::get('/explorer-detail/{id}', 'FrontEnd\FrontEndController@explorerDetail');
+Route::get('/explorer-detail/{id}', 'FrontEnd\FrontEndController@explorerDetail')->name('explorer.detail');
 Route::get('/gallery-sibiodiversity', 'FrontEnd\FrontEndController@gallery')->name('gallery.frontend');
 Route::get('/berita-sibiodiversity', 'FrontEnd\FrontEndController@berita')->name('berita.frontend');
 Route::get('/berita-detail/{id}', 'FrontEnd\FrontEndController@beritaDetail');

@@ -44,7 +44,7 @@ class SpesiesController extends Controller
             "potensi" =>"nullable",
             "keaslian_jenis" =>"nullable",
             "distribusi_global" =>"nullable",
-            "gambar" =>"nullable|file|mimes:jpg,jpeg,png,gif",
+            // "gambar" =>"nullable|file|mimes:jpg,jpeg,png,gif",
             "genus_id" =>"required",
             // "provinsi_id" =>"required",
             // "kabupaten_id" =>"required",
@@ -62,6 +62,13 @@ class SpesiesController extends Controller
     {
         $title = "Data Spesies Ikan";
         $spesieses = Spesies::orderBy("nama_latin")->get();
+        foreach ($spesieses as $key => $each) {
+            if ($each->gambar != null) {
+                $spesieses[$key]->gambar = json_decode($each->gambar)[0] ?? "";
+            }else{
+                $spesieses[$key]->gambar = "";
+            }
+        }
         return view('dashboard.master.spesies.index',compact(['spesieses','title']));
     }
 
@@ -80,22 +87,26 @@ class SpesiesController extends Controller
         // dd($request->all());
         DB::beginTransaction();
         try {
-            $nama_gambar = null;
-            if ($request->hasFile('gambar')) {
-                $gambar = $request->file('gambar');
-                $nama_gambar = time()."_".$gambar->getClientOriginalExtension();
-                // $tujuan_upload = 'spesies';
-                // $gambar->move($tujuan_upload,$nama_gambar);
-                $upload = Storage::putFileAs('public/spesies',$request->file('gambar'),$nama_gambar);
+            $arr_nama_gambar = [];
+            if (count($request->gambar) > 0) {
+                foreach ($request->gambar as $gambar) {
+                    // $gambar = $request->file('gambar');
+                    // dd($gambar);
+                    $nama_gambar = time().rand(5,1).".".$gambar->getClientOriginalExtension();
+                    $arr_nama_gambar[] = $nama_gambar; 
+                    // $tujuan_upload = 'spesies';
+                    // $gambar->move($tujuan_upload,$nama_gambar);
+                    $upload = Storage::putFileAs('public/spesies',$gambar,$nama_gambar);
 
-                Gallery::create([
-                    "user_id"=>auth()->user()->id,
-                    "judul" =>$request->nama_latin,
-                    "file_gallery" =>$nama_gambar,
-                    "jenis_file" =>"Gambar",
-                ]);
+                    Gallery::create([
+                        "user_id"=>auth()->user()->id,  
+                        "judul" =>$request->nama_latin,
+                        "file_gallery" =>$nama_gambar,
+                        "jenis_file" =>"Gambar",
+                    ]);
+                }
             }
-
+            $json_nama_gambar = json_encode($arr_nama_gambar);
             $lokasi_penemuan = LokasiPenemuan::create([
                 "nama_lokasi"=>$request->nama_lokasi,
                 "provinsi_id"=>$request->provinsi_id,
@@ -113,7 +124,7 @@ class SpesiesController extends Controller
                 "potensi" =>$request->potensi,
                 "keaslian_jenis" =>$request->keaslian_jenis,
                 "distribusi_global" => $request->distribusi_global,
-                "gambar" =>$nama_gambar,
+                "gambar" =>$json_nama_gambar,
                 "user_id"=>auth()->user()->id,
                 "status"=>$request->status,
                 "rujukan"=>$request->rujukan,
@@ -122,13 +133,14 @@ class SpesiesController extends Controller
                 "is_approved"=>1,
             ]);
 
-            if ($request->hasFile('rantai_dna')) {
-                $rantai_dna = $request->file('rantai_dna');
-                $nama_rantai_dna = time()."_".$rantai_dna->getClientOriginalExtension();
-                // $tujuan_upload = 'spesies/rantai_dna';
-                // $rantai_dna->move($tujuan_upload,$nama_rantai_dna);
-                $upload = Storage::putFileAs('public/rantai_dna',$request->file('rantai_dna'),$nama_rantai_dna);
-            }
+            // if ($request->hasFile('rantai_dna')) {
+            //     $rantai_dna = $request->file('rantai_dna');
+            //     $nama_rantai_dna = time()."_".$rantai_dna->getClientOriginalExtension();
+            //     // $tujuan_upload = 'spesies/rantai_dna';
+            //     // $rantai_dna->move($tujuan_upload,$nama_rantai_dna);
+            //     $upload = Storage::putFileAs('public/rantai_dna',$request->file('rantai_dna'),$nama_rantai_dna);
+            // }
+            // $rantai_dna = $request->rantai_dna;
 
             $detail_spesies = DetailSpesimen::create([
                 "spesies_id"=>$spesies->id,
@@ -136,7 +148,7 @@ class SpesiesController extends Controller
                 "lokasi_penemuan_id"=>$lokasi_penemuan->id,
                 "kolektor"=>$request->kolektor,
                 "lokasi_penyimpanan"=>$request->lokasi_penyimpanan,
-                "rantai_dna"=> $nama_rantai_dna ?? null,
+                // "rantai_dna"=> $nama_rantai_dna ?? null,
                 "tanggal_penemuan"=>$request->tanggal_penemuan
             ]);
         } catch (\Exception $e) {
@@ -167,22 +179,29 @@ class SpesiesController extends Controller
             $id = decrypt($request->spesies_id);
             $spesies = Spesies::find($id);
             $detail_spesimen = DetailSpesimen::find($request->detail_spesimen_id);
+            $nama_gambar_old = json_decode($spesies->gambar) ?? [];
 
-            $nama_gambar = null;
-            if ($request->hasFile('gambar')) {
-                $gambar = $request->file('gambar');
-                $nama_gambar = time()."_".$gambar->getClientOriginalExtension();
-                // $tujuan_upload = 'spesies';
-                // $gambar->move($tujuan_upload,$nama_gambar);
-                $upload = Storage::putFileAs('public/spesies',$request->file('gambar'),$nama_gambar);
+            $arr_nama_gambar = json_decode($spesies->gambar) ?? [];
+            if (count($request->gambar) > 0) {
+                foreach ($request->gambar as $gambar) {
+                    // $gambar = $request->file('gambar');
+                    // dd($gambar);
+                    $nama_gambar = time().rand(5,1).".".$gambar->getClientOriginalExtension();
+                    $arr_nama_gambar[] = $nama_gambar; 
+                    // $tujuan_upload = 'spesies';
+                    // $gambar->move($tujuan_upload,$nama_gambar);
+                    $upload = Storage::putFileAs('public/spesies',$gambar,$nama_gambar);
 
-                Gallery::create([
-                    "user_id"=>auth()->user()->id,
-                    "judul" =>$request->nama_latin,
-                    "file_gallery" =>$nama_gambar,
-                    "jenis_file" =>"Gambar",
-                ]);
+                    Gallery::create([
+                        "user_id"=>auth()->user()->id,  
+                        "judul" =>$request->nama_latin,
+                        "file_gallery" =>$nama_gambar,
+                        "jenis_file" =>"Gambar",
+                    ]);
+                }
             }
+            $merge_nama_gambar = array_merge($nama_gambar_old,$arr_nama_gambar);
+            $json_nama_gambar = json_encode($merge_nama_gambar);
 
             $lokasi_penemuan = $detail_spesimen->lokasi_penemuan;
 
@@ -203,7 +222,7 @@ class SpesiesController extends Controller
                 "potensi" =>$request->potensi,
                 "keaslian_jenis" =>$request->keaslian_jenis,
                 "distribusi_global" => $request->distribusi_global,
-                "gambar" =>$nama_gambar,
+                "gambar" =>$json_nama_gambar,
                 "user_id"=>auth()->user()->id,
                 "status"=>$request->status,
                 "kondisi_air"=>$request->kondisi_air,
@@ -211,13 +230,13 @@ class SpesiesController extends Controller
                 "rujukan"=>$request->rujukan,
             ]);
 
-            if ($request->hasFile('rantai_dna')) {
-                $rantai_dna = $request->file('rantai_dna');
-                $nama_rantai_dna = time()."_".$rantai_dna->getClientOriginalExtension();
-                // $tujuan_upload = 'spesies/rantai_dna';
-                // $rantai_dna->move($tujuan_upload,$nama_rantai_dna);
-                $upload = Storage::putFileAs('public/rantai_dna',$request->file('rantai_dna'),$nama_rantai_dna);
-            }
+            // if ($request->hasFile('rantai_dna')) {
+            //     $rantai_dna = $request->file('rantai_dna');
+            //     $nama_rantai_dna = time()."_".$rantai_dna->getClientOriginalExtension();
+            //     // $tujuan_upload = 'spesies/rantai_dna';
+            //     // $rantai_dna->move($tujuan_upload,$nama_rantai_dna);
+            //     $upload = Storage::putFileAs('public/rantai_dna',$request->file('rantai_dna'),$nama_rantai_dna);
+            // }
 
             $detail_spesimen->update([
                 "spesies_id"=>$spesies->id,
@@ -225,7 +244,7 @@ class SpesiesController extends Controller
                 "lokasi_penemuan_id"=>$lokasi_penemuan->id,
                 "kolektor"=>$request->kolektor,
                 "lokasi_penyimpanan"=>$request->lokasi_penyimpanan,
-                "rantai_dna"=> $nama_rantai_dna ?? null,
+                // "rantai_dna"=> $nama_rantai_dna ?? null,
                 "tanggal_penemuan"=>$request->tanggal_penemuan
             ]);
             DB::commit();
@@ -249,5 +268,22 @@ class SpesiesController extends Controller
         }
 
         return redirect()->route('spesies.index')->with('success','Berhasil menghapus data');
+    }
+
+    public function deleteGambar($nama_gambar,$id)
+    {
+        $spesies = Spesies::find($id);
+
+        $arr_nama_gambar = json_decode($spesies->gambar) ?? [];
+
+        if (($key = array_search($nama_gambar, $arr_nama_gambar)) !== false) {
+            unset($arr_nama_gambar[$key]);
+        }
+        $json_nama_gambar = json_encode($arr_nama_gambar);
+        $spesies->update([
+            "gambar"=>$json_nama_gambar
+        ]);
+
+        return back()->with('success','Berhasil menghapus gambar');
     }
 }

@@ -68,24 +68,24 @@
 		</div>
 	</section>
 	<!-- Blog section -->
-    <div class="gallery-section">
+    <div class="gallery-section" style="padding: 50px;">
         <div class="section-title text-center">
             <h3>Mitra</h3>
 
         </div>
 		<div class="gallery">
 			<div class="grid-sizer"></div>
-			<div class="gallery-item gi-big set-bg" data-setbg="{{asset('assets_frontend/img/gallery/unja.png')}}">
+			<div class="gallery-item gi-big set-bg" data-setbg="{{asset('assets_frontend/img/gallery/unja.png')}}" style="padding: 10px;">
 				<a class="img-popup" href="{{asset('assets_frontend/img/gallery/unja.png')}}"><i class="ti-plus"></i></a>
 			</div>
 
-			<div class="gallery-item gi-big set-bg" data-setbg="{{asset('assets_frontend/img/gallery/bpbat.jpg')}}">
+			<div class="gallery-item gi-big set-bg" data-setbg="{{asset('assets_frontend/img/gallery/bpbat.jpg')}}" style="padding: 10px;">
 				<a class="img-popup" href="{{asset('assets_frontend/img/gallery/bpbat.jpg')}}"><i class="ti-plus"></i></a>
 			</div>
-            <div class="gallery-item gi-big set-bg" data-setbg="{{asset('assets_frontend/img/gallery/bkipm.png')}}">
+            <div class="gallery-item gi-big set-bg" data-setbg="{{asset('assets_frontend/img/gallery/bkipm.png')}}" style="padding: 10px;">
                 <a class="img-popup" href="{{asset('assets_frontend/img/gallery/1.jpg')}}"><i class="ti-plus"></i></a>
             </div>
-            <div class="gallery-item gi-big set-bg" data-setbg="{{asset('assets_frontend/img/gallery/kkp.png')}}">
+            <div class="gallery-item gi-big set-bg" data-setbg="{{asset('assets_frontend/img/gallery/kkp.png')}}" style="padding: 10px;">
                 <a class="img-popup" href="{{asset('assets_frontend/img/gallery/kkp.png')}}"><i class="ti-plus"></i></a>
             </div>
 

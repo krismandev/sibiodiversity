@@ -32,7 +32,7 @@ class FrontEndController extends Controller
         $tentang = Tentang::first();
         $slider = Slider::all();
         $data_berita = Berita::latest()->take(4)->get();;
-        $judul='Tentang Sibiodiversity';
+        $judul='Tentang Biodiversitas Sungai Batanghari';
         return view('frontend.index',compact(['tentang','judul','slider','data_berita']));
     }
 
@@ -57,12 +57,18 @@ class FrontEndController extends Controller
         }
 
         $data_spesies = $data_spesies->paginate(12);
+        foreach ($data_spesies as $key => $each) {
+            $data_spesies[$key]->list_gambar = json_decode($each->gambar) ?? [];
+            $data_spesies[$key]->gambar = json_decode($each->gambar)[0] ?? "";
+        }
         return view('frontend.explorer', compact(['data_spesies']));
     }
 
     public function explorerDetail($id)
     {
         $data = Spesies::find($id);
+        $data->list_gambar = json_decode($data->gambar) ?? [];
+        $data->gambar = json_decode($data->gambar) ? json_decode($data->gambar)[0] : "";
         $data_spesies = Spesies::latest()->paginate(5);
         $next = $data->next();
         $previous = $data->previous();
@@ -180,6 +186,8 @@ class FrontEndController extends Controller
             "potensi" =>"nullable",
             "keaslian_jenis" =>"nullable",
             "distribusi_global" =>"nullable",
+            "kondisi_air"=>"nullable",
+            "etnosains"=>"nullable",
             "gambar" =>"nullable|file|mimes:jpg,jpeg,png,gif",
             "genus_id" =>"required",
             "provinsi_id" =>"required",
@@ -187,7 +195,7 @@ class FrontEndController extends Controller
             "kecamatan_id" =>"required",
             "nama_lokasi" =>"required",
             "kolektor" =>"required",
-            "rantai_dna" =>"nullable|file",
+            // "rantai_dna" =>"nullable|file",
             "lokasi_penyimpanan" =>"nullable",
             "rujukan" =>"nullable",
         ];
@@ -196,17 +204,37 @@ class FrontEndController extends Controller
 
     public function explorerStore(Request $request)
     {
-        $this->customValidate($request);
+        // $this->customValidate($request);
         // dd($request->all());
         DB::beginTransaction();
         try {
+            $nama_latin = trim(strip_tags($request->nama_latin));
+
             $nama_gambar = null;
             if ($request->hasFile('gambar')) {
                 $gambar = $request->file('gambar');
-                $nama_gambar = time()."_".$gambar->getClientOriginalExtension();
+                $nama_gambar = time().rand(5,1).".".$gambar->getClientOriginalExtension();
                 // $tujuan_upload = 'spesies';
                 // $gambar->move($tujuan_upload,$nama_gambar);
                 $upload = Storage::putFileAs('public/spesies',$request->file('gambar'),$nama_gambar);
+            }
+
+            $exist = Spesies::where('nama_latin',$nama_latin)->first();
+            if ($exist) {
+                $arr_nama_gambar = json_decode($exist->gambar) ?? [];
+                if ($nama_gambar != null) {
+                    array_push($arr_nama_gambar,$nama_gambar);
+                }
+
+                $json_nama_gambar = json_encode($arr_nama_gambar);
+
+                $exist->update([
+                    "gambar"=>$json_nama_gambar
+                ]);
+
+                DB::commit();
+
+                return back()->with('error','Data ikan '.$request->nama_latin.' sudah ada. Gambar yang anda input akan ditambahkan ke gallery');
             }
 
             $lokasi_penemuan = LokasiPenemuan::create([
@@ -215,7 +243,7 @@ class FrontEndController extends Controller
                 "kabupaten_id"=>$request->kabupaten_id,
                 "kecamatan_id"=>$request->kecamatan_id,
             ]);
-
+            
             $spesies = Spesies::create([
                 "genus_id" =>$request->genus_id,
                 "nama_latin" =>$request->nama_latin,
@@ -231,6 +259,8 @@ class FrontEndController extends Controller
                 "status"=>$request->status,
                 "is_approved"=>0,
                 "rujukan"=>$request->rujukan,
+                "kondisi_air"=>$request->kondisi_air,
+                "etnosains"=>$request->etnosains,
             ]);
 
             if ($request->hasFile('rantai_dna')) {
@@ -247,7 +277,7 @@ class FrontEndController extends Controller
                 "lokasi_penemuan_id"=>$lokasi_penemuan->id,
                 "kolektor"=>$request->kolektor,
                 "lokasi_penyimpanan"=>$request->lokasi_penyimpanan,
-                "rantai_dna"=> $nama_rantai_dna ?? null,
+                // "rantai_dna"=> $nama_rantai_dna ?? null,
                 "tanggal_penemuan"=>$request->tanggal_penemuan
             ]);
         } catch (\Exception $e) {

@@ -118,10 +118,13 @@
                     <tr>
                         <td scope="col">Rantai DNA</td>
                         <td scope="col">:</td>
-                        <td scope="col">
+                        {{-- <td scope="col">
                             @if ($data->detail_spesimen->rantai_dna != null)
                                 <a href="{{asset('storage/rantai_dna/'.$data->detail_spesimen->rantai_dna)}}">Download</a>
                             @endif
+                        </td> --}}
+                        <td scope="col">
+                            Hubungi <a href="https://wa.me/6282174219502" target="__blank">Tedjo Sukmono</a>
                         </td>
                     </tr>
                     <tr>
@@ -138,8 +141,21 @@
                     </tr>
                 </tbody>
                 </table>
+                <div class="mt-5 mb-5">
+                    <i>Sukmono,T., Kaswari, T, Utomo, PEP, Wulandari, T. <a href="http://ikanjambi.unja.ac.id.Universitas Jambi.2023"> ikanjambi.unja.ac.id.Universitas Jambi.2023 </a> </i>
+                </div>
 
-                <div class="navigation-area">
+                <div class="row">
+                    {{-- <div class="col-lg-12"> --}}
+                        @foreach ($data->list_gambar as $nama_gambar)
+                            <div class="col-lg-2 col-sm-4 col-md-4" style="max-height: 200px;">
+                                <img src="{{asset('storage/spesies/'.$nama_gambar)}}" style="object-fit: cover; object-position: center;">
+                            </div>
+                        @endforeach
+                    {{-- </div> --}}
+                </div>
+
+                <div class="navigation-area mt-4">
                   <div class="row">
                       @if (isset($previous))
                       <div class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">

@@ -37,16 +37,16 @@
                   </div>
                   <div class="form-group">
                     <label for="namaLatin">Nama Latin</label>
-                    <textarea name="nama_latin" cols="15" rows="2" class="form-control ckeditor">{{$spesies->nama_latin ?? ''}}</textarea>
+                    <textarea name="nama_latin" cols="15" rows="2" class="form-control">{{$spesies->nama_latin ?? old('nama_latin')}}</textarea>
 
                   </div>
                   <div class="form-group">
                     <label for="namaLatin">Nama Umum</label>
-                    <textarea name="nama_umum" cols="15" rows="2" class="form-control ckeditor">{{$spesies->nama_umum ?? ''}}</textarea>
+                    <textarea name="nama_umum" cols="15" rows="2" class="form-control">{{$spesies->nama_umum ?? old('nama_umum')}}</textarea>
                   </div>
                   <div class="form-group">
                     <label for="namaLatin">Meristik</label>
-                    <input type="text" class="form-control" placeholder="" name="meristik" value="{{$spesies->meristik ?? ''}}">
+                    <input type="text" class="form-control" placeholder="" name="meristik" value="{{$spesies->meristik ?? old('meristik')}}">
                   </div>
                   <div class="form-group">
                     <label for="namaLatin">Status Konservasi</label>
@@ -62,15 +62,15 @@
                   </div>
                   <div class="form-group">
                     <label for="namaLatin">Potensi</label>
-                    <input type="text" class="form-control" placeholder="" name="potensi" value="{{$spesies->potensi ?? ''}}">
+                    <input type="text" class="form-control" placeholder="" name="potensi" value="{{$spesies->potensi ?? old('potensi')}}">
                   </div>
                   <div class="form-group">
                     <label for="namaLatin">Keaslian Jenis</label>
-                    <input type="text" class="form-control" placeholder="" name="keaslian_jenis" value="{{$spesies->keaslian_jenis ?? ''}}">
+                    <input type="text" class="form-control" placeholder="" name="keaslian_jenis" value="{{$spesies->keaslian_jenis ?? old('keaslian_jenis')}}">
                   </div>
                   <div class="form-group">
                     <label for="namaLatin">Distribusi Global</label>
-                    <input type="text" class="form-control" placeholder="" name="distribusi_global" value="{{$spesies->distribusi_global ?? ''}}">
+                    <input type="text" class="form-control" placeholder="" name="distribusi_global" value="{{$spesies->distribusi_global ?? old('distribusi_global')}}">
                   </div>
                   <div class="form-group">
                     <label for="status">Status</label>
@@ -81,30 +81,64 @@
                         <option value="checking">Checking</option>
                       </select>
                   </div>
-                  <div class="form-group">
+                  {{-- <div class="form-group">
                     <label for="exampleInputFile">Gambar</label>
-                    {{-- <div class="input-group"> --}}
-                      {{-- <div class="custom-file"> --}}
                         <input type="file" class="form-control" id="exampleInputFile" name="gambar">
-                        {{-- <label class="custom-file-label" for="exampleInputFile">Pilih File</label> --}}
                         @if (isset($spesies) && $spesies->gambar != null)
                           <small>Abaikan jika tidak ingin mengubah gambar</small>
                         @endif
-                      {{-- </div> --}}
-                    {{-- </div> --}}
+                  </div> --}}
+                  <div class="form-group">
+                    <label for="">Gambar</label>
+                    <div class="col-lg-12">
+                      @if (isset($spesies) && $spesies->gambar != null)
+                        @php
+                            $arr_gambar = json_decode($spesies->gambar);
+                        @endphp
+                        <div class="row">
+                          @foreach ($arr_gambar as $key => $value)
+                          <div class="col-lg-3">
+                            <div class="card">
+                              {{-- <div class="card-header">
+                              </div> --}}
+                              <i class="fa fa-trash float-right delete-image" data-nama_gambar="{{$value}}" data-spesies_id="{{$spesies->id}}" style="color: red;"></i>
+                              <img src="{{asset('storage/spesies/'.$value)}}" alt="" style="max-height: 80px;">
+                            </div>
+                          </div>
+                          {{-- <div class="row mt-2">
+                            <div class="col-lg-4">
+                                <input type="text" class="form-control" placeholder="Dimensi Ukuran. Cth: Panjang, Berat, Lebar" name="key_ukuran[]" value="{{$key}}"> 
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" class="form-control" placeholder="Nilai" name="value_ukuran[]" value="{{$value}}"> 
+                            </div>
+                            <div class="col-lg-2">
+                                <a href="#" style="color: red;" class="btn-remove-row">Hapus</a>
+                            </div>
+                          </div> --}}
+
+                          @endforeach
+                        </div>
+                      @else 
+                      @include('dashboard.master.spesies.partials.row-gambar')
+                      @endif
+                    </div>
+                    <a title="Add New Row" href="#" class="mt-2 btn-add-row mb-4" data-target="#template-row">
+                      <i data-feather="plus"></i> Tambah Gambar
+                    </a>
                   </div>
                   <div class="form-group">
                     <label for="namaLatin">Kondisi Air</label>
-                    <textarea name="kondisi_air" cols="15" rows="2" class="form-control ckeditor">{{$spesies->kondisi_air ?? ''}}</textarea>
+                    <textarea name="kondisi_air" cols="15" rows="2" class="form-control">{{$spesies->kondisi_air ?? old('kondisi_air')}}</textarea>
                   </div>
                   <div class="form-group">
                     <label for="ciriCiri">Deskripsi</label>
-                    <textarea name="deskripsi" cols="30" rows="5" class="form-control ckeditor">{{$spesies->deskripsi ?? ''}}</textarea>
+                    <textarea name="deskripsi" cols="30" rows="5" class="form-control ckeditor">{{$spesies->deskripsi ?? old('deskripsi')}}</textarea>
                   </div>
 
                   <div class="form-group">
                     <label for="namaLatin">Etnosains</label>
-                    <textarea name="etnosains" cols="15" rows="2" class="form-control ckeditor">{{$spesies->etnosains ?? ''}}</textarea>
+                    <textarea name="etnosains" cols="15" rows="2" class="form-control ckeditor">{{$spesies->etnosains ?? old('etnosains')}}</textarea>
                   </div>
                 </div>
                 <div class="card-header">
@@ -114,11 +148,11 @@
                 <div class="card-body">
                   <div class="form-group">
                     <label for="lokasi_penemuan">Kode Spesimen</label>
-                    <input type="text" class="form-control" placeholder="" name="kd_spesimen" value="{{$spesies->detail_spesimen->kd_spesimen ?? ''}}">
+                    <input type="text" class="form-control" placeholder="" name="kd_spesimen" value="{{$spesies->detail_spesimen->kd_spesimen ?? old('kd_spesimen')}}">
                   </div>
                   <div class="form-group">
                     <label for="lokasi_penemuan">Lokasi Penemuan</label>
-                    <input type="text" class="form-control" placeholder="" name="nama_lokasi" value="{{$spesies->detail_spesimen->lokasi_penemuan->nama_lokasi ?? ''}}">
+                    <input type="text" class="form-control" placeholder="" name="nama_lokasi" value="{{$spesies->detail_spesimen->lokasi_penemuan->nama_lokasi ?? old('nama_lokasi')}}">
                   </div>
                   <div class="form-group">
                     <label for="namaLatin">Provinsi Penemuan</label>
@@ -146,28 +180,23 @@
                   </div>
                   <div class="form-group">
                     <label for="namaLatin">Tanggal Penemuan</label>
-                    <input type="date" class="form-control" name="tanggal_penemuan" value="{{$spesies->tanggal_penemuan ?? ''}}">
+                    <input type="date" class="form-control" name="tanggal_penemuan" value="{{$spesies->tanggal_penemuan ?? old('tanggal_penemuan')}}">
                   </div>
                   <div class="form-group">
                     <label for="namaLatin">Kolektor</label>
-                    <input type="text" class="form-control" name="kolektor" value="{{$spesies->kolektor ?? ''}}">
+                    <input type="text" class="form-control" name="kolektor" value="{{$spesies->kolektor ?? old('kolektor')}}">
                   </div>
-                  <div class="form-group">
-                    <label for="exampleInputFile">Rantai DNA</label>
-                    <div class="input-group">
-                      <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="exampleInputFile" name="rantai_dna">
-                        <label class="custom-file-label" for="exampleInputFile">Pilih File</label>
-                      </div>
-                    </div>
-                  </div>
+                  {{-- <div class="form-group">
+                    <label for="namaLatin">Rantai DNA</label>
+                    <input type="text" class="form-control" name="rantai_dna" value="{{$spesies->rantai_dna ?? ''}}" placeholder="Masukkan link kontak yang bisa dihubungi. ex: http://wa.me/08xxx">
+                  </div> --}}
                   <div class="form-group">
                     <label for="lokasi_penemuan">Lokasi Penyimpanan</label>
-                    <input type="text" class="form-control" placeholder="" name="lokasi_penyimpanan" value="{{$spesies->lokasi_penyimpanan ?? ''}}">
+                    <input type="text" class="form-control" placeholder="" name="lokasi_penyimpanan" value="{{$spesies->lokasi_penyimpanan ?? old('lokasi_penyimpanan')}}">
                   </div>
                   <div class="form-group">
                     <label for="lokasi_penemuan">Rujukan</label>
-                    <input type="text" class="form-control" placeholder="" name="rujukan" value="{{$spesies->rujukan ?? ''}}">
+                    <input type="text" class="form-control" placeholder="" name="rujukan" value="{{$spesies->rujukan ?? old('rujukan')}}">
                   </div>
                 <!-- /.card-body -->
 
@@ -182,12 +211,59 @@
     </div>
   </div>
 
+  <template id="template-row">
+    @include('dashboard.master.spesies.partials.row-gambar')
+  </template>
 @endsection
 @section("linkfooter")
 @include('dashboard.master.spesies.js.wilayah-js')
 {{-- <script src="{{asset('js/wilayah.js')}}"></script> --}}
 <script src="{{asset('asset_dashboard/plugins/ckeditor/ckeditor.js')}}"></script>
+{{-- <script src="https://cdn.ckeditor.com/4.20.2/basic/ckeditor.js"></script> --}}
 <script type="text/javascript">
+$(document).ready(function () {
+  CKEDITOR.replace('nama_latin');
+  $(document).on('click', ".btn-add-row", function(e){
+      e.preventDefault();
 
+
+      targetClone = $(this).closest('.form-group').find('.col-lg-12 .row:last-child');
+      target = $(this).attr('data-target');
+      cln = $(target).html();
+
+      targetClone.after(cln);
+      $(".bs-tooltip").tooltip();
+  });
+
+  $(document).on('click', '.btn-remove-row', function(e){
+    e.preventDefault();
+    if($(this).closest('.col-lg-12').find('.row').length > 1){
+			$(this).tooltip('hide');
+			$(this).closest('.row').remove();
+		}
+		else{
+			$(this).closest('.row').find('input').val('');
+			$(this).closest('.row').find('input:first').focus();
+		}
+  });
+
+  $(".delete-image").click(function (e) { 
+    let nama_gambar = $(this).data("nama_gambar");
+    let spesies_id = $(this).data("spesies_id");
+    e.preventDefault();
+    swal({
+          title: "Yakin?",
+          text: "Mau menghapus gambar ini?",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+      })
+      .then((willDelete) => {
+          if (willDelete) {
+              window.location = "/dashboard/spesies/gambar/delete/"+nama_gambar+"/"+spesies_id;
+          }
+      });
+  });
+});
 </script>
 @endsection

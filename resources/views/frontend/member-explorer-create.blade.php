@@ -34,6 +34,13 @@
         </ul>
     </div>
     @endif
+    @if (session('error'))
+    <div class="alert alert-danger">
+        <ul>
+            {{session('error')}}
+        </ul>
+    </div>
+    @endif
         <div class="card-header">
           <h5>Data Spesies</h5>
         </div>
@@ -49,7 +56,7 @@
                 @endif
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="namaLatin">Pilih Genus</label>
+                    <label for="namaLatin">* Pilih Genus</label>
                     <select class="form-control" name="genus_id">
                       <option value="" selected>Pilih Genus</option>
                       @if(isset($spesies))
@@ -61,11 +68,11 @@
                     </select>
                   </div>
                   <div class="form-group">
-                    <label for="namaLatin">Nama Latin</label>
+                    <label for="namaLatin" class="required">* Nama Latin</label>
                     <textarea name="nama_latin" cols="30" rows="5" class="form-control ckeditor">{{$spesies->nama_latin ?? ''}}</textarea>
                   </div>
                   <div class="form-group">
-                    <label for="namaLatin">Nama Umum</label>
+                    <label for="namaLatin">* Nama Umum</label>
                     <textarea name="nama_umum" cols="30" rows="5" class="form-control ckeditor">{{$spesies->nama_umum ?? ''}}</textarea>
                   </div>
                   <div class="form-group">
@@ -73,7 +80,7 @@
                     <input type="text" class="form-control" placeholder="" name="meristik" value="{{$spesies->meristik ?? ''}}"> 
                   </div>
                   <div class="form-group">
-                    <label for="namaLatin">Status Konservasi</label>
+                    <label for="namaLatin">* Status Konservasi</label>
                     <select class="form-control" name="status_konservasi_id">
                       <option>Pilih Status Konservasi</option>
                       @if(isset($spesies))
@@ -143,7 +150,7 @@
                   </div>
                   <div class="form-group">
                     <label for="namaLatin">*Abaikan jika tidak ingin mengubah data lokasi, jika anda mengubah lokasi harap pilih kabupaten dan kecamatan</label><br/> 
-                    <label for="namaLatin">Provinsi Penemuan
+                    <label for="namaLatin">* Provinsi Penemuan
                     @if(isset($spesies) && $spesies->detail_spesimen->lokasi_penemuan->provinsi_id != Null)
                            : {{$spesies->detail_spesimen->lokasi_penemuan->provinsi->nama_provinsi}}
                         @endif
@@ -158,7 +165,7 @@
                     </select>
                   </div>
                   <div class="form-group">
-                    <label for="namaLatin">Kabupaten Penemuan 
+                    <label for="namaLatin">* Kabupaten Penemuan 
                         @if(isset($spesies) && $spesies->detail_spesimen->lokasi_penemuan->kabupaten_id != Null)
                            : {{$spesies->detail_spesimen->lokasi_penemuan->kabupaten->nama_kabupaten}}
                         @endif
@@ -168,7 +175,7 @@
                       </select>  
                   </div>
                   <div class="form-group">
-                    <label for="namaLatin">Kecamatan Penemuan :
+                    <label for="namaLatin">* Kecamatan Penemuan :
                         @if(isset($spesies) && $spesies->detail_spesimen->lokasi_penemuan->kecamatan_id != Null)
                            : {{$spesies->detail_spesimen->lokasi_penemuan->kecamatan->nama_kecamatan}}
                         @endif
@@ -185,7 +192,7 @@
                     <label for="namaLatin">Kolektor</label>
                     <input type="text" class="form-control" name="kolektor" value="{{$spesies->detail_spesimen->kolektor ?? ''}}"> 
                   </div>
-                  <div class="form-group">
+                  {{-- <div class="form-group">
                     <label for="exampleInputFile">Rantai DNA</label>
                      <div class="input-group"> 
                        <div class="custom-file"> 
@@ -196,7 +203,7 @@
                         @endif
                        </div> 
                      </div> 
-                  </div>
+                  </div> --}}
                   <div class="form-group">
                     <label for="lokasi_penemuan">Lokasi Penyimpanan</label>
                     <input type="text" class="form-control" placeholder="" name="lokasi_penyimpanan" value="{{$spesies->detail_spesimen->lokasi_penyimpanan ?? ''}}">

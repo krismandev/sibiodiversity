@@ -117,6 +117,8 @@
 				<strong>Phone:</strong> +628 xxx xxx xx<br>
 				<strong>Email:</strong> ikanjambi@unja.ac.id<br>
 				</p>
+
+				<a href="https://info.flagcounter.com/itve"><img src="https://s11.flagcounter.com/count2/itve/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0"></a>
 			</div>
 
 			<div class="col-lg-6 col-md-6 footer-links">
@@ -197,7 +199,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
             })
     </script>
 @endif
-@if (session("error"))
+{{-- @if (session("error"))
     <script>
             $(document).Toasts('create', {
                 class: 'bg-danger',
@@ -205,7 +207,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                 body: '{{session("error")}}'
             })
     </script>
-@endif
+@endif --}}
 
 @if ($errors->any())
     @php
@@ -218,13 +220,13 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         @endphp
     @endforeach
 
-    <script>
+    {{-- <script>
         $(document).Toasts('create', {
             class: 'bg-danger',
             title: 'Error',
             body: '{{$message}}'
         })
-    </script>
+    </script> --}}
 
 @endif
 

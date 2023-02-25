@@ -1,5 +1,5 @@
 @extends("layouts.frontend.master")
-@section("title","Daftar sebagai member")
+@section("title","Log In")
 @section("content")
 <div class="site-breadcrumb">
 	<div class="container">

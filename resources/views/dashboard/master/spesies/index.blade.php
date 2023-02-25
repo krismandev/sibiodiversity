@@ -48,6 +48,8 @@
                     <img src="{{$spesies->getImage()}}" alt="" style="max-width: 150px;">
                   </td>
                   <td>
+                      <a class="btn btn-primary" href="{{route('explorer.detail',$spesies->id)}}" target="__blank">View</a>
+                      
                       <a class="btn btn-warning" href="{{route('spesies.edit',encrypt($spesies->id))}}">Edit</a>
                       <a class="btn btn-danger" href="#"
                       data-spesies_id="{{encrypt($spesies->id)}}">Hapus</a>
