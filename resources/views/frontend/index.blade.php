@@ -44,8 +44,8 @@
 	<section class="blog-section spad">
 		<div class="container">
 			<div class="section-title text-center">
-				<h3>{{ Berita Terbaru }}</h3>
-				<p>{{Dapatkan informasi terbaru disini! }}</p>
+				<h3>Berita Terbaru</h3>
+				<p>Dapatkan informasi terbaru disini!</p>
 			</div>
 			<div class="row">
 				@forelse($data_berita as $berita)
