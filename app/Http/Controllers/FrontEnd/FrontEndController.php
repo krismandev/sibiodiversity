@@ -86,6 +86,10 @@ class FrontEndController extends Controller
         $data->list_gambar = json_decode($data->gambar) ?? [];
         $data->gambar = json_decode($data->gambar) ? json_decode($data->gambar)[0] : "";
         $data_spesies = Spesies::latest()->paginate(5);
+        foreach ($data_spesies as $key => $each) {
+            $data_spesies[$key]->list_gambar = json_decode($each->gambar) ?? [];
+            $data_spesies[$key]->gambar = json_decode($each->gambar)[0] ?? "";
+        }
         $next = $data->next();
         $previous = $data->previous();
         return view('frontend.explorer-detail', compact(['data','data_spesies','next','previous']));
