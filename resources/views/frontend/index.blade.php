@@ -10,9 +10,8 @@
 				<p>Let children creative and make a different</p> -->
 			</div>
 			<div class="row">
-
 				<div class="col-lg-6 about-text">
-					<h5>{{ $judul }}</h5>
+					<h5>{{$judul}}</h5>
 					@if(isset($tentang))
 					<p>{!! $tentang->isi !!}</p>
 					@else
@@ -53,40 +52,40 @@
 					<div class="blog-item">
 						<div class="blog-thumb set-bg" data-setbg="{{$berita->getBerita()}}"></div>
 						<div class="blog-content">
-							<h4><a href="{{url('/berita-detail/'.$berita->id)}}">{{ $berita->judul }}</a></h4>
+							<h4><a href="{{url('/berita-detail/'.$berita->id)}}">{{$berita->judul}}</a></h4>
 							<div class="blog-meta">
-								<span><i class="fa fa-calendar-o"></i> {{ $berita->created_at }}</span>
+								<span><i class="fa fa-calendar-o"></i> {{$berita->created_at}}</span>
 								<span><i class="fa fa-user"></i>Admin</span>
 							</div>
-							<p>{!!  Str::limit($berita->isi,100) !!}</p>
+							<p>{!!Str::limit($berita->isi,100)!!}</p>
 						</div>
 					</div>
 				</div>
 				@empty
-				<h4> Tidak ada berita</h4>
+				<h4>Tidak ada berita</h4>
 				@endforelse
 			</div>
 		</div>
 	</section>
 	<!-- Blog section -->
-    <div class="gallery-section" style="padding: 50px;">
+    <div class="gallery-section">
         <div class="section-title text-center">
-            <h3> Mitra </h3>
+            <h3>Mitra</h3>
 
         </div>
 		<div class="gallery">
 			<div class="grid-sizer"></div>
-			<div class="gallery-item gi-big set-bg" data-setbg="{{asset('assets_frontend/img/gallery/unja.png')}}" style="padding: 10px;">
+			<div class="gallery-item gi-big set-bg" data-setbg="{{asset('assets_frontend/img/gallery/unja.png')}}">
 				<a class="img-popup" href="{{asset('assets_frontend/img/gallery/unja.png')}}"><i class="ti-plus"></i></a>
 			</div>
 
-			{{-- <div class="gallery-item gi-big set-bg" data-setbg="{{asset('assets_frontend/img/gallery/bpbat.jpg')}}" style="padding: 10px;">
+			{{-- <div class="gallery-item gi-big set-bg" data-setbg="{{asset('assets_frontend/img/gallery/bpbat.jpg')}}">
 				<a class="img-popup" href="{{asset('assets_frontend/img/gallery/bpbat.jpg')}}"><i class="ti-plus"></i></a>
 			</div>
-            <div class="gallery-item gi-big set-bg" data-setbg="{{asset('assets_frontend/img/gallery/bkipm.png')}}" style="padding: 10px;">
+            <div class="gallery-item gi-big set-bg" data-setbg="{{asset('assets_frontend/img/gallery/bkipm.png')}}">
                 <a class="img-popup" href="{{asset('assets_frontend/img/gallery/1.jpg')}}"><i class="ti-plus"></i></a>
             </div>
-            <div class="gallery-item gi-big set-bg" data-setbg="{{asset('assets_frontend/img/gallery/kkp.png')}}" style="padding: 10px;">
+            <div class="gallery-item gi-big set-bg" data-setbg="{{asset('assets_frontend/img/gallery/kkp.png')}}">
                 <a class="img-popup" href="{{asset('assets_frontend/img/gallery/kkp.png')}}"><i class="ti-plus"></i></a>
             </div> --}}
 
@@ -96,4 +95,3 @@
 
 
 @endsection
-
