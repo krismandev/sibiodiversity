@@ -149,7 +149,9 @@
                     {{-- <div class="col-lg-12"> --}}
                         @foreach ($data->list_gambar as $nama_gambar)
                             <div class="col-lg-2 col-sm-4 col-md-4" style="max-height: 200px;">
-                                <img src="{{asset('storage/spesies/'.$nama_gambar)}}" style="object-fit: cover; object-position: center;">
+                                <a href="{{asset('storage/spesies/'.$nama_gambar)}}" data-fancybox="gallery">
+                                    <img src="{{asset('storage/spesies/'.$nama_gambar)}}" style="object-fit: cover; object-position: center;">
+                                </a>
                             </div>
                         @endforeach
                     {{-- </div> --}}

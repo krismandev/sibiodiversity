@@ -20,6 +20,7 @@
 	<link rel="stylesheet" href="{{asset('assets_frontend/css/animate.css')}}"/>
 	<link rel="stylesheet" href="{{asset('assets_frontend/css/owl.carousel.css')}}"/>
 	<link rel="stylesheet" href="{{asset('assets_frontend/css/style.css')}}"/>
+	<link rel="stylesheet" href="{{asset('assets_frontend/css/jquery.fancybox.min.css')}}">
     {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> --}}
@@ -178,6 +179,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<script src="{{asset('assets_frontend/js/masonry.pkgd.min.js')}}"></script>
 	<script src="{{asset('assets_frontend/js/magnific-popup.min.js')}}"></script>
 	<script src="{{asset('assets_frontend/js/main.js')}}"></script>
+	<script src="{{asset('frontend/js/jquery.fancybox.min.js')}}"></script>
 	<script src="{{asset('asset_dashboard/plugins/sweetalert2/sweetalert2.min.js')}}"></script>
 <script src="{{asset('asset_dashboard/plugins/toastr/toastr.min.js')}}"></script>
 
