@@ -52,12 +52,12 @@
 					<div class="blog-item">
 						<div class="blog-thumb set-bg" data-setbg="{{$berita->getBerita()}}"></div>
 						<div class="blog-content">
-							<h4><a href="{{url('/berita-detail/'.$berita->id)}}">{!! Str::limit($berita->judul,10) !!}</a></h4>
+							<h4><a href="{{url('/berita-detail/'.$berita->id)}}">{!! Str::limit($berita->judul,30) !!}</a></h4>
 							<div class="blog-meta">
 								<span><i class="fa fa-calendar-o"></i> {{ $berita->created_at }}</span>
 								<span><i class="fa fa-user"></i>Admin</span>
 							</div>
-							{{-- <p>{!!  Str::limit($berita->isi,100) !!}</p> --}}
+							<p>{!!  Str::limit($berita->isi,50) !!}</p>
 						</div>
 					</div>
 				</div>
