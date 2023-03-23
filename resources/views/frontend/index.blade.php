@@ -52,17 +52,17 @@
 					<div class="blog-item">
 						<div class="blog-thumb set-bg" data-setbg="{{$berita->getBerita()}}"></div>
 						<div class="blog-content">
-							<h4><a href="{{url('/berita-detail/'.$berita->id)}}">{{$berita->judul}}</a></h4>
+							<h4><a href="{{url('/berita-detail/'.$berita->id)}}">{{ $berita->judul }}</a></h4>
 							<div class="blog-meta">
-								<span><i class="fa fa-calendar-o"></i> {{$berita->created_at}}</span>
+								<span><i class="fa fa-calendar-o"></i> {{ $berita->created_at }}</span>
 								<span><i class="fa fa-user"></i>Admin</span>
 							</div>
-							<p>{!!Str::limit($berita->isi,100)!!}</p>
+							<p>{!!  Str::limit($berita->isi,100) !!}</p>
 						</div>
 					</div>
 				</div>
 				@empty
-				<h4>Tidak ada berita</h4>
+				<h4> Tidak ada berita</h4>
 				@endforelse
 			</div>
 		</div>
