@@ -4,8 +4,8 @@
 <!-- Breadcrumb section -->
 <div class="site-breadcrumb">
 	<div class="container">
-		<a href="{{route('home.frontend')}}"><i class="fa fa-home"></i> {{ GoogleTranslate::trans('Beranda', app()->getLocale()) }}</a> <i class="fa fa-angle-right"></i>
-		<span>{{ GoogleTranslate::trans('Explorer', app()->getLocale()) }}</span>
+		<a href="{{route('home.frontend')}}"><i class="fa fa-home"></i> Beranda</a> <i class="fa fa-angle-right"></i>
+		<span>Explorer</span>
 	</div>
 </div>
 {{-- <div class="spinner-border" role="status">
@@ -16,16 +16,16 @@
     <div class="container">
         <div class="row">
             <div class="col-md-3 col-lg-3">
-                <span class="mt-2" style=" font-size: 18px; font-weight: bold; color: #37517e;">{{ GoogleTranslate::trans('Cari Data Ikan :', app()->getLocale()) }}</span>
+                <span class="mt-2" style=" font-size: 18px; font-weight: bold; color: #37517e;">Cari Data Ikan :</span>
                 <form>
                     <div class="input-group ">
-                        <input type="text" class="form-control" placeholder="{{ GoogleTranslate::trans('Kata Kunci ...', app()->getLocale()) }}" name="search">
-                        <button class="btn btn-sm btn-outline-dark btn-search" type="button">{{ GoogleTranslate::trans('Cari', app()->getLocale()) }}</button>
+                        <input type="text" class="form-control" placeholder="Kata Kunci ..." name="search">
+                        <button class="btn btn-sm btn-outline-dark btn-search" type="button">Cari</button>
                     </div>
                 </form>
             </div>
             <div class="col-md-9 col-lg-9" id="nav-abjad">
-            <span class="mt-2" style=" font-size: 18px; font-weight: bold; color: #37517e;">{{ GoogleTranslate::trans('Berdasarkan Abjad :', app()->getLocale()) }} </span>
+            <span class="mt-2" style=" font-size: 18px; font-weight: bold; color: #37517e;">Berdasarkan Abjad: </span>
                 <ol class="mb-2">
                     <li><a href="#" data-abjad="all" class="abjad"> All </a></li>
                     @foreach(range('A','Z') as $abjad)
@@ -40,8 +40,8 @@
 <section class="blog-section spad">
     <div class="container">
         <div class="section-title text-center">
-            <h3>{{ GoogleTranslate::trans('DATA IKAN :', app()->getLocale()) }}</h3>
-            <p>{{ GoogleTranslate::trans('Total :', app()->getLocale()) }}  {{$data_spesies->count()}} data</p>
+            <h3>DATA IKAN</h3>
+            <p>Total {{$data_spesies->count()}} data</p>
         </div>
         <div class="row" id="list-ikan-holder">
             @forelse($data_spesies as $item)
@@ -53,15 +53,15 @@
                     <div class="card" style="width: 18rem;" >
                     <img src="{{$item->getImage()}}" class="card-img-top" alt="{{$item->getImage()}}">
                     <div class="card-body">
-                        <h5 class="card-title">{!!  GoogleTranslate::trans($item->nama_umum, app()->getLocale()) !!}</h5>
-                        <p class="card-text">{!!  GoogleTranslate::trans($item->nama_latin, app()->getLocale()) !!}  </p>
+                        <h5 class="card-title">{!! $item->nama_umum !!}</h5>
+                        <p class="card-text">{!! $item->nama_latin !!}  </p>
                         @php
                             $trancated = Str::of($item->deskripsi)->limit(200);
                         @endphp
                         <p>
-                            {!! GoogleTranslate::trans($trancated, app()->getLocale()) !!}
+                            {!!$trancated!!}
                         </p>
-                        <a href="{{url('/explorer-detail/'.$item->id)}}" style="align:text-right" class="btn btn-primary">{{GoogleTranslate::trans('Detail', app()->getLocale())}}</a>
+                        <a href="{{url('/explorer-detail/'.$item->id)}}" style="align:text-right" class="btn btn-primary">Detail</a>
                     </div>
                     </div>
                 </div>
@@ -69,10 +69,10 @@
             </div>
             @empty
 
-            <p><center> {{GoogleTranslate::trans('Data Tidak Ditemukan', app()->getLocale())}} </center> </p>
+            <p><center> Data Tidak Ditemukan </center> </p>
             @endforelse
             <div>
-                <center> {{ $data_spesies->links() }}</center>
+                <center>{{$data_spesies->links()}}</center>
             </div>
         </div>
     </div>

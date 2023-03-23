@@ -1,11 +1,11 @@
 @extends("layouts.frontend.master")
-@section("title",GoogleTranslate::trans('Berita', app()->getLocale()))
+@section("title","Berita")
 @section("content")
 <!-- Breadcrumb section -->
 <div class="site-breadcrumb">
 	<div class="container">
-		<a href="{{route('home.frontend')}}"><i class="fa fa-home"></i> {{ GoogleTranslate::trans('Beranda', app()->getLocale()) }}</a> <i class="fa fa-angle-right"></i>
-		<span>{{ GoogleTranslate::trans('Berita', app()->getLocale()) }}</span>
+		<a href="#"><i class="fa fa-home"></i> Beranda</a> <i class="fa fa-angle-right"></i>
+		<span>Berita</span>
 	</div>
 </div>
 <!-- Breadcrumb section end -->
@@ -21,16 +21,16 @@
 
 					<div class="post-thumb set-bg" data-setbg="{{$berita->getBerita()}}"></div>
 					<div class="post-content">
-						<h3><a href="{{url('/berita-detail/'.$berita->id)}}">{{ GoogleTranslate::trans($berita->judul, app()->getLocale()) }}</a></h3>
+						<h3><a href="{{url('/berita-detail/'.$berita->id)}}">{{$berita->judul}}</a></h3>
 						<div class="post-meta">
-							<span><i class="fa fa-calendar-o"></i> {{ GoogleTranslate::trans( $berita->created_at, app()->getLocale())}}</span>
+							<span><i class="fa fa-calendar-o"></i> {{$berita->created_at}}</span>
 							<span><i class="fa fa-user"></i> Admin</span>
 						</div>
-						<p>{!! GoogleTranslate::trans(Str::limit($berita->isi,500), app()->getLocale()) !!} </p>
+						<p>{!!Str::limit($berita->isi,500)!!} </p>
 					</div>
 				</div>
 				@empty
-				<h5> {{GoogleTranslate::trans('Belum ada berita', app()->getLocale())}} </h5>
+				<h5>Belum ada berita</h5>
 				@endforelse
 				<ul class="site-pageination">
 					{{$data_berita->links()}}
@@ -47,25 +47,25 @@
 				</div>
 				<!-- widget -->
 				<div class="widget">
-					<h5 class="widget-title"> {{GoogleTranslate::trans('Berita Terbaru', app()->getLocale()) }}</h5>
+					<h5 class="widget-title">Berita Terbaru</h5>
 					<div class="recent-post-widget">
 						@forelse($berita_terbaru as $item)
 						<!-- recent post -->
-
+					
 						<div class="rp-item">
 							<div class="rp-thumb set-bg" data-setbg="{{$item->getBerita()}}"></div>
 							<div class="rp-content">
-								<h6><a href="{{url('/berita-detail/'.$item->id)}}">{{ GoogleTranslate::trans($item->judul, app()->getLocale()) }}</a></h6>
+								<h6><a href="{{url('/berita-detail/'.$item->id)}}">{{$item->judul}}</a></h6>
 								<p><i class="fa fa-clock-o"></i> {{$item->created_at}}</p>
 							</div>
 						</div>
 						@empty
-						<p>  {{GoogleTranslate::trans('Belum ada berita terbaru', app()->getLocale()) }}</p>
+						<p> Belum ada berita terbaru</p>
 						@endforelse
-
+					
 					</div>
 				</div>
-
+				
 				<!-- widget -->
 				<div class="widget">
 					<img src="{{asset('assets_frontend/img/ad.jpg')}}" alt="">

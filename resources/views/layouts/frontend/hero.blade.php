@@ -7,10 +7,10 @@
 					<div class="container">
 						<div class="row">
 							<div class="col-lg-8">
-								<div class="hs-subtitle" style="color:white">{{ GoogleTranslate::trans($data_slider->subtitle ?? '', app()->getLocale()) }} </div>
-								<h2 class="hs-title">{{ GoogleTranslate::trans($data_slider->title ?? '', app()->getLocale()) }}</h2>
-								<p class="hs-des">{!! GoogleTranslate::trans($data_slider->keterangan ?? '', app()->getLocale()) !!} </p>
-								<div class="site-btn">{{ GoogleTranslate::trans('Mulai', app()->getLocale()) }}</div>
+								<div class="hs-subtitle" style="color:white">{{ $data_slider->subtitle ?? '' }} </div>
+								<h2 class="hs-title">{{ $data_slider->title ?? ''}}</h2>
+								<p class="hs-des">{!! $data_slider->keterangan ?? '' !!} </p>
+								<div class="site-btn">Mulai</div>
 							</div>
 						</div>
 					</div>
@@ -23,9 +23,9 @@
 					<div class="container">
 						<div class="row">
 							<div class="col-lg-8">
-								<div class="hs-subtitle">{{ GoogleTranslate::trans('Selamat datang di sibiodeversity', app()->getLocale()) }}</div>
-								<h2 class="hs-title">{{ GoogleTranslate::trans('Ikan Sungai Batanghari.', app()->getLocale()) }}</h2>
-								<div class="site-btn">{{ GoogleTranslate::trans('Mulai.', app()->getLocale()) }}</div>
+								<div class="hs-subtitle">Selamat datang di sibiodeversity</div>
+								<h2 class="hs-title">Ikan Sungai Batanghari</h2>
+								<div class="site-btn">Mulai.</div>
 							</div>
 						</div>
 					</div>

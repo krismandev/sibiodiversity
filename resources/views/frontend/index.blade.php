@@ -1,5 +1,5 @@
 @extends("layouts.frontend.master")
-@section("title",GoogleTranslate::trans('Beranda', app()->getLocale()))
+@section("title","Beranda")
 @section("content")
 @include('layouts.frontend.hero')
 <!-- About section -->
@@ -12,11 +12,11 @@
 			<div class="row">
 
 				<div class="col-lg-6 about-text">
-					<h5>{{ GoogleTranslate::trans($judul, app()->getLocale()) }}</h5>
+					<h5>{{ $judul }}</h5>
 					@if(isset($tentang))
-					<p>{!! GoogleTranslate::trans($tentang->isi, app()->getLocale()) !!}</p>
+					<p>{!! $tentang->isi !!}</p>
 					@else
-					<p>{{ GoogleTranslate::trans('Informasi Biodiversity Belum DiInputkan', app()->getLocale()) }}</p>
+					<p>Informasi Biodiversity Belum DiInputkan</p>
 					@endif
 					<!-- <h5 class="pt-4">Our history</h5>
 					<p>Led at felis arcu. Integer lorem lorem, tincidunt eu congue et, mattis ut ante. Nami suscipit, lectus id efficitur ornare, leo libero convalis nulla, vitae dignissim .</p>
@@ -44,8 +44,8 @@
 	<section class="blog-section spad">
 		<div class="container">
 			<div class="section-title text-center">
-				<h3>{{ GoogleTranslate::trans('Berita Terbaru', app()->getLocale()) }}</h3>
-				<p>{{ GoogleTranslate::trans('Dapatkan informasi terbaru disini!', app()->getLocale()) }}</p>
+				<h3>{{ Berita Terbaru }}</h3>
+				<p>{{Dapatkan informasi terbaru disini! }}</p>
 			</div>
 			<div class="row">
 				@forelse($data_berita as $berita)
@@ -53,17 +53,17 @@
 					<div class="blog-item">
 						<div class="blog-thumb set-bg" data-setbg="{{$berita->getBerita()}}"></div>
 						<div class="blog-content">
-							<h4><a href="{{url('/berita-detail/'.$berita->id)}}">{{ GoogleTranslate::trans($berita->judul, app()->getLocale()) }}</a></h4>
+							<h4><a href="{{url('/berita-detail/'.$berita->id)}}">{{ $berita->judul }}</a></h4>
 							<div class="blog-meta">
-								<span><i class="fa fa-calendar-o"></i> {{ GoogleTranslate::trans($berita->created_at, app()->getLocale()) }}</span>
+								<span><i class="fa fa-calendar-o"></i> {{ $berita->created_at }}</span>
 								<span><i class="fa fa-user"></i>Admin</span>
 							</div>
-							<p>{!!  GoogleTranslate::trans(Str::limit($berita->isi,100), app()->getLocale())  !!}</p>
+							<p>{!!  Str::limit($berita->isi,100) !!}</p>
 						</div>
 					</div>
 				</div>
 				@empty
-				<h4> {{ GoogleTranslate::trans('Tidak ada berita', app()->getLocale()) }}</h4>
+				<h4> Tidak ada berita</h4>
 				@endforelse
 			</div>
 		</div>
@@ -71,7 +71,7 @@
 	<!-- Blog section -->
     <div class="gallery-section" style="padding: 50px;">
         <div class="section-title text-center">
-            <h3> {{ GoogleTranslate::trans('Mitra', app()->getLocale()) }} </h3>
+            <h3> Mitra </h3>
 
         </div>
 		<div class="gallery">
@@ -80,7 +80,7 @@
 				<a class="img-popup" href="{{asset('assets_frontend/img/gallery/unja.png')}}"><i class="ti-plus"></i></a>
 			</div>
 
-			<div class="gallery-item gi-big set-bg" data-setbg="{{asset('assets_frontend/img/gallery/bpbat.jpg')}}" style="padding: 10px;">
+			{{-- <div class="gallery-item gi-big set-bg" data-setbg="{{asset('assets_frontend/img/gallery/bpbat.jpg')}}" style="padding: 10px;">
 				<a class="img-popup" href="{{asset('assets_frontend/img/gallery/bpbat.jpg')}}"><i class="ti-plus"></i></a>
 			</div>
             <div class="gallery-item gi-big set-bg" data-setbg="{{asset('assets_frontend/img/gallery/bkipm.png')}}" style="padding: 10px;">
@@ -88,7 +88,7 @@
             </div>
             <div class="gallery-item gi-big set-bg" data-setbg="{{asset('assets_frontend/img/gallery/kkp.png')}}" style="padding: 10px;">
                 <a class="img-popup" href="{{asset('assets_frontend/img/gallery/kkp.png')}}"><i class="ti-plus"></i></a>
-            </div>
+            </div> --}}
 
 		</div>
 	</div>

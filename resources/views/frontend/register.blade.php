@@ -1,5 +1,5 @@
 @extends("layouts.frontend.master")
-@section("title",GoogleTranslate::trans('Daftar Sebagai Member', app()->getLocale()))
+@section("title",'Daftar Sebagai Member')
 @section("content")
 <div class="site-breadcrumb">
 	<div class="container">
