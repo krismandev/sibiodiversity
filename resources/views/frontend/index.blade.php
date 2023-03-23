@@ -40,7 +40,7 @@
 	<!-- About section end-->
 
 	<!-- Blog section -->
-	<section class="blog-section spad">
+	{{-- <section class="blog-section spad">
 		<div class="container">
 			<div class="section-title text-center">
 				<h3>Berita Terbaru</h3>
@@ -66,7 +66,7 @@
 				@endforelse
 			</div>
 		</div>
-	</section>
+	</section> --}}
 	<!-- Blog section -->
     <div class="gallery-section">
         <div class="section-title text-center">
