@@ -67,7 +67,7 @@ class TentangController extends Controller
             if ($request->hasFile('gambar')) {
                 $gambar = $request->file('gambar');
                 $new_gambar = time()."_".$gambar->getClientOriginalName();
-                $tujuan_upload = 'berita';
+                $tujuan_upload = 'tentang';
                 $gambar->move($tujuan_upload,$new_gambar);
             
             $tentang->update([
