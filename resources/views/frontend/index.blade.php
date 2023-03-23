@@ -52,17 +52,17 @@
 					<div class="blog-item">
 						<div class="blog-thumb set-bg" data-setbg="{{$berita->getBerita()}}"></div>
 						<div class="blog-content">
-							<h4><a href="{{url('/berita-detail/'.$berita->id)}}">{{ $berita->judul }}</a></h4>
+							<h4><a href="{{url('/berita-detail/'.$berita->id)}}">{{$berita->judul}}</a></h4>
 							<div class="blog-meta">
-								<span><i class="fa fa-calendar-o"></i> {{ $berita->created_at }}</span>
+								<span><i class="fa fa-calendar-o"></i> {{$berita->created_at}}</span>
 								<span><i class="fa fa-user"></i>Admin</span>
 							</div>
-							<p>{!!  Str::limit($berita->isi,100) !!}</p>
+							<p>{!!Str::limit($berita->isi,100)!!}</p>
 						</div>
 					</div>
 				</div>
 				@empty
-				<h4> Tidak ada berita</h4>
+				<h4>Tidak ada berita</h4>
 				@endforelse
 			</div>
 		</div>
@@ -79,7 +79,7 @@
 				<a class="img-popup" href="{{asset('assets_frontend/img/gallery/unja.png')}}"><i class="ti-plus"></i></a>
 			</div>
 
-			{{-- <div class="gallery-item gi-big set-bg" data-setbg="{{asset('assets_frontend/img/gallery/bpbat.jpg')}}">
+			<div class="gallery-item gi-big set-bg" data-setbg="{{asset('assets_frontend/img/gallery/bpbat.jpg')}}">
 				<a class="img-popup" href="{{asset('assets_frontend/img/gallery/bpbat.jpg')}}"><i class="ti-plus"></i></a>
 			</div>
             <div class="gallery-item gi-big set-bg" data-setbg="{{asset('assets_frontend/img/gallery/bkipm.png')}}">
@@ -87,7 +87,7 @@
             </div>
             <div class="gallery-item gi-big set-bg" data-setbg="{{asset('assets_frontend/img/gallery/kkp.png')}}">
                 <a class="img-popup" href="{{asset('assets_frontend/img/gallery/kkp.png')}}"><i class="ti-plus"></i></a>
-            </div> --}}
+            </div>
 
 		</div>
 	</div>

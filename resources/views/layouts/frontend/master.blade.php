@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 	<title>@yield('title')</title>
 	<meta charset="UTF-8">
@@ -20,9 +20,7 @@
 	<link rel="stylesheet" href="{{asset('assets_frontend/css/animate.css')}}"/>
 	<link rel="stylesheet" href="{{asset('assets_frontend/css/owl.carousel.css')}}"/>
 	<link rel="stylesheet" href="{{asset('assets_frontend/css/style.css')}}"/>
-    {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> --}}
+
 
 	{{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css"/> --}}
@@ -67,13 +65,13 @@
 		<div class="container">
 			<div class="nav-right">
 					@guest
-					<a href="{{route('login')}}"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
+					<a href="{{route('login')}}"><i class="fa fa-sign-in" aria-hidden="true"></i> Masuk</a>
                     @if (Route::has('register'))
-					<a href="{{route('register')}}"><i class="fa fa-registered" aria-hidden="true"></i>Register</a>
+					<a href="{{route('register')}}"><i class="fa fa-registered" aria-hidden="true"></i> Daftar</a>
                     @endif
                     @else
 					<a href="#">Login Sebagai (Member)</a>
-					<a href="{{route('logout')}}"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+					<a href="{{route('logout')}}"><i class="fa fa-sign-out" aria-hidden="true"></i> Keluar</a>
 					@endif
 
 
@@ -102,7 +100,7 @@
 
 	@yield('content')
 
-
+    
 
 
 	<!-- Footer section -->
@@ -113,22 +111,20 @@
 
 			<div class="col-lg-6 col-md-6 footer-contact">
 				<p>
-					Jl. Jambi - Muara Bulian No.KM. 15, <br>
-					Mendalo Darat, Kec. Jambi Luar Kota, <br>
-					Kabupaten Muaro Jambi, Jambi <br><br>
+				Jl. Jambi - Muara Bulian No.KM. 15, <br>
+				Mendalo Darat, Kec. Jambi Luar Kota, <br>
+				Kabupaten Muaro Jambi, Jambi <br><br>
 				<strong>Phone:</strong> +628 xxx xxx xx<br>
 				<strong>Email:</strong> ikanjambi@unja.ac.id<br>
 				</p>
-
-				<a href="https://info.flagcounter.com/itve"><img src="https://s11.flagcounter.com/count2/itve/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0"></a>
 			</div>
 
 			<div class="col-lg-6 col-md-6 footer-links">
 				<ul>
-					<li><i class="bx bx-chevron-right"></i> <a href="{{route('home.frontend')}}">Home</a></li>
-					<li><i class="bx bx-chevron-right"></i> <a href="{{route('explorer.frontend')}}">Explorer</a></li>
-					<li><i class="bx bx-chevron-right"></i> <a href="{{route('gallery.frontend')}}">Gallery</a></li>
-					<li><i class="bx bx-chevron-right"></i> <a href="{{route('berita.frontend')}}">Berita</a></li>
+				<li><i class="bx bx-chevron-right"></i> <a href="{{route('home.frontend')}}">Home</a></li>
+				<li><i class="bx bx-chevron-right"></i> <a href="{{route('explorer.frontend')}}">Explorer</a></li>
+				<li><i class="bx bx-chevron-right"></i> <a href="{{route('gallery.frontend')}}">Gallery</a></li>
+				<li><i class="bx bx-chevron-right"></i> <a href="{{route('berita.frontend')}}">Berita</a></li>
 				</ul>
 			</div>
 
@@ -201,7 +197,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
             })
     </script>
 @endif
-{{-- @if (session("error"))
+@if (session("error"))
     <script>
             $(document).Toasts('create', {
                 class: 'bg-danger',
@@ -209,7 +205,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                 body: '{{session("error")}}'
             })
     </script>
-@endif --}}
+@endif
 
 @if ($errors->any())
     @php
@@ -222,13 +218,13 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         @endphp
     @endforeach
 
-    {{-- <script>
+    <script>
         $(document).Toasts('create', {
             class: 'bg-danger',
             title: 'Error',
             body: '{{$message}}'
         })
-    </script> --}}
+    </script>
 
 @endif
 
