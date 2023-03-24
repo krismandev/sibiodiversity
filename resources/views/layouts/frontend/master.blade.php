@@ -203,7 +203,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
             })
     </script>
 @endif
-@if (session("error"))
+{{-- @if (session("error"))
     <script>
             $(document).Toasts('create', {
                 class: 'bg-danger',
@@ -211,7 +211,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                 body: '{{session("error")}}'
             })
     </script>
-@endif
+@endif --}}
 
 @if ($errors->any())
     @php
@@ -224,13 +224,13 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         @endphp
     @endforeach
 
-    <script>
+    {{-- <script>
         $(document).Toasts('create', {
             class: 'bg-danger',
             title: 'Error',
             body: '{{$message}}'
         })
-    </script>
+    </script> --}}
 
 @endif
 

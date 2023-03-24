@@ -34,7 +34,7 @@
         </ul>
     </div>
     @endif
-    @if (session('error'))
+    @if (session()->has('error'))
     <div class="alert alert-danger">
         <ul>
             {{session('error')}}

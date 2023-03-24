@@ -218,7 +218,7 @@ class FrontEndController extends Controller
             // "rantai_dna" =>"nullable|file",
             "lokasi_penyimpanan" =>"nullable",
             "rujukan" =>"nullable",
-        ];
+        ]; 
         $request->validate($fields);
     }
 
