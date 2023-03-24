@@ -224,7 +224,7 @@ class FrontEndController extends Controller
 
     public function explorerStore(Request $request)
     {
-        // $this->customValidate($request);
+        $this->customValidate($request);
         // dd($request->all());
         DB::beginTransaction();
         try {
