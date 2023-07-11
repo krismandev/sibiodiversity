@@ -15,14 +15,14 @@ class VerifikasiController extends Controller
         return view('dashboard.verifikasi.index',compact(['spesieses','title']));
     }
 
-    
+
     public function detail($id)
     {
-      
+
         $title = "Detail Data Pengajuan Spesies Ikan";
         $data_id = decrypt($id);
         $spesies = Spesies::find($data_id);
-  
+
         return view('dashboard.verifikasi.detail',compact(['spesies','title']));
     }
 
@@ -36,6 +36,18 @@ class VerifikasiController extends Controller
 
         return redirect()->route('verifikasi.index')->with('success','Berhasil mengubah data');
 
+    }
+
+    public function delete($id)
+    {
+        try {
+            $id = decrypt($id);
+            $verifikasi = Spesies::find($id);
+            $verifikasi->delete();
+        } catch (\Exception $e) {
+            return back()->with('error',$e->getMessage());
+        }
+        return redirect()->back()->with('success','Berhasil menghapus data');
     }
 
 

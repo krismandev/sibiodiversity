@@ -26,7 +26,6 @@
                   <th>Spesies (Latin)</th>
                   <th>Nama Umum</th>
                   <th>Genus</th>
-                  <th>Deskripsi</th>
                   <th>Gambar</th>
                   <th>Aksi</th>
                 </tr>
@@ -35,16 +34,16 @@
                 @if ($spesieses != null)
                 @foreach ($spesieses as $spesies)
                 <tr>
-                  <td>{{$spesies->nama_latin}}</td>
-                  <td>{{$spesies->nama_umum}}</td>
-                  <td>{{$spesies->genus->nama_latin}}</td>
-                  <td>{!!Str::limit($spesies->deskripsi,200)!!}</td>
+                  <td>{!! $spesies->nama_latin !!}</td>
+                  <td>{!! $spesies->nama_umum !!}</td>
+                  <td>{!! $spesies->genus->nama_latin !!}</td>
                   <td>
-                    <img src="{{$spesies->getImage()}}" alt="" style="max-width: 150px;">
+                    <img src="{{$spesies->getImage()}}" alt="Gambar Spesies" style="max-width: 150px;">
                   </td>
                   <td>
-                      <a class="btn btn-info" href="{{route('verifikasi.detail',encrypt($spesies->id))}}">Detail</a>
-                      <a class="btn btn-success" href="{{route('verifikasi.update',encrypt($spesies->id))}}">Verifikasi</a>
+                      <a class="btn btn-sm btn-danger" href="{{route('verifikasi.delete',encrypt($spesies->id))}}">Hapus</a>
+                      <a class="btn btn-sm btn-info" href="{{route('verifikasi.detail',encrypt($spesies->id))}}">Detail</a>
+                      <a class="btn btn-sm btn-success" href="{{route('verifikasi.update',encrypt($spesies->id))}}">Verifikasi</a>
                   </td>
                 </tr>
                 @endforeach
@@ -62,7 +61,7 @@
 @section("linkfooter")
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript">
-    
+
   $("#data_spesies_reguler").DataTable({
       "responsive": true,
       "autoWidth": false,

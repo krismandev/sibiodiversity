@@ -35,6 +35,7 @@ Route::group(['middleware' => ['auth','cekstatus:0'],'prefix'=>'dashboard'], fun
         Route::get('/','Dashboard\VerifikasiController@index')->name('verifikasi.index');
         Route::get('/detail/{id}','Dashboard\VerifikasiController@detail')->name('verifikasi.detail');
         Route::get('/spesies/{id}','Dashboard\VerifikasiController@update')->name('verifikasi.update');
+        Route::get('/delete/{id}','Dashboard\VerifikasiController@delete')->name('verifikasi.delete');
     });
 
 
