@@ -19,7 +19,7 @@
                 <div class="course-thumb">
                     @if($item->jenis_file == "Gambar")
                     <a href="{{$item->getGallery()}}">
-                        <img  src="{{$item->getGallery()}}" alt="{{asset('assets_frontend/img/course/1.jpg')}}" alt="">
+                        <img  src="{{$item->getGallery()}}" alt="{{asset('assets_frontend/img/course/1.jpg')}}" alt="{!!$item->judul!!}">
                     </a>
                     @else
                     <video controls>

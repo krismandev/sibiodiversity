@@ -49,7 +49,7 @@
                     </video>
                     @endif
                   </td>
-                  <td>{{$g->judul}}</td>
+                  <td>{!!$g->judul!!}</td>
                   <td>{!!Str::limit($g->keterangan,200)!!}</td>
                   <td>
                       <a class="btn btn-warning" href="{{route('gallery.edit',encrypt($g->id))}}">Edit</a>
