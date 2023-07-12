@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\DetailSpesimen;
-use App\Gallery;
+use Str;
 use App\Genus;
-use App\Http\Controllers\Controller;
+use App\Gallery;
 use App\Spesies;
-use App\StatusKonservasi;
 use App\Provinsi;
 use App\Kabupaten;
 use App\Kecamatan;
+use App\DetailSpesimen;
 use App\LokasiPenemuan;
-use Str;
+use App\StatusKonservasi;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use App\DataTables\SpesiesDataTable;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class SpesiesController extends Controller
 {
@@ -58,19 +59,25 @@ class SpesiesController extends Controller
         $request->validate($fields);
     }
 
-    public function index()
+    public function index(SpesiesDataTable $dataTable)
     {
         $title = "Data Spesies Ikan";
-        $spesieses = Spesies::orderBy("nama_latin")->get();
-        foreach ($spesieses as $key => $each) {
-            if ($each->gambar != null) {
-                $spesieses[$key]->gambar = json_decode($each->gambar)[0] ?? "";
-            }else{
-                $spesieses[$key]->gambar = "";
-            }
-        }
-        return view('dashboard.master.spesies.index',compact(['spesieses','title']));
+        return $dataTable->render('dashboard.master.spesies.index2',compact('title'));
     }
+
+    // public function index()
+    // {
+    //     $title = "Data Spesies Ikan";
+    //     $spesieses = Spesies::orderBy("nama_latin")->get();
+    //     foreach ($spesieses as $key => $each) {
+    //         if ($each->gambar != null) {
+    //             $spesieses[$key]->gambar = json_decode($each->gambar)[0] ?? "";
+    //         }else{
+    //             $spesieses[$key]->gambar = "";
+    //         }
+    //     }
+    //     return view('dashboard.master.spesies.index',compact(['spesieses','title']));
+    // }
 
     public function create()
     {
@@ -93,13 +100,13 @@ class SpesiesController extends Controller
                     // $gambar = $request->file('gambar');
                     // dd($gambar);
                     $nama_gambar = time().rand(5,1).".".$gambar->getClientOriginalExtension();
-                    $arr_nama_gambar[] = $nama_gambar; 
+                    $arr_nama_gambar[] = $nama_gambar;
                     // $tujuan_upload = 'spesies';
                     // $gambar->move($tujuan_upload,$nama_gambar);
                     $upload = Storage::putFileAs('public/spesies',$gambar,$nama_gambar);
 
                     Gallery::create([
-                        "user_id"=>auth()->user()->id,  
+                        "user_id"=>auth()->user()->id,
                         "judul" =>$request->nama_latin,
                         "file_gallery" =>$nama_gambar,
                         "jenis_file" =>"Gambar",
@@ -187,13 +194,13 @@ class SpesiesController extends Controller
                     // $gambar = $request->file('gambar');
                     // dd($gambar);
                     $nama_gambar = time().rand(5,1).".".$gambar->getClientOriginalExtension();
-                    $arr_nama_gambar[] = $nama_gambar; 
+                    $arr_nama_gambar[] = $nama_gambar;
                     // $tujuan_upload = 'spesies';
                     // $gambar->move($tujuan_upload,$nama_gambar);
                     $upload = Storage::putFileAs('public/spesies',$gambar,$nama_gambar);
 
                     Gallery::create([
-                        "user_id"=>auth()->user()->id,  
+                        "user_id"=>auth()->user()->id,
                         "judul" =>$request->nama_latin,
                         "file_gallery" =>$nama_gambar,
                         "jenis_file" =>"Gambar",
