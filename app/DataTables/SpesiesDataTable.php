@@ -5,6 +5,7 @@ namespace App\DataTables;
 use App\Spesies;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
+use Illuminate\Support\HtmlString;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
@@ -21,6 +22,20 @@ class SpesiesDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
+            ->editColumn('gambar', function($row){
+                $data = $row->gambar;
+                if($data){
+                    $gambar_spesies= json_decode($data)[0];
+                    $imageUrl = asset('spesies/'.$gambar_spesies);
+                    $imageHtml = '<img src="' . $imageUrl . '" alt="Image" width="100" height="100">';
+                    return new HtmlString($imageHtml);
+                }else{
+                    $imageUrl = asset('asset_dashboard/images/default_fish.png');
+                    $imageHtml = '<img src="' . $imageUrl . '" alt="Image" width="100" height="100">';
+                    return new HtmlString($imageHtml);
+                }
+
+            })
             ->editColumn('nama_latin', function($row){
                 return strip_tags($row->nama_latin);
             })
@@ -85,6 +100,7 @@ class SpesiesDataTable extends DataTable
     {
         return [
             Column::make('DT_RowIndex')->searchable(false)->orderable(false)->title('No')->width(2),
+            Column::make('gambar'),
             Column::make('nama_latin'),
             Column::make('nama_umum'),
             Column::make('genus_id')->title('Genus'),
