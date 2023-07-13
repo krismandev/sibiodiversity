@@ -46,7 +46,6 @@
 <script type="text/javascript">
  $('#spesies-table').on('click','.action-hapus', function(){
         let data = $(this).data()
-
         let id = data.id
             swal({
                 title: "Yakin?",
