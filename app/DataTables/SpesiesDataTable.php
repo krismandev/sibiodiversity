@@ -56,7 +56,7 @@ class SpesiesDataTable extends DataTable
             })
             ->addColumn('action', function($row){
                 $action = '';
-                $action = ' <a href="' .route('explorer.detail',$row->id). '"  data-jenis="detail" class="btn btn-info btn-sm action">View</a>';
+                $action .= ' <a href="' .route('explorer.detail',$row->id). '"  data-jenis="detail" class="btn btn-info btn-sm action">View</a>';
                 $action .= ' <a href="' .route('spesies.edit',encrypt($row->id)). '"  data-jenis="edit" class="btn btn-warning btn-sm action">Edit</a>';
 
                 $action .= ' <a href="#"  data-id='.encrypt($row->id).' data-jenis="hapus" class="btn btn-danger btn-sm action-hapus">Hapus</a>';
