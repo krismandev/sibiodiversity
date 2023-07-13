@@ -74,12 +74,21 @@
                   </div>
                   <div class="form-group">
                     <label for="status">Status</label>
+                    @if(isset($spesies))
                       <select class="form-control" name="status" id="status">
                         <option value="" selected>---Pilih Status---</option>
                         <option value="valid" {{$spesies->status == "valid" ? 'selected' : ''}}>Valid</option>
                         <option value="verified" {{$spesies->status == "verified" ? 'selected' : ''}}>Verified</option>
                         <option value="checking" {{$spesies->status == "checking" ? 'selected' : ''}}>Checking</option>
                       </select>
+                    @else
+                    <select class="form-control" name="status" id="status">
+                        <option value="" selected>---Pilih Status---</option>
+                        <option value="valid">Valid</option>
+                        <option value="verified">Verified</option>
+                        <option value="checking">Checking</option>
+                      </select>
+                     @endif
                   </div>
                   {{-- <div class="form-group">
                     <label for="exampleInputFile">Gambar</label>
