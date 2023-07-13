@@ -85,7 +85,7 @@ class FrontEndController extends Controller
         $page_url = url()->full();
         $data = Spesies::find($id);
         $data->list_gambar = json_decode($data->gambar, true) ?? [];
-        $data->gambar = json_decode($data->gambar, true) ? json_decode($data->gambar,true)[0] : "";
+        $data->gambar = json_decode($data->gambar, true)[0] ?? "";
         $data_spesies = Spesies::latest()->paginate(5);
         foreach ($data_spesies as $key => $each) {
             $data_spesies[$key]->list_gambar = json_decode($each->gambar, true) ?? [];
