@@ -22,28 +22,17 @@ class SpesiesDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->editColumn('gambar', function($row){
+            ->editColumn('gambar', function ($row) {
                 $data = $row->gambar;
-                if($data){
-                    $gambar_spesies= json_decode($data)[0] ?? '';
-                    $imageUrl = asset('storage/spesies/'.$gambar_spesies);
+                $imageUrl = asset('asset_dashboard/images/default_fish.png');
 
-                    if($imageUrl){
-
-                        $imageHtml = '<img src="' . $imageUrl . '" alt="Image" width="100" height="100">';
-                        return new HtmlString($imageHtml);
-                    }else{
-                        $imageUrl = asset('asset_dashboard/images/default_fish.png');
-                        $imageHtml = '<img src="' . $imageUrl . '" alt="Image" width="100" height="100">';
-                        return new HtmlString($imageHtml);
-                    }
-
-                }else{
-                    $imageUrl = asset('asset_dashboard/images/default_fish.png');
-                    $imageHtml = '<img src="' . $imageUrl . '" alt="Image" width="100" height="100">';
-                    return new HtmlString($imageHtml);
+                if ($data) {
+                    $gambar_spesies = json_decode($data)[0] ?? '';
+                    $imageUrl = asset('storage/spesies/' . $gambar_spesies) ?: $imageUrl;
                 }
 
+                $imageHtml = '<img src="' . $imageUrl . '" alt="Image" width="100" height="100">';
+                return new \Illuminate\Support\HtmlString($imageHtml);
             })
             ->editColumn('nama_latin', function($row){
                 return strip_tags($row->nama_latin);
@@ -59,7 +48,7 @@ class SpesiesDataTable extends DataTable
                 $action .= ' <a href="' . route('spesies.edit', encrypt($row->id)) . '" data-jenis="edit" class="btn btn-warning btn-sm action">Edit</a>';
                 $action .= ' <a href="#" data-id="' . encrypt($row->id) . '" data-jenis="hapus" class="btn btn-danger btn-sm action-hapus">Hapus</a>';
 
-                return new HtmlString($action);
+                return new \Illuminate\Support\HtmlString($action);
             })
             ->addIndexColumn()
             ->setRowId('id');
