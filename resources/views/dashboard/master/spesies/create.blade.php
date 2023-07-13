@@ -232,6 +232,7 @@
 <script type="text/javascript">
 $(document).ready(function () {
   CKEDITOR.replace('nama_latin');
+  CKEDITOR.replace('nama_umum');
   $(document).on('click', ".btn-add-row", function(e){
       e.preventDefault();
 

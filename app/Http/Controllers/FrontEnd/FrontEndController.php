@@ -25,6 +25,7 @@ use Config;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
+use App\DataTables\SpesiesFrontEndDataTable;
 
 class FrontEndController extends Controller
 {
@@ -182,10 +183,12 @@ class FrontEndController extends Controller
         return redirect()->route('home.frontend');
     }
 
-    public function explorerIndex()
+    public function explorerIndex(SpesiesFrontEndDataTable $dataTable)
     {
-        $spesieses = Spesies::where('user_id', Auth::user()->id)->orderBy("nama_latin")->get();
-        return view('frontend.member-explorer-index',compact(['spesieses']));
+        // $spesieses = Spesies::where('user_id', Auth::user()->id)->orderBy("nama_latin")->get();
+        // return view('frontend.member-explorer-index',compact(['spesieses']));
+        return $dataTable->render('frontend.member-explorer-index2');
+        
     }
     public function explorerCreate()
     {
@@ -224,46 +227,38 @@ class FrontEndController extends Controller
 
     public function explorerStore(Request $request)
     {
+        // dd($request);
         $this->customValidate($request);
         // dd($request->all());
         DB::beginTransaction();
         try {
-            $nama_latin = trim(strip_tags($request->nama_latin));
+            $arr_nama_gambar = [];
+            if (count($request->gambar) > 0) {
+                foreach ($request->gambar as $gambar) {
+                    // $gambar = $request->file('gambar');
+                    // dd($gambar);
+                    $nama_gambar = time().rand(5,1).".".$gambar->getClientOriginalExtension();
+                    $arr_nama_gambar[] = $nama_gambar;
+                    // $tujuan_upload = 'spesies';
+                    // $gambar->move($tujuan_upload,$nama_gambar);
+                    $upload = Storage::putFileAs('public/spesies',$gambar,$nama_gambar);
 
-            $nama_gambar = null;
-            if ($request->hasFile('gambar')) {
-                $gambar = $request->file('gambar');
-                $nama_gambar = time().rand(5,1).".".$gambar->getClientOriginalExtension();
-                // $tujuan_upload = 'spesies';
-                // $gambar->move($tujuan_upload,$nama_gambar);
-                $upload = Storage::putFileAs('public/spesies',$request->file('gambar'),$nama_gambar);
-            }
-
-            $exist = Spesies::where('nama_latin',$nama_latin)->first();
-            if ($exist) {
-                $arr_nama_gambar = json_decode($exist->gambar) ?? [];
-                if ($nama_gambar != null) {
-                    array_push($arr_nama_gambar,$nama_gambar);
+                    Gallery::create([
+                        "user_id"=>auth()->user()->id,
+                        "judul" =>$request->nama_latin,
+                        "file_gallery" =>$nama_gambar,
+                        "jenis_file" =>"Gambar",
+                    ]);
                 }
-
-                $json_nama_gambar = json_encode($arr_nama_gambar);
-
-                $exist->update([
-                    "gambar"=>$json_nama_gambar
-                ]);
-
-                DB::commit();
-
-                return back()->with('error','Data ikan '.$request->nama_latin.' sudah ada. Gambar yang anda input akan ditambahkan ke gallery');
             }
-
+            $json_nama_gambar = json_encode($arr_nama_gambar);
             $lokasi_penemuan = LokasiPenemuan::create([
                 "nama_lokasi"=>$request->nama_lokasi,
                 "provinsi_id"=>$request->provinsi_id,
                 "kabupaten_id"=>$request->kabupaten_id,
                 "kecamatan_id"=>$request->kecamatan_id,
             ]);
-            
+
             $spesies = Spesies::create([
                 "genus_id" =>$request->genus_id,
                 "nama_latin" =>$request->nama_latin,
@@ -401,6 +396,23 @@ class FrontEndController extends Controller
         }
 
         return redirect()->route('member-explorer.index')->with('success','Berhasil menghapus data');
+    }
+
+    public function deleteGambar($nama_gambar,$id)
+    {
+        $spesies = Spesies::find($id);
+
+        $arr_nama_gambar = json_decode($spesies->gambar) ?? [];
+
+        if (($key = array_search($nama_gambar, $arr_nama_gambar)) !== false) {
+            unset($arr_nama_gambar[$key]);
+        }
+        $json_nama_gambar = json_encode($arr_nama_gambar);
+        $spesies->update([
+            "gambar"=>$json_nama_gambar
+        ]);
+
+        return back()->with('success','Berhasil menghapus gambar');
     }
 
     public function storeToCookie(array $data)

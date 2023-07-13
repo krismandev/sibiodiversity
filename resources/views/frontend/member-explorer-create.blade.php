@@ -119,20 +119,41 @@
                       </select>  
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputFile">Gambar</label>
-                    {{-- <div class="input-group"> --}}
-                      {{-- <div class="custom-file"> --}}
-                        <input type="file" class="form-control" id="exampleInputFile" name="gambar">
-                        {{-- <label class="custom-file-label" for="exampleInputFile">Pilih File</label> --}}
-                        @if (isset($spesies) && $spesies->gambar != null)
-                          <small>Abaikan jika tidak ingin mengubah gambar</small>                            
-                        @endif
-                      {{-- </div> --}}
-                    {{-- </div> --}}
+                    <label for="">Gambar</label>
+                    <div class="col-lg-12">
+                      @if (isset($spesies) && $spesies->gambar != null)
+                        @php
+                            $arr_gambar = json_decode($spesies->gambar);
+                        @endphp
+                        <div class="row">
+                          @foreach ($arr_gambar as $key => $value)
+                          <div class="col-lg-3">
+                            <div class="card">
+                              <i class="fa fa-trash float-right delete-image" data-nama_gambar="{{$value}}" data-spesies_id="{{$spesies->id}}" style="color: red;"></i>
+                              <img src="{{asset('storage/spesies/'.$value)}}" alt="" style="max-height: 80px;">
+                            </div>
+                          </div>
+                          @endforeach
+                        </div>
+                      @else
+                      @include('dashboard.master.spesies.partials.row-gambar')
+                      @endif
+                    </div>
+                    <a title="Add New Row" href="#" class="mt-2 btn-add-row mb-4" data-target="#template-row">
+                      <i data-feather="plus"></i> Tambah Gambar
+                    </a>
+                  </div>
+                  <div class="form-group">
+                    <label for="namaLatin">Kondisi Air</label>
+                    <textarea name="kondisi_air" cols="15" rows="2" class="form-control">{{$spesies->kondisi_air ?? old('kondisi_air')}}</textarea>
                   </div>
                   <div class="form-group">
                     <label for="ciriCiri">Deskripsi</label>
                     <textarea name="deskripsi" cols="30" rows="5" class="form-control ckeditor">{{$spesies->deskripsi ?? ''}}</textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="namaLatin">Etnosains</label>
+                    <textarea name="etnosains" cols="15" rows="2" class="form-control ckeditor">{{$spesies->etnosains ?? old('etnosains')}}</textarea>
                   </div>
                 </div>
                 <div class="card-header">
@@ -192,18 +213,6 @@
                     <label for="namaLatin">Kolektor</label>
                     <input type="text" class="form-control" name="kolektor" value="{{$spesies->detail_spesimen->kolektor ?? ''}}"> 
                   </div>
-                  {{-- <div class="form-group">
-                    <label for="exampleInputFile">Rantai DNA</label>
-                     <div class="input-group"> 
-                       <div class="custom-file"> 
-                        <input type="file" class="form-control" id="exampleInputFile" name="rantai_dna">
-                         <label class="custom-file-label" for="exampleInputFile">Pilih File</label> 
-                        @if (isset($spesies) && $spesies->detail_spesimen->rantai_dna != null)
-                          <small>Abaikan jika tidak ingin mengubah file rantai dna</small>                            
-                        @endif
-                       </div> 
-                     </div> 
-                  </div> --}}
                   <div class="form-group">
                     <label for="lokasi_penemuan">Lokasi Penyimpanan</label>
                     <input type="text" class="form-control" placeholder="" name="lokasi_penyimpanan" value="{{$spesies->detail_spesimen->lokasi_penyimpanan ?? ''}}">
@@ -224,12 +233,60 @@
       <!-- /.card -->
     </div>
     </div>
-    
+   
 </section>
+<template id="template-row">
+  @include('dashboard.master.spesies.partials.row-gambar')
+</template>
 <!-- Courses section end-->
 @endsection
 @section("linkfooter")
 @include('frontend.js.wilayah-js')
 {{-- <script src="{{asset('js/wilayah.js')}}"></script> --}}
 <script src="{{asset('asset_dashboard/plugins/ckeditor/ckeditor.js')}}"></script>
+<script type="text/javascript">
+  $(document).ready(function () {
+    CKEDITOR.replace('nama_latin');
+    $(document).on('click', ".btn-add-row", function(e){
+        e.preventDefault();
+  
+        targetClone = $(this).closest('.form-group').find('.col-lg-12 .row:last-child');
+        target = $(this).attr('data-target');
+        cln = $(target).html();
+  
+        targetClone.after(cln);
+        $(".bs-tooltip").tooltip();
+    });
+  
+    $(document).on('click', '.btn-remove-row', function(e){
+      e.preventDefault();
+      if($(this).closest('.col-lg-12').find('.row').length > 1){
+        $(this).tooltip('hide');
+        $(this).closest('.row').remove();
+      }
+      else{
+        $(this).closest('.row').find('input').val('');
+        $(this).closest('.row').find('input:first').focus();
+      }
+    });
+  
+    $(".delete-image").click(function (e) {
+      let nama_gambar = $(this).data("nama_gambar");
+      let spesies_id = $(this).data("spesies_id");
+      e.preventDefault();
+      swal({
+            title: "Yakin?",
+            text: "Mau menghapus gambar ini?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                window.location = "/member/gambar/delete/"+nama_gambar+"/"+spesies_id;
+            }
+        });
+    });
+  });
+  </script>
 @endsection
