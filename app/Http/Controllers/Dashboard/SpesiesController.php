@@ -90,6 +90,7 @@ class SpesiesController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request);
         $this->customValidate($request);
         // dd($request->all());
         DB::beginTransaction();

@@ -53,7 +53,7 @@
                     <select class="form-control" name="status_konservasi_id">
                       <option disabled selected>Pilih Status Konservasi</option>
                       @if(isset($spesies))
-                      <option value="{{$spesies->status_konservasi_id}}" selected>{{$spesies->status_konservasi->status_konservasi}}</option>
+                      <option value="{{$spesies->status_konservasi_id}}" selected>{{$spesies->status_konservasi->status_konservasi ?? ''}}</option>
                       @endif
                       @foreach ($status_konservasis as $status)
                       <option value="{{$status->id}}">{{$status->status_konservasi}}</option>
@@ -76,9 +76,9 @@
                     <label for="status">Status</label>
                       <select class="form-control" name="status" id="status">
                         <option value="" selected>---Pilih Status---</option>
-                        <option value="valid">Valid</option>
-                        <option value="verified">Verified</option>
-                        <option value="checking">Checking</option>
+                        <option value="valid" {{$spesies->status == "valid" ? 'selected' : ''}}>Valid</option>
+                        <option value="verified" {{$spesies->status == "verified" ? 'selected' : ''}}>Verified</option>
+                        <option value="checking" {{$spesies->status == "checking" ? 'selected' : ''}}>Checking</option>
                       </select>
                   </div>
                   {{-- <div class="form-group">
@@ -107,10 +107,10 @@
                           </div>
                           {{-- <div class="row mt-2">
                             <div class="col-lg-4">
-                                <input type="text" class="form-control" placeholder="Dimensi Ukuran. Cth: Panjang, Berat, Lebar" name="key_ukuran[]" value="{{$key}}"> 
+                                <input type="text" class="form-control" placeholder="Dimensi Ukuran. Cth: Panjang, Berat, Lebar" name="key_ukuran[]" value="{{$key}}">
                             </div>
                             <div class="col-lg-6">
-                                <input type="text" class="form-control" placeholder="Nilai" name="value_ukuran[]" value="{{$value}}"> 
+                                <input type="text" class="form-control" placeholder="Nilai" name="value_ukuran[]" value="{{$value}}">
                             </div>
                             <div class="col-lg-2">
                                 <a href="#" style="color: red;" class="btn-remove-row">Hapus</a>
@@ -119,7 +119,7 @@
 
                           @endforeach
                         </div>
-                      @else 
+                      @else
                       @include('dashboard.master.spesies.partials.row-gambar')
                       @endif
                     </div>
@@ -247,7 +247,7 @@ $(document).ready(function () {
 		}
   });
 
-  $(".delete-image").click(function (e) { 
+  $(".delete-image").click(function (e) {
     let nama_gambar = $(this).data("nama_gambar");
     let spesies_id = $(this).data("spesies_id");
     e.preventDefault();
