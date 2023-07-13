@@ -28,7 +28,7 @@ class SpesiesDataTable extends DataTable
 
                 if ($data) {
                     $gambar_spesies = json_decode($data)[0] ?? '';
-                    $imageUrl = asset('storage/spesies/' . $gambar_spesies) ?: $imageUrl;
+                    $imageUrl = asset('storage/spesies/' . $gambar_spesies) ?? $imageUrl;
                 }
 
                 $imageHtml = '<img src="' . $imageUrl . '" alt="Image" width="100" height="100">';
