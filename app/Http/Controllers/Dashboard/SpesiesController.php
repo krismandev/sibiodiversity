@@ -187,9 +187,9 @@ class SpesiesController extends Controller
             $id = decrypt($request->spesies_id);
             $spesies = Spesies::find($id);
             $detail_spesimen = DetailSpesimen::find($request->detail_spesimen_id);
-            $nama_gambar_old = json_decode($spesies->gambar) ?? [];
+            $nama_gambar_old = json_decode($spesies->gambar, true) ?? [];
 
-            $arr_nama_gambar = json_decode($spesies->gambar) ?? [];
+            $arr_nama_gambar = json_decode($spesies->gambar, true) ?? [];
             if (count($request->gambar) > 0) {
                 foreach ($request->gambar as $gambar) {
                     // $gambar = $request->file('gambar');
