@@ -25,8 +25,9 @@ class SpesiesDataTable extends DataTable
             ->editColumn('gambar', function($row){
                 $data = $row->gambar;
                 if($data){
-                    $gambar_spesies= json_decode($data)[0];
+                    $gambar_spesies= json_decode($data)[0] ?? '';
                     $imageUrl = asset('storage/spesies/'.$gambar_spesies);
+
                     if($imageUrl){
 
                         $imageHtml = '<img src="' . $imageUrl . '" alt="Image" width="100" height="100">';
