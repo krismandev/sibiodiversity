@@ -74,8 +74,8 @@ class FrontEndController extends Controller
 
         $data_spesies = $data_spesies->paginate(12);
         foreach ($data_spesies as $key => $each) {
-            $data_spesies[$key]->list_gambar = json_decode($each->gambar) ?? [];
-            $data_spesies[$key]->gambar = json_decode($each->gambar)[0] ?? "";
+            $data_spesies[$key]->list_gambar = json_decode($each->gambar, true) ?? [];
+            $data_spesies[$key]->gambar = json_decode($each->gambar, true)[0] ?? "";
         }
         return view('frontend.explorer', compact(['data_spesies']));
     }
@@ -84,12 +84,12 @@ class FrontEndController extends Controller
     {
         $page_url = url()->full();
         $data = Spesies::find($id);
-        $data->list_gambar = json_decode($data->gambar) ?? [];
-        $data->gambar = json_decode($data->gambar) ? json_decode($data->gambar)[0] : "";
+        $data->list_gambar = json_decode($data->gambar, true) ?? [];
+        $data->gambar = json_decode($data->gambar, true) ? json_decode($data->gambar,true)[0] : "";
         $data_spesies = Spesies::latest()->paginate(5);
         foreach ($data_spesies as $key => $each) {
-            $data_spesies[$key]->list_gambar = json_decode($each->gambar) ?? [];
-            $data_spesies[$key]->gambar = json_decode($each->gambar)[0] ?? "";
+            $data_spesies[$key]->list_gambar = json_decode($each->gambar, true) ?? [];
+            $data_spesies[$key]->gambar = json_decode($each->gambar, true)[0] ?? "";
         }
         $next = $data->next();
         $previous = $data->previous();
