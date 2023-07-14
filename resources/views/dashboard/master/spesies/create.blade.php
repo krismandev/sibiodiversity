@@ -13,16 +13,6 @@
         <div class="card-header">
           <h5>Data Spesies</h5>
         </div>
-        @if(session("error"))
-
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
         <div class="card-body p-0">
             <form role="form" action="{{isset($spesies) ? route('spesies.update') : route('spesies.store')}}" method="post" enctype="multipart/form-data">
 

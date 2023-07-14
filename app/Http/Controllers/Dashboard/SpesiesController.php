@@ -37,6 +37,41 @@ class SpesiesController extends Controller
 
     public function customValidate($request){
 
+       
+
+    }
+
+    public function index(SpesiesDataTable $dataTable)
+    {
+        $title = "Data Spesies Ikan";
+        return $dataTable->render('dashboard.master.spesies.index2',compact('title'));
+    }
+
+    // public function index()
+    // {
+    //     $title = "Data Spesies Ikan";
+    //     $spesieses = Spesies::orderBy("nama_latin")->get();
+    //     foreach ($spesieses as $key => $each) {
+    //         if ($each->gambar != null) {
+    //             $spesieses[$key]->gambar = json_decode($each->gambar)[0] ?? "";
+    //         }else{
+    //             $spesieses[$key]->gambar = "";
+    //         }
+    //     }
+    //     return view('dashboard.master.spesies.index',compact(['spesieses','title']));
+    // }
+
+    public function create()
+    {
+        $title = "Tambah Spesies Ikan Baru";
+        $genuses = Genus::orderBy("nama_latin")->get();
+        $status_konservasis = StatusKonservasi::all();
+        $provinsi = Provinsi::all();
+        return view('dashboard.master.spesies.create',compact(['title','genuses','status_konservasis','provinsi']));
+    }
+
+    public function store(Request $request)
+    {
         $fields = [
             //spesies
             "nama_latin" =>"required",
@@ -86,46 +121,11 @@ class SpesiesController extends Controller
         try {
             $request->validate($fields, $customMessages);
         } catch (ValidationException $e) {
-            $errors = $e->validator->messages()->all();
-            // dd($errors);
+            // $errors = $e->validator->messages()->all()[0];
+            $errors = implode(" ",$e->validator->messages()->all());
             return redirect()->back()->with('error',$errors);
         }
-
-    }
-
-    public function index(SpesiesDataTable $dataTable)
-    {
-        $title = "Data Spesies Ikan";
-        return $dataTable->render('dashboard.master.spesies.index2',compact('title'));
-    }
-
-    // public function index()
-    // {
-    //     $title = "Data Spesies Ikan";
-    //     $spesieses = Spesies::orderBy("nama_latin")->get();
-    //     foreach ($spesieses as $key => $each) {
-    //         if ($each->gambar != null) {
-    //             $spesieses[$key]->gambar = json_decode($each->gambar)[0] ?? "";
-    //         }else{
-    //             $spesieses[$key]->gambar = "";
-    //         }
-    //     }
-    //     return view('dashboard.master.spesies.index',compact(['spesieses','title']));
-    // }
-
-    public function create()
-    {
-        $title = "Tambah Spesies Ikan Baru";
-        $genuses = Genus::orderBy("nama_latin")->get();
-        $status_konservasis = StatusKonservasi::all();
-        $provinsi = Provinsi::all();
-        return view('dashboard.master.spesies.create',compact(['title','genuses','status_konservasis','provinsi']));
-    }
-
-    public function store(Request $request)
-    {
-        $this->customValidate($request);
-        // dd($request->all());
+        
         DB::beginTransaction();
         try {
             $arr_nama_gambar = [];
