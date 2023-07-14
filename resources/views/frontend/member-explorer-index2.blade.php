@@ -57,7 +57,7 @@
  $('#spesies-table').on('click','.action-hapus', function(){
     let data = $(this).data()
     let id = data.id
-        
+       
     swal({
           title: "Yakin?",
           text: "Mau menghapus data ini?",
@@ -67,7 +67,7 @@
       })
       .then((willDelete) => {
           if (willDelete) {
-              window.location = "/member/delete/"+spesies_id;
+              window.location = "/member/delete/"+id;
               $('#spesies-table').DataTable().ajax.reload();
           }
       });

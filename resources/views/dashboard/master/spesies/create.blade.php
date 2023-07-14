@@ -6,14 +6,26 @@
 @endsection
 @section("title","Spesies")
 @section("content")
+
 <div class="row">
     <div class="col-12">
       <div class="card">
         <div class="card-header">
           <h5>Data Spesies</h5>
         </div>
+        @if(session("error"))
+
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <div class="card-body p-0">
             <form role="form" action="{{isset($spesies) ? route('spesies.update') : route('spesies.store')}}" method="post" enctype="multipart/form-data">
+
                 @if(isset($spesies))
                   @csrf
                   @method("PATCH")
@@ -168,7 +180,7 @@
                     <select class="form-control" name="provinsi_id" id="provinsi">
                         <option disabled selected>---Pilih Provinsi---</option>
                         @if(isset($spesies->detail_spesimen->lokasi_penemuan->provinsi_id))
-                          <option value="{{$spesies->detail_spesimen->lokasi_penemuan->provinsi_id}}">{{$spesies->detail_spesimen->lokasi_penemuan->provinsi->nama_provinsi}}</option>
+                          <option value="{{$spesies->detail_spesimen->lokasi_penemuan->provinsi_id}}" >{{$spesies->detail_spesimen->lokasi_penemuan->provinsi->nama_provinsi}}</option>
                         @endif
                         @foreach($provinsi as $data_provinsi)
                         <option value="{{$data_provinsi->id}}">{{$data_provinsi->nama_provinsi}}</option>
@@ -236,7 +248,6 @@ $(document).ready(function () {
   $(document).on('click', ".btn-add-row", function(e){
       e.preventDefault();
 
-
       targetClone = $(this).closest('.form-group').find('.col-lg-12 .row:last-child');
       target = $(this).attr('data-target');
       cln = $(target).html();
@@ -256,6 +267,8 @@ $(document).ready(function () {
 			$(this).closest('.row').find('input:first').focus();
 		}
   });
+
+
 
   $(".delete-image").click(function (e) {
     let nama_gambar = $(this).data("nama_gambar");

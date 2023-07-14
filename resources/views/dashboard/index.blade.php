@@ -34,7 +34,7 @@
                         <h5>Spesies</h5>
                       </div>
                       <div class="card-body">
-                        1{{$spesies}} Data
+                        {{$spesies}} Data
                       </div>
                     </div>
                   </div>

@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\DB;
 use App\DataTables\SpesiesDataTable;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\ValidationException;
 
 class SpesiesController extends Controller
 {
@@ -34,29 +35,62 @@ class SpesiesController extends Controller
     }
 
 
-    public function customValidate($request)
-    {
+    public function customValidate($request){
+
         $fields = [
+            //spesies
             "nama_latin" =>"required",
             "nama_umum" =>"required",
+            "genus_id" =>"required",
             "meristik" =>"nullable",
-            "status_konservasi_id" =>"nullable",
-            "deskripsi" =>"nullable",
+            "status_konservasi_id" =>"required",
             "potensi" =>"nullable",
             "keaslian_jenis" =>"nullable",
             "distribusi_global" =>"nullable",
-            // "gambar" =>"nullable|file|mimes:jpg,jpeg,png,gif",
-            "genus_id" =>"required",
-            // "provinsi_id" =>"required",
-            // "kabupaten_id" =>"required",
-            // "kecamatan_id" =>"required",
-            // "nama_lokasi" =>"required",
-            // "kolektor" =>"required",
-            "rantai_dna" =>"nullable|file",
-            "lokasi_penyimpanan" =>"nullable",
+            "deskripsi" =>"nullable",
             "rujukan" =>"nullable",
+            "gambar" =>"required|file|mimes:jpg,jpeg,png,gif,heic",
+            "status" =>"required",
+            "kondisi_air" =>"nullable",
+            "etnosains" =>"nullable",
+
+            //detail
+            "kd_spesimen" =>"required",
+            "kolektor" =>"nullable",
+            "lokasi_penyimpanan" =>"nullable",
+            // "rantai_dna" =>"nullable",
+            "tanggal_penemuan" =>"nullable",
+
+            //lokasi
+            "nama_lokasi" =>"required",
+            "provinsi_id" =>"required",
+            "kabupaten_id" =>"required",
+            "kecamatan_id" =>"required",
+
         ];
-        $request->validate($fields);
+
+
+        $customMessages = [
+            "nama_latin.required" => "Kolom Nama Latin harus diisi.",
+            "nama_umum.required" => "Kolom Nama Umum harus diisi.",
+            "genus_id.required" => "Silahkan Pilih Salah Satu Genus.",
+            "status_konservasi_id.required" => "Silahkan Pilih Salah Satu Status Konservasi.",
+            "status.required" => "Silahkan Pilih Salah Satu Status.",
+            "kd_spesimen.required" => "Kolom Kode Spesimen harus diisi.",
+            "nama_lokasi.required" => "Kolom Nama Lokasi harus diisi.",
+            "provinsi_id.required" => "Silahkan Pilih Salah Satu Provinsi.",
+            "kabupaten_id.required" => "Silahkan Pilih Salah Satu Kabupaten.",
+            "kecamatan_id.required" => "Silahkan Pilih Salah Satu Kecamatan.",
+        ];
+
+        try {
+            $request->validate($fields, $customMessages);
+        } catch (ValidationException $e) {
+            $errors = $e->validator->messages()->all();
+            // dd($errors);
+            return redirect()->back()->with('error',$errors);
+        }
+
     }
 
     public function index(SpesiesDataTable $dataTable)
@@ -90,7 +124,6 @@ class SpesiesController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request);
         $this->customValidate($request);
         // dd($request->all());
         DB::beginTransaction();
@@ -159,13 +192,14 @@ class SpesiesController extends Controller
                 // "rantai_dna"=> $nama_rantai_dna ?? null,
                 "tanggal_penemuan"=>$request->tanggal_penemuan
             ]);
+            DB::commit();
+            return redirect()->route('spesies.index')->with('success','Berhasil menambah data');
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->with('error',$e->getMessage());
         }
-        DB::commit();
 
-        return redirect()->route('spesies.index')->with('success','Berhasil menambah data');
+
     }
 
     public function edit($id)

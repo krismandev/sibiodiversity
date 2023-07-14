@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use App\DataTables\SpesiesFrontEndDataTable;
+use Illuminate\Validation\ValidationException;
 
 class FrontEndController extends Controller
 {
@@ -201,34 +202,52 @@ class FrontEndController extends Controller
     public function customValidate($request)
     {
         $fields = [
+            //spesies
             "nama_latin" =>"required",
             "nama_umum" =>"required",
-            "meristik" =>"nullable",
-            "status_konservasi_id" =>"required",
-            "deskripsi" =>"nullable",
-            "potensi" =>"nullable",
-            "keaslian_jenis" =>"nullable",
-            "distribusi_global" =>"nullable",
-            "kondisi_air"=>"nullable",
-            "etnosains"=>"nullable",
-            "gambar" =>"nullable|file|mimes:jpg,jpeg,png,gif",
             "genus_id" =>"required",
+            "status_konservasi_id" =>"required",
+            "gambar" =>"required|file|mimes:jpg,jpeg,png,gif,heic",
+
+            //detail
+            "kd_spesimen" =>"required",
+
+            //lokasi
+            "nama_lokasi" =>"required",
             "provinsi_id" =>"required",
             "kabupaten_id" =>"required",
             "kecamatan_id" =>"required",
-            "nama_lokasi" =>"required",
-            "kolektor" =>"required",
-            // "rantai_dna" =>"nullable|file",
-            "lokasi_penyimpanan" =>"nullable",
-            "rujukan" =>"nullable",
-        ]; 
-        $request->validate($fields);
+
+        ];
+
+
+        $customMessages = [
+            "nama_latin.required" => "Kolom Nama Latin harus diisi.",
+            "nama_umum.required" => "Kolom Nama Umum harus diisi.",
+            "genus_id.required" => "Silahkan Pilih Salah Satu Genus.",
+            "status_konservasi_id.required" => "Silahkan Pilih Salah Satu Status Konservasi.",
+            "status.required" => "Silahkan Pilih Salah Satu Status.",
+            "kd_spesimen.required" => "Kolom Kode Spesimen harus diisi.",
+            "nama_lokasi.required" => "Kolom Nama Lokasi harus diisi.",
+            "provinsi_id.required" => "Silahkan Pilih Salah Satu Provinsi.",
+            "kabupaten_id.required" => "Silahkan Pilih Salah Satu Kabupaten.",
+            "kecamatan_id.required" => "Silahkan Pilih Salah Satu Kecamatan.",
+        ];
+
+        try {
+            $request->validate($fields, $customMessages);
+        } catch (ValidationException $e) {
+            $errors = $e->validator->messages()->all();
+            // dd($errors);
+            return redirect()->back()->with('error',$errors);
+        }
     }
 
     public function explorerStore(Request $request)
     {
-        // dd($request);
+        
         $this->customValidate($request);
+        // dd($request);
         // dd($request->all());
         DB::beginTransaction();
         try {
@@ -269,22 +288,22 @@ class FrontEndController extends Controller
                 "potensi" =>$request->potensi,
                 "keaslian_jenis" =>$request->keaslian_jenis,
                 "distribusi_global" => $request->distribusi_global,
-                "gambar" =>$nama_gambar,
+                "gambar" =>$json_nama_gambar,
                 "user_id"=>auth()->user()->id,
-                "status"=>$request->status,
                 "is_approved"=>0,
                 "rujukan"=>$request->rujukan,
                 "kondisi_air"=>$request->kondisi_air,
                 "etnosains"=>$request->etnosains,
+                "status"=>'checking',
             ]);
 
-            if ($request->hasFile('rantai_dna')) {
-                $rantai_dna = $request->file('rantai_dna');
-                $nama_rantai_dna = time()."_".$rantai_dna->getClientOriginalName();
-                // $tujuan_upload = 'spesies/rantai_dna';
-                // $rantai_dna->move($tujuan_upload,$nama_rantai_dna);
-                $upload = Storage::putFileAs('public/rantai_dna',$request->file('gambar'),$nama_rantai_dna);
-            }
+            // if ($request->hasFile('rantai_dna')) {
+            //     $rantai_dna = $request->file('rantai_dna');
+            //     $nama_rantai_dna = time()."_".$rantai_dna->getClientOriginalName();
+            //     // $tujuan_upload = 'spesies/rantai_dna';
+            //     // $rantai_dna->move($tujuan_upload,$nama_rantai_dna);
+            //     $upload = Storage::putFileAs('public/rantai_dna',$request->file('gambar'),$nama_rantai_dna);
+            // }
 
             $detail_spesies = DetailSpesimen::create([
                 "spesies_id"=>$spesies->id,
@@ -295,13 +314,13 @@ class FrontEndController extends Controller
                 // "rantai_dna"=> $nama_rantai_dna ?? null,
                 "tanggal_penemuan"=>$request->tanggal_penemuan
             ]);
+            DB::commit();
+            return redirect()->route('member-explorer.index')->with('success','Berhasil menambah data');
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->with('error',$e->getMessage());
         }
-        DB::commit();
-
-        return redirect()->route('member-explorer.index')->with('success','Berhasil menambah data');
+       
     }
 
     public function explorerEdit($id)
@@ -323,15 +342,29 @@ class FrontEndController extends Controller
             $id = decrypt($request->spesies_id);
             $spesies = Spesies::find($id);
             $detail_spesimen = DetailSpesimen::find($request->detail_spesimen_id);
+            $nama_gambar_old = json_decode($spesies->gambar, true) ?? [];
 
-            $nama_gambar = null;
-            if ($request->hasFile('gambar')) {
-                $gambar = $request->file('gambar');
-                $nama_gambar = time()."_".$gambar->getClientOriginalExtension();
-                // $tujuan_upload = 'spesies';
-                // $gambar->move($tujuan_upload,$nama_gambar);
-                $upload = Storage::putFileAs('public/spesies',$request->file('gambar'),$nama_gambar);
+            $arr_nama_gambar = json_decode($spesies->gambar, true) ?? [];
+            if (count($request->gambar) > 0) {
+                foreach ($request->gambar as $gambar) {
+                    // $gambar = $request->file('gambar');
+                    // dd($gambar);
+                    $nama_gambar = time().rand(5,1).".".$gambar->getClientOriginalExtension();
+                    $arr_nama_gambar[] = $nama_gambar;
+                    // $tujuan_upload = 'spesies';
+                    // $gambar->move($tujuan_upload,$nama_gambar);
+                    $upload = Storage::putFileAs('public/spesies',$gambar,$nama_gambar);
+
+                    Gallery::create([
+                        "user_id"=>auth()->user()->id,
+                        "judul" =>$request->nama_latin,
+                        "file_gallery" =>$nama_gambar,
+                        "jenis_file" =>"Gambar",
+                    ]);
+                }
             }
+            $merge_nama_gambar = array_merge($nama_gambar_old,$arr_nama_gambar);
+            $json_nama_gambar = json_encode($merge_nama_gambar);
 
             $lokasi_penemuan = $detail_spesimen->lokasi_penemuan;
 
@@ -352,19 +385,18 @@ class FrontEndController extends Controller
                 "potensi" =>$request->potensi,
                 "keaslian_jenis" =>$request->keaslian_jenis,
                 "distribusi_global" => $request->distribusi_global,
-                "gambar" =>$nama_gambar,
+                "gambar" =>$json_nama_gambar,
                 "user_id"=>auth()->user()->id,
-                "status"=>$request->status,
                 "rujukan"=>$request->rujukan,
             ]);
 
-            if ($request->hasFile('rantai_dna')) {
-                $rantai_dna = $request->file('rantai_dna');
-                $nama_rantai_dna = time()."_".$rantai_dna->getClientOriginalName();
-                // $tujuan_upload = 'spesies/rantai_dna';
-                // $rantai_dna->move($tujuan_upload,$nama_rantai_dna);
-                $upload = Storage::putFileAs('public/rantai_dna',$request->file('gambar'),$nama_rantai_dna);
-            }
+            // if ($request->hasFile('rantai_dna')) {
+            //     $rantai_dna = $request->file('rantai_dna');
+            //     $nama_rantai_dna = time()."_".$rantai_dna->getClientOriginalName();
+            //     // $tujuan_upload = 'spesies/rantai_dna';
+            //     // $rantai_dna->move($tujuan_upload,$nama_rantai_dna);
+            //     $upload = Storage::putFileAs('public/rantai_dna',$request->file('gambar'),$nama_rantai_dna);
+            // }
 
             $detail_spesimen->update([
                 "spesies_id"=>$spesies->id,
@@ -372,21 +404,23 @@ class FrontEndController extends Controller
                 "lokasi_penemuan_id"=>$lokasi_penemuan->id,
                 "kolektor"=>$request->kolektor,
                 "lokasi_penyimpanan"=>$request->lokasi_penyimpanan,
-                "rantai_dna"=> $nama_rantai_dna ?? null,
+                // "rantai_dna"=> $nama_rantai_dna ?? null,
                 "tanggal_penemuan"=>$request->tanggal_penemuan
             ]);
             DB::commit();
+            return redirect()->route('member-explorer.index')->with('success','Berhasil mengubah data');
         } catch (\Exception $e){
             DB::rollBack();
             return back()->with('error',$e->getMessage());
         }
 
-        return redirect()->route('member-explorer.index')->with('success','Berhasil mengubah data');
+     
 
     }
 
     public function explorerDelete($id)
     {
+        // dd("ok");
         try {
             $id = decrypt($id);
             $spesies = Spesies::find($id);

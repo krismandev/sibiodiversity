@@ -42,18 +42,31 @@ class SpesiesFrontEndDataTable extends DataTable
                 return strip_tags($row->nama_umum);
             })
             ->editColumn('status', function($row) {
-                if ($row->status == 'checking') {
-                    return '<span class="badge badge-warning">' . $row->status . '</span>';
-                } elseif ($row->status == 'verified') {
-                    return '<span class="badge badge-info">' . $row->status . '</span>';
-                } elseif ($row->status == 'valid') {
-                    return '<span class="badge badge-success">' . $row->status . '</span>';
+                $badgeClass = '';
+                switch ($row->status) {
+                    case 'checking':
+                        $badgeClass = 'badge-warning';
+                        break;
+                    case 'verified':
+                        $badgeClass = 'badge-info';
+                        break;
+                    case 'valid':
+                        $badgeClass = 'badge-success';
+                        break;
+                    default:
+                        $badgeClass = '';
+                        break;
+                }
+            
+                if (!empty($badgeClass)) {
+                    return '<span class="badge ' . $badgeClass . '">' . $row->status . '</span>';
                 } else {
                     return '-';
                 }
             })
+            ->rawColumns(['status'])
             ->addColumn('action', function ($row) {
-                $action = ' <a href="' . route('member-explorer', encrypt($row->id)) . '" data-jenis="edit" class="btn btn-warning btn-sm action">Edit</a>';
+                $action = ' <a href="' . route('member-explorer.edit', encrypt($row->id)) . '" data-jenis="edit" class="btn btn-warning btn-sm action">Edit</a>';
                 $action .= ' <a href="#" data-id="' . encrypt($row->id) . '" data-jenis="hapus" class="btn btn-danger btn-sm action-hapus">Hapus</a>';
 
                 return new \Illuminate\Support\HtmlString($action);
