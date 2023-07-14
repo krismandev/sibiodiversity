@@ -14,6 +14,7 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
+        // \Illuminate\Session\Middleware\StartSession::class,
         \App\Http\Middleware\TrustProxies::class,
         \Fruitcake\Cors\HandleCors::class,
         \App\Http\Middleware\CheckForMaintenanceMode::class,
@@ -22,6 +23,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \Illuminate\Session\Middleware\StartSession::class, // Karena kita menggunakan Session, maka tambahkan Middleware ini
         // \App\Http\Middleware\LocalizationMiddleware::class, // Middleware untuk Cek Bahasa
+        \Illuminate\View\Middleware\ShareErrorsFromSession::class,
     ];
 
     /**
@@ -33,9 +35,6 @@ class Kernel extends HttpKernel
         'web' => [
             \App\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-            \Illuminate\Session\Middleware\StartSession::class,
-            // \Illuminate\Session\Middleware\AuthenticateSession::class,
-            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             // \App\Http\Middleware\Language::class,
