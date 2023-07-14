@@ -11,6 +11,8 @@
 
 	<!-- Google Fonts -->
 	<link href="https://fonts.googleapis.com/css?family=Rubik:400,400i,500,500i,700,700i" rel="stylesheet">
+	<link rel="stylesheet" href="{{asset('asset_dashboard/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
+
 
 	<!-- Stylesheets -->
 	<link rel="stylesheet" href="{{asset('assets_frontend/css/bootstrap.min.css')}}"/>
@@ -31,7 +33,11 @@
 	<!--[if lt IE 9]>
 	  <script src="{{asset('assets_frontend/https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js')}}"></script>
 	  <script src="{{asset('assets_frontend/https://oss.maxcdn.com/respond/1.4.2/respond.min.js')}}"></script>
+
 	<![endif]-->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 
 </head>
 <body>
@@ -180,13 +186,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<script src="{{asset('assets_frontend/js/magnific-popup.min.js')}}"></script>
 	<script src="{{asset('assets_frontend/js/main.js')}}"></script>
 	<script src="{{asset('frontend/js/jquery.fancybox.min.js')}}"></script>
-	<script src="{{asset('asset_dashboard/plugins/sweetalert2/sweetalert2.min.js')}}"></script>
-<script src="{{asset('asset_dashboard/plugins/toastr/toastr.min.js')}}"></script>
-
-<script src="{{asset('asset_dashboard/plugins/datatables/jquery.dataTables.min.js')}}"></script>
-<script src="{{asset('asset_dashboard/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
-<script src="{{asset('asset_dashboard/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
-<script src="{{asset('asset_dashboard/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+	<script src="{{asset('asset_dashboard/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 {{-- <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script> --}}
 <script src="{{asset('js/jquery.fancybox.min.js')}}"></script>

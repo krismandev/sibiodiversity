@@ -34,7 +34,7 @@
             </li>
             <li class="nav-item">
             <a href="{{route('verifikasi.index')}}" class="nav-link {{(request()->is('verifikasi*'))?'active': ''}}">
-                <i class="nav-icon fa fa-home"></i>
+                <i class="nav-icon fa fa-check"></i>
                 <p>
                 Butuh Verifikasi
                 </p>
@@ -92,7 +92,7 @@
                 </li>
               </ul>
           </li>
-          
+
             <li class="nav-item">
             <a href="{{route('gallery.index')}}" class="nav-link {{(request()->is('dashboard/gallery*'))?'active': ''}}">
                 <i class="nav-icon fa fa-video-camera"></i>
@@ -137,7 +137,7 @@
                   </a>
                 </li>
               </ul>
-              
+
           </li>
             <li class="nav-item">
                 <a href="{{route('logout')}}" class="nav-link">

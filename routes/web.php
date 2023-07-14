@@ -129,6 +129,7 @@ Route::group(['middleware' => ['auth','cekstatus:1']], function(){
         Route::get('/{id}','FrontEnd\FrontEndController@explorerEdit')->name('member-explorer.edit');
         Route::patch('/','FrontEnd\FrontEndController@explorerUpdate')->name('member-explorer.update');
         Route::get('/delete/{id}','FrontEnd\FrontEndController@explorerDelete')->name('member-explorer.delete');
+        Route::get('/gambar/delete/{nama_gambar}/{id}','FrontEnd\FrontEndController@deleteGambar')->name('member-explorer.deleteGambar');
     });
 
 });

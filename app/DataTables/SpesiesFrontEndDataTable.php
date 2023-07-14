@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Spesies;
+use Auth;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Illuminate\Support\HtmlString;
@@ -10,7 +11,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class SpesiesDataTable extends DataTable
+class SpesiesFrontEndDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -40,12 +41,32 @@ class SpesiesDataTable extends DataTable
             ->editColumn('nama_umum', function($row){
                 return strip_tags($row->nama_umum);
             })
-            ->editColumn('genus_id', function($row){
-                return strip_tags($row->genus->nama_latin ?? '');
+            ->editColumn('status', function($row) {
+                $badgeClass = '';
+                switch ($row->status) {
+                    case 'checking':
+                        $badgeClass = 'badge-warning';
+                        break;
+                    case 'verified':
+                        $badgeClass = 'badge-info';
+                        break;
+                    case 'valid':
+                        $badgeClass = 'badge-success';
+                        break;
+                    default:
+                        $badgeClass = '';
+                        break;
+                }
+            
+                if (!empty($badgeClass)) {
+                    return '<span class="badge ' . $badgeClass . '">' . $row->status . '</span>';
+                } else {
+                    return '-';
+                }
             })
+            ->rawColumns(['status'])
             ->addColumn('action', function ($row) {
-                $action = '<a href="' . route('explorer.detail', $row->id) . '" data-jenis="detail" class="btn btn-info btn-sm action">View</a>';
-                $action .= ' <a href="' . route('spesies.edit', encrypt($row->id)) . '" data-jenis="edit" class="btn btn-warning btn-sm action">Edit</a>';
+                $action = ' <a href="' . route('member-explorer.edit', encrypt($row->id)) . '" data-jenis="edit" class="btn btn-warning btn-sm action">Edit</a>';
                 $action .= ' <a href="#" data-id="' . encrypt($row->id) . '" data-jenis="hapus" class="btn btn-danger btn-sm action-hapus">Hapus</a>';
 
                 return new \Illuminate\Support\HtmlString($action);
@@ -62,7 +83,7 @@ class SpesiesDataTable extends DataTable
      */
     public function query(Spesies $model)
     {
-        return $model->newQuery();
+        return $model->where('user_id', Auth::user()->id)->newQuery();
     }
 
     /**
@@ -99,7 +120,7 @@ class SpesiesDataTable extends DataTable
             Column::make('gambar'),
             Column::make('nama_latin'),
             Column::make('nama_umum'),
-            Column::make('genus_id')->title('Genus'),
+            Column::make('status'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)

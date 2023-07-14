@@ -6,14 +6,26 @@
 @endsection
 @section("title","Spesies")
 @section("content")
+
 <div class="row">
     <div class="col-12">
       <div class="card">
         <div class="card-header">
           <h5>Data Spesies</h5>
         </div>
+        @if(session("error"))
+
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <div class="card-body p-0">
             <form role="form" action="{{isset($spesies) ? route('spesies.update') : route('spesies.store')}}" method="post" enctype="multipart/form-data">
+
                 @if(isset($spesies))
                   @csrf
                   @method("PATCH")
@@ -53,7 +65,7 @@
                     <select class="form-control" name="status_konservasi_id">
                       <option disabled selected>Pilih Status Konservasi</option>
                       @if(isset($spesies))
-                      <option value="{{$spesies->status_konservasi_id}}" selected>{{$spesies->status_konservasi->status_konservasi}}</option>
+                      <option value="{{$spesies->status_konservasi_id}}" selected>{{$spesies->status_konservasi->status_konservasi ?? ''}}</option>
                       @endif
                       @foreach ($status_konservasis as $status)
                       <option value="{{$status->id}}">{{$status->status_konservasi}}</option>
@@ -74,12 +86,21 @@
                   </div>
                   <div class="form-group">
                     <label for="status">Status</label>
+                    @if(isset($spesies))
                       <select class="form-control" name="status" id="status">
+                        <option value="" selected>---Pilih Status---</option>
+                        <option value="valid" {{$spesies->status == "valid" ? 'selected' : ''}}>Valid</option>
+                        <option value="verified" {{$spesies->status == "verified" ? 'selected' : ''}}>Verified</option>
+                        <option value="checking" {{$spesies->status == "checking" ? 'selected' : ''}}>Checking</option>
+                      </select>
+                    @else
+                    <select class="form-control" name="status" id="status">
                         <option value="" selected>---Pilih Status---</option>
                         <option value="valid">Valid</option>
                         <option value="verified">Verified</option>
                         <option value="checking">Checking</option>
                       </select>
+                     @endif
                   </div>
                   {{-- <div class="form-group">
                     <label for="exampleInputFile">Gambar</label>
@@ -107,10 +128,10 @@
                           </div>
                           {{-- <div class="row mt-2">
                             <div class="col-lg-4">
-                                <input type="text" class="form-control" placeholder="Dimensi Ukuran. Cth: Panjang, Berat, Lebar" name="key_ukuran[]" value="{{$key}}"> 
+                                <input type="text" class="form-control" placeholder="Dimensi Ukuran. Cth: Panjang, Berat, Lebar" name="key_ukuran[]" value="{{$key}}">
                             </div>
                             <div class="col-lg-6">
-                                <input type="text" class="form-control" placeholder="Nilai" name="value_ukuran[]" value="{{$value}}"> 
+                                <input type="text" class="form-control" placeholder="Nilai" name="value_ukuran[]" value="{{$value}}">
                             </div>
                             <div class="col-lg-2">
                                 <a href="#" style="color: red;" class="btn-remove-row">Hapus</a>
@@ -119,7 +140,7 @@
 
                           @endforeach
                         </div>
-                      @else 
+                      @else
                       @include('dashboard.master.spesies.partials.row-gambar')
                       @endif
                     </div>
@@ -159,7 +180,7 @@
                     <select class="form-control" name="provinsi_id" id="provinsi">
                         <option disabled selected>---Pilih Provinsi---</option>
                         @if(isset($spesies->detail_spesimen->lokasi_penemuan->provinsi_id))
-                          <option value="{{$spesies->detail_spesimen->lokasi_penemuan->provinsi_id}}">{{$spesies->detail_spesimen->lokasi_penemuan->provinsi->nama_provinsi}}</option>
+                          <option value="{{$spesies->detail_spesimen->lokasi_penemuan->provinsi_id}}" >{{$spesies->detail_spesimen->lokasi_penemuan->provinsi->nama_provinsi}}</option>
                         @endif
                         @foreach($provinsi as $data_provinsi)
                         <option value="{{$data_provinsi->id}}">{{$data_provinsi->nama_provinsi}}</option>
@@ -223,9 +244,9 @@
 <script type="text/javascript">
 $(document).ready(function () {
   CKEDITOR.replace('nama_latin');
+  CKEDITOR.replace('nama_umum');
   $(document).on('click', ".btn-add-row", function(e){
       e.preventDefault();
-
 
       targetClone = $(this).closest('.form-group').find('.col-lg-12 .row:last-child');
       target = $(this).attr('data-target');
@@ -247,7 +268,9 @@ $(document).ready(function () {
 		}
   });
 
-  $(".delete-image").click(function (e) { 
+
+
+  $(".delete-image").click(function (e) {
     let nama_gambar = $(this).data("nama_gambar");
     let spesies_id = $(this).data("spesies_id");
     e.preventDefault();
