@@ -37,7 +37,7 @@ class SpesiesController extends Controller
 
     public function customValidate($request){
 
-       
+
 
     }
 
@@ -90,7 +90,6 @@ class SpesiesController extends Controller
             "etnosains" =>"nullable",
 
             //detail
-            "kd_spesimen" =>"required",
             "kolektor" =>"nullable",
             "lokasi_penyimpanan" =>"nullable",
             // "rantai_dna" =>"nullable",
@@ -111,7 +110,6 @@ class SpesiesController extends Controller
             "genus_id.required" => "Silahkan Pilih Salah Satu Genus.",
             "status_konservasi_id.required" => "Silahkan Pilih Salah Satu Status Konservasi.",
             "status.required" => "Silahkan Pilih Salah Satu Status.",
-            "kd_spesimen.required" => "Kolom Kode Spesimen harus diisi.",
             "nama_lokasi.required" => "Kolom Nama Lokasi harus diisi.",
             "provinsi_id.required" => "Silahkan Pilih Salah Satu Provinsi.",
             "kabupaten_id.required" => "Silahkan Pilih Salah Satu Kabupaten.",
@@ -125,7 +123,7 @@ class SpesiesController extends Controller
             $errors = implode(" ",$e->validator->messages()->all());
             return redirect()->back()->with('error',$errors);
         }
-        
+
         DB::beginTransaction();
         try {
             $arr_nama_gambar = [];
