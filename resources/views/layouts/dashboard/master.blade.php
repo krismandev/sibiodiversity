@@ -16,7 +16,7 @@
   <!-- iCheck -->
   <link rel="stylesheet" href="{{asset('asset_dashboard/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
   <!-- JQVMap -->
-  <link rel="stylesheet" href="{{asset('asset_dashboard/plugins/jqvmap/jqvmap.min.css')}}">
+  {{-- <link rel="stylesheet" href="{{asset('asset_dashboard/plugins/jqvmap/jqvmap.min.css')}}"> --}}
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('asset_dashboard/dist/css/adminlte.min.css')}}">
   <!-- overlayScrollbars -->
@@ -225,8 +225,8 @@
 <!-- Sparkline -->
 <script src="{{asset('asset_dashboard/plugins/sparklines/sparkline.js')}}"></script>
 <!-- JQVMap -->
-<script src="{{asset('asset_dashboard/plugins/jqvmap/jquery.vmap.min.js')}}"></script>
-<script src="{{asset('asset_dashboard/plugins/jqvmap/maps/jquery.vmap.usa.js')}}"></script>
+{{-- <script src="{{asset('asset_dashboard/plugins/jqvmap/jquery.vmap.min.js')}}"></script>
+<script src="{{asset('asset_dashboard/plugins/jqvmap/maps/jquery.vmap.usa.js')}}"></script> --}}
 <!-- jQuery Knob Chart -->
 <script src="{{asset('asset_dashboard/plugins/jquery-knob/jquery.knob.min.js')}}"></script>
 <!-- daterangepicker -->
