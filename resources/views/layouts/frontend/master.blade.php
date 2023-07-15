@@ -50,7 +50,7 @@
 	<header class="header-section">
 		<div class="container">
 
-			<a href="index.html" class="site-logo"><img src="{{asset('assets_frontend/img/logo2.png')}}" alt=""></a>
+			<a href="index.html" class="site-logo"><img src="{{asset('assets_frontend/img/logo-menu3.png')}}" alt=""></a>
 			<div class="nav-switch">
 				<i class="fa fa-bars"></i>
 			</div>
