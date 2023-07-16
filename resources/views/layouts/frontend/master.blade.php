@@ -118,10 +118,7 @@
 		<div class="container">
 			<div class="row">
 			<div class="col-lg-4 col-md-4">
-				@php
-					$tentang = App\Tentang::first();
-				@endphp
-				<img src="{{$tentang ? $tentang->getTentang() : ''}}" alt="" style="width: 300px; object-fit: cover; object-position: center;">
+				<img src="{{asset('assets_frontend/img/about.png')}}" alt="" style="width: 300px; object-fit: cover; object-position: center;">
 			</div>
 			<div class="col-lg-6 col-md-6 footer-contact">
 				<p>
