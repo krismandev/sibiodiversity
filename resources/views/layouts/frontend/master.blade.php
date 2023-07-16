@@ -187,11 +187,10 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<script src="{{asset('assets_frontend/js/masonry.pkgd.min.js')}}"></script>
 	<script src="{{asset('assets_frontend/js/magnific-popup.min.js')}}"></script>
 	<script src="{{asset('assets_frontend/js/main.js')}}"></script>
-	<script src="{{asset('frontend/js/jquery.fancybox.min.js')}}"></script>
+	<script src="{{asset('assets_frontend/js/jquery.fancybox.min.js')}}"></script>
 	<script src="{{asset('asset_dashboard/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 {{-- <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script> --}}
-<script src="{{asset('js/jquery.fancybox.min.js')}}"></script>
 <script src="https://kit.fontawesome.com/ba5890d42b.js" crossorigin="anonymous"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
