@@ -51,7 +51,7 @@
                 <div class="blog-item">
 
                     <div class="card" style="width: 18rem;" >
-                    <img src="{{$item->getImage()}}" class="card-img-top" alt="{{$item->getImage()}}">
+                    <img src="{{$item->getImage()}}" class="card-img-top" alt="{{$item->getImage()}}" style="max-width: 286px; max-height: 190px; object-fit: cover; object-position: center;">
                     <div class="card-body">
                         <h5 class="card-title">{!! $item->nama_umum !!}</h5>
                         <p class="card-text">{!! $item->nama_latin !!}  </p>
