@@ -19,7 +19,7 @@
                 <div class="course-thumb">
                     @if($item->jenis_file == "Gambar")
                     <a href="{{$item->getGallery()}}" data-fancybox="gallery">
-                        <img  src="{{$item->getGallery()}}" alt="{!!$item->judul!!}" style="max-width: 360px; max-height: 200px; object-fit: cover; object-position: center;">
+                        <img  src="{{$item->getGallery()}}" alt="{!!$item->judul!!}" style="width: 360px; height: 200px; object-fit: cover; object-position: center;">
                     </a>
                     <span>{!!$item->judul!!}</span>
                     @else
