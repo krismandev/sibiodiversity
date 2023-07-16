@@ -210,7 +210,6 @@ class FrontEndController extends Controller
             "gambar" =>"required|file|mimes:jpg,jpeg,png,gif,heic",
 
             //detail
-            "kd_spesimen" =>"required",
 
             //lokasi
             "nama_lokasi" =>"required",
@@ -226,7 +225,6 @@ class FrontEndController extends Controller
             "nama_umum.required" => "Kolom Nama Umum harus diisi.",
             "genus_id.required" => "Silahkan Pilih Salah Satu Genus.",
             "status_konservasi_id.required" => "Silahkan Pilih Salah Satu Status Konservasi.",
-            "status.required" => "Silahkan Pilih Salah Satu Status.",
             "kd_spesimen.required" => "Kolom Kode Spesimen harus diisi.",
             "nama_lokasi.required" => "Kolom Nama Lokasi harus diisi.",
             "provinsi_id.required" => "Silahkan Pilih Salah Satu Provinsi.",

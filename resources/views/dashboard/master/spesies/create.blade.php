@@ -168,25 +168,42 @@
                   <div class="form-group">
                     <label for="namaLatin">Provinsi Penemuan</label>
                     <select class="form-control" name="provinsi_id" id="provinsi">
-                        <option disabled selected>---Pilih Provinsi---</option>
+                        <option disabled selected>---Pilih Provinsi---  </option>
                         @if(isset($spesies->detail_spesimen->lokasi_penemuan->provinsi_id))
-                          <option value="{{$spesies->detail_spesimen->lokasi_penemuan->provinsi_id}}" >{{$spesies->detail_spesimen->lokasi_penemuan->provinsi->nama_provinsi}}</option>
+                            @foreach($provinsi as $data_provinsi)
+
+                            <option value="{{$data_provinsi->id}}" {{$data_provinsi->id == $spesies->detail_spesimen->lokasi_penemuan->provinsi_id ? 'selected' : ''}}>{{$data_provinsi->nama_provinsi}}</option>
+                            @endforeach
+                        @else
+                            @foreach($provinsi as $data_provinsi)
+                            <option value="{{$data_provinsi->id}}">{{$data_provinsi->nama_provinsi}}</option>
+                            @endforeach
                         @endif
-                        @foreach($provinsi as $data_provinsi)
-                        <option value="{{$data_provinsi->id}}">{{$data_provinsi->nama_provinsi}}</option>
-                        @endforeach
+
                     </select>
                   </div>
                   <div class="form-group">
                     <label for="namaLatin">Kabupaten Penemuan</label>
                       <select class="form-control" name="kabupaten_id" id="kabupaten">
+                        @if(isset($spesies->detail_spesimen->lokasi_penemuan->kabupaten_id))
+                        <option value="{{$spesies->detail_spesimen->lokasi_penemuan->kabupaten_id}}" >
+                            {{$spesies->detail_spesimen->lokasi_penemuan->kabupaten->nama_kabupaten}}
+                        </option>
+                        @else
                         <option value="" selected>---Pilih Kabupaten---</option>
+                        @endif
                       </select>
                   </div>
                   <div class="form-group">
                     <label for="namaLatin">Kecamatan Penemuan</label>
                       <select class="form-control" name="kecamatan_id" id="kecamatan">
+                        @if(isset($spesies->detail_spesimen->lokasi_penemuan->kecamatan_id))
+                        <option value="{{$spesies->detail_spesimen->lokasi_penemuan->kecamatan_id}}" >
+                            {{$spesies->detail_spesimen->lokasi_penemuan->kecamatan->nama_kecamatan}}
+                        </option>
+                        @else
                         <option value="" selected>---Pilih Kecamatan---</option>
+                        @endif
                       </select>
                   </div>
                   <div class="form-group">

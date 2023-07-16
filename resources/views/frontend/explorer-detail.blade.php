@@ -29,6 +29,12 @@
 
                     </tr>
                     <tr>
+                        <td scope="col">Etnosains</td>
+                        <td scope="col">:</td>
+                        <td scope="col"> <p>{!! $data->etnosains !!}</p></td>
+
+                    </tr>
+                    <tr>
                         <td scope="col">Nama Umum</td>
                         <td>:</td>
                         <td scope="col">{!! $data->nama_umum !!}</td>
@@ -133,12 +139,7 @@
                         <td scope="col"> <p>{!! $data->kondisi_air !!}</p></td>
 
                     </tr>
-                    <tr>
-                        <td scope="col">Etnosains</td>
-                        <td scope="col">:</td>
-                        <td scope="col"> <p>{!! $data->etnosains !!}</p></td>
 
-                    </tr>
                 </tbody>
                 </table>
                 <div class="mt-5 mb-5">
