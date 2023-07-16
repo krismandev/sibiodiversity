@@ -74,11 +74,12 @@ class FrontEndController extends Controller
         }
 
         $data_spesies = $data_spesies->paginate(12);
+        $count_spesies = count(Spesies::all());
         foreach ($data_spesies as $key => $each) {
             $data_spesies[$key]->list_gambar = json_decode($each->gambar, true) ?? [];
             $data_spesies[$key]->gambar = json_decode($each->gambar, true)[0] ?? "";
         }
-        return view('frontend.explorer', compact(['data_spesies']));
+        return view('frontend.explorer', compact(['data_spesies','count_spesies']));
     }
 
     public function explorerDetail(Request $request,$id)

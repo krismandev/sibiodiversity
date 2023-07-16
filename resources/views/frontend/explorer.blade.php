@@ -41,7 +41,7 @@
     <div class="container">
         <div class="section-title text-center">
             <h3>DATA IKAN</h3>
-            <p>Total {{$data_spesies->count()}} data</p>
+            <p>Total {{$count_spesies}} data</p>
         </div>
         <div class="row" id="list-ikan-holder">
             @forelse($data_spesies as $item)

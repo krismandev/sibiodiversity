@@ -113,7 +113,7 @@
                               {{-- <div class="card-header">
                               </div> --}}
                               <i class="fa fa-trash float-right delete-image" data-nama_gambar="{{$value}}" data-spesies_id="{{$spesies->id}}" style="color: red;"></i>
-                              <img src="{{asset('storage/spesies/'.$value)}}" alt="" style="max-height: 80px;">
+                              <img src="{{asset('storage/spesies/'.$value)}}" alt="" style="max-height: 80px; object-fit: cover; object-position: center;">
                             </div>
                           </div>
                           {{-- <div class="row mt-2">

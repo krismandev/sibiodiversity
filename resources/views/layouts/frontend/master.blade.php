@@ -117,7 +117,12 @@
 		<div class="footer-top">
 		<div class="container">
 			<div class="row">
-
+			<div class="col-lg-4 col-md-4">
+				@php
+					$tentang = App\Tentang::first();
+				@endphp
+				<img src="{{$tentang ? $tentang->getTentang() : ''}}" alt="" style="width: 300px; object-fit: cover; object-position: center;">
+			</div>
 			<div class="col-lg-6 col-md-6 footer-contact">
 				<p>
 					Jl. Jambi - Muara Bulian No.KM. 15, <br>
@@ -130,7 +135,7 @@
 				<a href="https://info.flagcounter.com/itve"><img src="https://s11.flagcounter.com/count2/itve/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0"></a>
 			</div>
 
-			<div class="col-lg-6 col-md-6 footer-links">
+			<div class="col-lg-2 col-md-6 footer-links">
 				<ul>
 					<li><i class="bx bx-chevron-right"></i> <a href="{{route('home.frontend')}}">Home</a></li>
 					<li><i class="bx bx-chevron-right"></i> <a href="{{route('explorer.frontend')}}">Explorer</a></li>
