@@ -18,22 +18,23 @@ class Spesies extends Model
     public function getImage()
     {
         if ($this->gambar != null) {
-            $imagePath = public_path('storage/spesies/' . $this->gambar);
-            $extension = pathinfo($imagePath, PATHINFO_EXTENSION);
-            $heicExtensions = ['heic', 'heif'];
+            // $imagePath = public_path('storage/spesies/' . $this->gambar);
+            // $extension = pathinfo($imagePath, PATHINFO_EXTENSION);
+            // $heicExtensions = ['heic', 'heif'];
     
-            if (in_array(strtolower($extension), $heicExtensions)) {
-                // Ini adalah gambar .heic atau .heif
-                // Lakukan konversi ke format PNG (atau format lain sesuai kebutuhan)
-                $image = Image::make($imagePath);
-                $convertedPath = 'spesies/' . time() . rand(5, 1) . '.png';
-                $image->store('public/' . $convertedPath);
+            // if (in_array(strtolower($extension), $heicExtensions)) {
+            //     // Ini adalah gambar .heic atau .heif
+            //     // Lakukan konversi ke format PNG (atau format lain sesuai kebutuhan)
+            //     $image = Image::make($imagePath);
+            //     $convertedPath = 'spesies/' . time() . rand(5, 1) . '.png';
+            //     $image->store('public/' . $convertedPath);
     
-                return asset('storage/' . $convertedPath);
-            } else {
-                // Ini adalah gambar selain .heic atau .heif
-                return asset('storage/spesies/' . $this->gambar);
-            }
+            //     return asset('storage/' . $convertedPath);
+            // } else {
+            //     // Ini adalah gambar selain .heic atau .heif
+            //     return asset('storage/spesies/' . $this->gambar);
+            // }
+            return asset('storage/spesies/' . $this->gambar);
         } else {
             return asset('asset_dashboard/images/default_fish.png');
         }
