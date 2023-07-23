@@ -3,7 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 class Spesies extends Model
 {
     protected $table = 'spesies';
