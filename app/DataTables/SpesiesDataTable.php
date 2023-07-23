@@ -43,6 +43,15 @@ class SpesiesDataTable extends DataTable
             ->editColumn('genus_id', function($row){
                 return strip_tags($row->genus->nama_latin ?? '');
             })
+            ->addColumn('famili', function ($row) {
+                return  strip_tags($row->genus->famili->nama_latin ?? '');
+            })
+            ->addColumn('ordo', function ($row) {
+                return  strip_tags($row->genus->famili->ordo->nama_latin ?? '');
+            })
+            ->addColumn('class', function ($row) {
+                return  strip_tags($row->genus->famili->ordo->class->nama_latin ?? '');
+            })
             ->addColumn('action', function ($row) {
                 $action = '<a href="' . route('explorer.detail', $row->id) . '" data-jenis="detail" class="btn btn-info btn-sm action">View</a>';
                 $action .= ' <a href="' . route('spesies.edit', encrypt($row->id)) . '" data-jenis="edit" class="btn btn-warning btn-sm action">Edit</a>';
@@ -100,6 +109,9 @@ class SpesiesDataTable extends DataTable
             Column::make('nama_latin'),
             Column::make('nama_umum'),
             Column::make('genus_id')->title('Genus'),
+            Column::computed('famili'),
+            Column::computed('ordo'),
+            Column::computed('class'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)

@@ -84,7 +84,7 @@ class SpesiesController extends Controller
             "distribusi_global" =>"nullable",
             "deskripsi" =>"nullable",
             "rujukan" =>"nullable",
-            "gambar" =>"required|file|mimes:jpg,jpeg,png,gif,heic",
+            "gambar" =>"required|file|mimes:jpg,jpeg,png,gif,heic,HEIC,HEIF,heif",
             "status" =>"required",
             "kondisi_air" =>"nullable",
             "etnosains" =>"nullable",
@@ -127,50 +127,65 @@ class SpesiesController extends Controller
         DB::beginTransaction();
         try {
             $arr_nama_gambar = [];
-            if (count($request->gambar) > 0) {
-                foreach ($request->gambar as $gambar) {
-                    // $gambar = $request->file('gambar');
-                    // dd($gambar);
-                    $nama_gambar = time().rand(5,1).".".$gambar->getClientOriginalExtension();
-                    $arr_nama_gambar[] = $nama_gambar;
-                    // $tujuan_upload = 'spesies';
-                    // $gambar->move($tujuan_upload,$nama_gambar);
-                    $upload = Storage::putFileAs('public/spesies',$gambar,$nama_gambar);
 
-                    Gallery::create([
-                        "user_id"=>auth()->user()->id,
-                        "judul" =>$request->nama_latin,
-                        "file_gallery" =>$nama_gambar,
-                        "jenis_file" =>"Gambar",
-                    ]);
+        if ($request->hasFile('gambar') && count($request->gambar) > 0) {
+            foreach ($request->gambar as $gambar) {
+                $nama_gambar = time() . rand(5, 1) . "." . $gambar->getClientOriginalExtension();
+                $arr_nama_gambar[] = $nama_gambar;
+
+                // Periksa apakah gambar adalah format HEIC atau HEIF
+                $extension = $gambar->getClientOriginalExtension();
+                $heicExtensions = ['heic', 'heif'];
+
+                if (in_array(strtolower($extension), $heicExtensions)) {
+                    // Lakukan konversi ke format PNG atau JPG sesuai dengan ekstensi file HEIC
+                    $imagePath = $gambar->getRealPath();
+                    $image = Image::make($imagePath);
+                    $convertedPath = time() . rand(5, 1) . '.png';
+                    $image->save(public_path('storage/spesies/' . $convertedPath));
+
+                    // Gunakan path gambar yang telah dikonversi untuk penyimpanan
+                    $nama_gambar = $convertedPath;
                 }
-            }
-            $json_nama_gambar = json_encode($arr_nama_gambar);
-            $lokasi_penemuan = LokasiPenemuan::create([
-                "nama_lokasi"=>$request->nama_lokasi,
-                "provinsi_id"=>$request->provinsi_id,
-                "kabupaten_id"=>$request->kabupaten_id,
-                "kecamatan_id"=>$request->kecamatan_id,
-            ]);
 
-            $spesies = Spesies::create([
-                "genus_id" =>$request->genus_id,
-                "nama_latin" =>$request->nama_latin,
-                "nama_umum" =>$request->nama_umum,
-                "meristik" =>$request->meristik,
-                "status_konservasi_id" =>$request->status_konservasi_id,
-                "deskripsi" =>$request->deskripsi,
-                "potensi" =>$request->potensi,
-                "keaslian_jenis" =>$request->keaslian_jenis,
-                "distribusi_global" => $request->distribusi_global,
-                "gambar" =>$json_nama_gambar,
-                "user_id"=>auth()->user()->id,
-                "status"=>$request->status,
-                "rujukan"=>$request->rujukan,
-                "kondisi_air"=>$request->kondisi_air,
-                "etnosains"=>$request->etnosains,
-                "is_approved"=>1,
-            ]);
+                $upload = Storage::putFileAs('public/spesies', $gambar, $nama_gambar);
+
+                Gallery::create([
+                    "user_id" => auth()->user()->id,
+                    "judul" => $request->nama_latin,
+                    "file_gallery" => $nama_gambar,
+                    "jenis_file" => "Gambar",
+                ]);
+            }
+        }
+
+        $json_nama_gambar = json_encode($arr_nama_gambar);
+
+        $lokasi_penemuan = LokasiPenemuan::create([
+            "nama_lokasi" => $request->nama_lokasi,
+            "provinsi_id" => $request->provinsi_id,
+            "kabupaten_id" => $request->kabupaten_id,
+            "kecamatan_id" => $request->kecamatan_id,
+        ]);
+
+        $spesies = Spesies::create([
+            "genus_id" => $request->genus_id,
+            "nama_latin" => $request->nama_latin,
+            "nama_umum" => $request->nama_umum,
+            "meristik" => $request->meristik,
+            "status_konservasi_id" => $request->status_konservasi_id,
+            "deskripsi" => $request->deskripsi,
+            "potensi" => $request->potensi,
+            "keaslian_jenis" => $request->keaslian_jenis,
+            "distribusi_global" => $request->distribusi_global,
+            "gambar" => $json_nama_gambar,
+            "user_id" => auth()->user()->id,
+            "status" => $request->status,
+            "rujukan" => $request->rujukan,
+            "kondisi_air" => $request->kondisi_air,
+            "etnosains" => $request->etnosains,
+            "is_approved" => 1,
+        ]);
 
             // if ($request->hasFile('rantai_dna')) {
             //     $rantai_dna = $request->file('rantai_dna');
