@@ -27,11 +27,9 @@ class Spesies extends Model
             if (in_array(strtolower($extension), $heicExtensions)) {
                 $jpgLocalPath = public_path('storage/spesies/' . pathinfo($this->gambar, PATHINFO_FILENAME) . '.jpg');
 
-                // Convert HEIC to JPG using intervention/image
                 try {
                     Image::make($imagePath)->save($jpgLocalPath, 90);
                 } catch (\Exception $e) {
-                    // If conversion fails, return the original HEIC image URL
                     return asset('storage/spesies/' . $this->gambar);
                 }
 
