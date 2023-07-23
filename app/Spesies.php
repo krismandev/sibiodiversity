@@ -25,15 +25,16 @@ class Spesies extends Model
             $heicExtensions = ['heic', 'heif'];
 
             if (in_array(strtolower($extension), $heicExtensions)) {
+                $jpgLocalPath = public_path('storage/spesies/' . pathinfo($this->gambar, PATHINFO_FILENAME) . '.jpg');
 
-                $jpg = HeicToJpg::convert($imagePath)->get();
-
-                if ($jpg) {
-                    return asset('storage/spesies/' . $jpg);
-                } else {
+                // Convert HEIC to JPG using intervention/image
+                try {
+                    Image::make($imagePath)->save($jpgLocalPath, 90);
+                } catch (\Exception $e) {
                     // If conversion fails, return the original HEIC image URL
                     return asset('storage/spesies/' . $this->gambar);
                 }
+
             } else {
                 return asset('storage/spesies/' . $this->gambar);
             }
