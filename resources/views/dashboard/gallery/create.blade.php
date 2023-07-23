@@ -26,9 +26,18 @@
                   @csrf
                 @endif
                 <div class="card-body">
-                  <div class="form-group">
+                  {{-- <div class="form-group">
                     <label for="namaLatin">Judul</label>
                     <input type="text" class="form-control" placeholder="Masukkan Judul Gambar/Video" name="judul" value="{{$gallery->judul ?? ''}}">
+                  </div> --}}
+                  <div class="form-group">
+                    <label for="namaLatin">Pilih Spesies</label>
+                    <select class="form-control" name="spesies_id">
+                      <option value="" selected>Pilih Spesies</option>
+                      @foreach ($spesieses as $spesies)
+                      <option value="{{$spesies->id}}">{{$spesies->nama_latin}}</option>
+                      @endforeach
+                    </select>
                   </div>
                   <div class="form-group">
                     <label for="namaLatin">Jenis File</label>

@@ -29,10 +29,7 @@
 
                     </tr>
                     <tr>
-                        <td scope="col">Etnosains</td>
-                        <td scope="col">:</td>
-                        <td scope="col"> <p>{!! $data->etnosains !!}</p></td>
-
+                        <td colspan="3"><b>Etnosains :</b> <p>{!! $data->etnosains !!}</p></td>
                     </tr>
                     <tr>
                         <td scope="col">Nama Umum</td>

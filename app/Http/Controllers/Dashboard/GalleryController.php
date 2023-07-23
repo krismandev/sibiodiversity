@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Gallery;
+use App\Spesies;
+use Image;
 use Illuminate\Support\Facades\Storage;
 
 class GalleryController extends Controller
@@ -13,7 +15,7 @@ class GalleryController extends Controller
     public function customValidate($request)
     {
         $fields = [
-            // "judul" =>"required",
+            "spesies_id" =>"required",
             "jenis_file" =>"required",
             "file_gallery" =>"file",
             // "keterangan" =>"required",
@@ -30,7 +32,8 @@ class GalleryController extends Controller
     public function create()
     {
         $title = "Tambahkan Foto/Video Baru";
-        return view('dashboard.gallery.create',compact(['title']));
+        $spesieses = Spesies::all();
+        return view('dashboard.gallery.create',compact(['title','spesieses']));
     }
 
     public function store(Request $request)
@@ -39,18 +42,35 @@ class GalleryController extends Controller
         $this->customValidate($request);
         DB::beginTransaction();
         try {
-        
-            $file_gallery = $request->file('file_gallery');
-            $nama_file_gallery = time()."_".$file_gallery->getClientOriginalExtension();
-            // $tujuan_upload = 'gallery';
-            // $file_gallery->move($tujuan_upload,$nama_file_gallery);
-            $upload = Storage::putFileAs('public/spesies',$request->file('file_gallery'),$nama_file_gallery);
+
+            $filenameWithExt = $request->file("file_gallery")->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file("file_gallery")->getClientOriginalExtension();
+            $filenameSave = time().".jpg";
+
+            // dd($filenameWithExt);
+
+            $destinationPath = public_path('/storage/spesies');
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 755, false);
+            }
+
+            $image = $request->file('file_gallery');
+            $img = Image::make($image->path());
+            // dd($img);
+            $img->orientate()->resize(1000, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($destinationPath.'/'.$filenameSave);
+
+
+            // $upload = Storage::putFileAs('public/spesies',$request->file('file_gallery'),$nama_file_gallery);
             
+
 
             $gallery = Gallery::create([
                 "user_id"=>auth()->user()->id,
                 "judul" =>$request->judul,
-                "file_gallery" =>$nama_file_gallery,
+                "file_gallery" =>$filenameSave,
                 "jenis_file" =>$request->jenis_file,
                 "keterangan"=>$request->keterangan,
             ]);

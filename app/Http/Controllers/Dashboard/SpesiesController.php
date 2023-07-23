@@ -12,6 +12,7 @@ use App\Kecamatan;
 use App\DetailSpesimen;
 use App\LokasiPenemuan;
 use App\StatusKonservasi;
+use Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\DataTables\SpesiesDataTable;
@@ -84,7 +85,7 @@ class SpesiesController extends Controller
             "distribusi_global" =>"nullable",
             "deskripsi" =>"nullable",
             "rujukan" =>"nullable",
-            "gambar" =>"required|file|mimes:jpg,jpeg,png,gif,heic",
+            "gambar" =>"required",
             "status" =>"required",
             "kondisi_air" =>"nullable",
             "etnosains" =>"nullable",
@@ -128,21 +129,29 @@ class SpesiesController extends Controller
         try {
             $arr_nama_gambar = [];
             if (count($request->gambar) > 0) {
-                foreach ($request->gambar as $gambar) {
-                    // $gambar = $request->file('gambar');
+                foreach ($request->gambar as $idx => $gbr) {
+                    $gambar = $request->file('gambar')[$idx];
                     // dd($gambar);
-                    $nama_gambar = time().rand(5,1).".".$gambar->getClientOriginalExtension();
-                    $arr_nama_gambar[] = $nama_gambar;
+                    // $nama_gambar = time().rand(5,1).".".$gambar->getClientOriginalExtension();
                     // $tujuan_upload = 'spesies';
                     // $gambar->move($tujuan_upload,$nama_gambar);
-                    $upload = Storage::putFileAs('public/spesies',$gambar,$nama_gambar);
+                    // $upload = Storage::putFileAs('public/spesies',$gambar,$nama_gambar);
 
-                    Gallery::create([
-                        "user_id"=>auth()->user()->id,
-                        "judul" =>$request->nama_latin,
-                        "file_gallery" =>$nama_gambar,
-                        "jenis_file" =>"Gambar",
-                    ]);
+                    $filenameSave = time().rand(5,1).".jpg";
+                    $arr_nama_gambar[] = $filenameSave;
+                    // dd($filenameWithExt);
+
+                    $destinationPath = public_path('/storage/spesies');
+                    if (!file_exists($destinationPath)) {
+                        mkdir($destinationPath, 755, false);
+                    }
+
+                    $image = $gambar;
+                    $img = Image::make($image->path());
+                    // dd($img);
+                    $img->orientate()->resize(1000, null, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->save($destinationPath.'/'.$filenameSave);
                 }
             }
             $json_nama_gambar = json_encode($arr_nama_gambar);
@@ -171,6 +180,17 @@ class SpesiesController extends Controller
                 "etnosains"=>$request->etnosains,
                 "is_approved"=>1,
             ]);
+
+            if (count($request->gambar) > 0) {
+                foreach ($arr_nama_gambar as $nama_gambar) {
+                    Gallery::create([
+                        "user_id"=>auth()->user()->id,
+                        "judul" =>$request->nama_latin,
+                        "file_gallery" =>$nama_gambar,
+                        "jenis_file" =>"Gambar",
+                    ]);
+                }
+            }
 
             // if ($request->hasFile('rantai_dna')) {
             //     $rantai_dna = $request->file('rantai_dna');

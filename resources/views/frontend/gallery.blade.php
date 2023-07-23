@@ -21,7 +21,7 @@
                     <a href="{{$item->getGallery()}}" data-fancybox="gallery">
                         <img  src="{{$item->getGallery()}}" alt="{!!$item->judul!!}" style="width: 360px; height: 200px; object-fit: cover; object-position: center;">
                     </a>
-                    <span>{!!$item->judul!!}</span>
+                    <span><a href="{{route('explorer.detail',$item->spesies_id)}}">{!!$item->judul!!}</a></span>
                     @else
                     <video controls>
                       <source src="{{$item->getGallery()}}" type="video" alt="{{asset('assets_frontend/img/course/1.jpg')}}"/>
