@@ -23,7 +23,7 @@ class GalleryController extends Controller
 
     public function index()
     {
-        $gallery = Gallery::orderBy("created_at")->get();
+        $gallery = Gallery::orderBy("created_at","desc")->get();
         return view('dashboard.gallery.index',compact(['gallery']));
     }
 

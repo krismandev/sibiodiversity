@@ -39,12 +39,12 @@
                   </div>
                   <div class="form-group">
                     <label for="namaLatin">Nama Latin</label>
-                    <textarea name="nama_latin" cols="15" rows="2" class="form-control">{{$spesies->nama_latin ?? old('nama_latin')}}</textarea>
+                    <textarea name="nama_latin" id="nama_latin" cols="15" rows="2" class="form-control">{{$spesies->nama_latin ?? old('nama_latin')}}</textarea>
 
                   </div>
                   <div class="form-group">
                     <label for="namaLatin">Nama Umum</label>
-                    <textarea name="nama_umum" cols="15" rows="2" class="form-control">{{$spesies->nama_umum ?? old('nama_umum')}}</textarea>
+                    <textarea name="nama_umum" id="nama_umum" cols="15" rows="2" class="form-control">{{$spesies->nama_umum ?? old('nama_umum')}}</textarea>
                   </div>
                   <div class="form-group">
                     <label for="namaLatin">Meristik</label>
@@ -113,7 +113,7 @@
                               {{-- <div class="card-header">
                               </div> --}}
                               <i class="fa fa-trash float-right delete-image" data-nama_gambar="{{$value}}" data-spesies_id="{{$spesies->id}}" style="color: red;"></i>
-                              <img src="{{asset('storage/spesies/'.$value)}}" alt="" style="max-height: 80px;">
+                              <img src="{{asset('storage/spesies/'.$value)}}" alt="" style="max-height: 80px; object-fit: cover; object-position: center;">
                             </div>
                           </div>
                           {{-- <div class="row mt-2">
@@ -247,11 +247,28 @@
 @include('dashboard.master.spesies.js.wilayah-js')
 {{-- <script src="{{asset('js/wilayah.js')}}"></script> --}}
 <script src="{{asset('asset_dashboard/plugins/ckeditor/ckeditor.js')}}"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/21.0.0/classic/ckeditor.js"></script>
 {{-- <script src="https://cdn.ckeditor.com/4.20.2/basic/ckeditor.js"></script> --}}
 <script type="text/javascript">
 $(document).ready(function () {
-  CKEDITOR.replace('nama_latin');
-  CKEDITOR.replace('nama_umum');
+  ClassicEditor
+            .create( document.querySelector( '#nama_latin' ) )
+            .then( editor => {
+                    console.log( editor );
+            } )
+            .catch( error => {
+                    console.error( error );
+            } );
+  ClassicEditor
+            .create( document.querySelector( '#nama_umum' ) )
+            .then( editor => {
+                    console.log( editor );
+            } )
+            .catch( error => {
+                    console.error( error );
+            } );
+  // CKEDITOR.replace('nama_latin');
+  // CKEDITOR.replace('nama_umum');
   $(document).on('click', ".btn-add-row", function(e){
       e.preventDefault();
 

@@ -117,7 +117,9 @@
 		<div class="footer-top">
 		<div class="container">
 			<div class="row">
-
+			<div class="col-lg-4 col-md-4">
+				<img src="{{asset('assets_frontend/img/about.png')}}" alt="" style="width: 300px; object-fit: cover; object-position: center;">
+			</div>
 			<div class="col-lg-6 col-md-6 footer-contact">
 				<p>
 					Jl. Jambi - Muara Bulian No.KM. 15, <br>
@@ -130,7 +132,7 @@
 				<a href="https://info.flagcounter.com/itve"><img src="https://s11.flagcounter.com/count2/itve/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0"></a>
 			</div>
 
-			<div class="col-lg-6 col-md-6 footer-links">
+			<div class="col-lg-2 col-md-6 footer-links">
 				<ul>
 					<li><i class="bx bx-chevron-right"></i> <a href="{{route('home.frontend')}}">Home</a></li>
 					<li><i class="bx bx-chevron-right"></i> <a href="{{route('explorer.frontend')}}">Explorer</a></li>
@@ -185,11 +187,10 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<script src="{{asset('assets_frontend/js/masonry.pkgd.min.js')}}"></script>
 	<script src="{{asset('assets_frontend/js/magnific-popup.min.js')}}"></script>
 	<script src="{{asset('assets_frontend/js/main.js')}}"></script>
-	<script src="{{asset('frontend/js/jquery.fancybox.min.js')}}"></script>
+	<script src="{{asset('assets_frontend/js/jquery.fancybox.min.js')}}"></script>
 	<script src="{{asset('asset_dashboard/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 {{-- <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script> --}}
-<script src="{{asset('js/jquery.fancybox.min.js')}}"></script>
 <script src="https://kit.fontawesome.com/ba5890d42b.js" crossorigin="anonymous"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>

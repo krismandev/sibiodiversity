@@ -18,9 +18,10 @@
             <div class="col-lg-4 col-md-6 course-item">
                 <div class="course-thumb">
                     @if($item->jenis_file == "Gambar")
-                    <a href="{{$item->getGallery()}}">
-                        <img  src="{{$item->getGallery()}}" alt="{{asset('assets_frontend/img/course/1.jpg')}}" alt="{!!$item->judul!!}">
+                    <a href="{{$item->getGallery()}}" data-fancybox="gallery">
+                        <img  src="{{$item->getGallery()}}" alt="{!!$item->judul!!}" style="width: 360px; height: 200px; object-fit: cover; object-position: center;">
                     </a>
+                    <span>{!!$item->judul!!}</span>
                     @else
                     <video controls>
                       <source src="{{$item->getGallery()}}" type="video" alt="{{asset('assets_frontend/img/course/1.jpg')}}"/>
