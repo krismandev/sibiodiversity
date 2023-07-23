@@ -2,9 +2,11 @@
 
 namespace App;
 
+use Maestroerror\HeicToJpg;
+use Intervention\Image\Facades\Image;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Facades\Image;
+
 class Spesies extends Model
 {
     protected $table = 'spesies';
@@ -18,23 +20,23 @@ class Spesies extends Model
     public function getImage()
     {
         if ($this->gambar != null) {
-            // $imagePath = public_path('storage/spesies/' . $this->gambar);
-            // $extension = pathinfo($imagePath, PATHINFO_EXTENSION);
-            // $heicExtensions = ['heic', 'heif'];
-    
-            // if (in_array(strtolower($extension), $heicExtensions)) {
-            //     // Ini adalah gambar .heic atau .heif
-            //     // Lakukan konversi ke format PNG (atau format lain sesuai kebutuhan)
-            //     $image = Image::make($imagePath);
-            //     $convertedPath = 'spesies/' . time() . rand(5, 1) . '.png';
-            //     $image->store('public/' . $convertedPath);
-    
-            //     return asset('storage/' . $convertedPath);
-            // } else {
-            //     // Ini adalah gambar selain .heic atau .heif
-            //     return asset('storage/spesies/' . $this->gambar);
-            // }
-            return asset('storage/spesies/' . $this->gambar);
+            $imagePath = public_path('storage/spesies/' . $this->gambar);
+            $extension = pathinfo($imagePath, PATHINFO_EXTENSION);
+            $heicExtensions = ['heic', 'heif'];
+
+            if (in_array(strtolower($extension), $heicExtensions)) {
+
+                $jpg = HeicToJpg::convert($imagePath)->get();
+
+                if ($jpg) {
+                    return asset('storage/spesies/' . $jpg);
+                } else {
+                    // If conversion fails, return the original HEIC image URL
+                    return asset('storage/spesies/' . $this->gambar);
+                }
+            } else {
+                return asset('storage/spesies/' . $this->gambar);
+            }
         } else {
             return asset('asset_dashboard/images/default_fish.png');
         }
