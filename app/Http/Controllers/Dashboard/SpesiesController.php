@@ -12,6 +12,7 @@ use App\Kecamatan;
 use App\DetailSpesimen;
 use App\LokasiPenemuan;
 use App\StatusKonservasi;
+use Maestroerror\HeicToJpg;
 use Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -117,13 +118,13 @@ class SpesiesController extends Controller
             "kecamatan_id.required" => "Silahkan Pilih Salah Satu Kecamatan.",
         ];
 
-        try {
-            $request->validate($fields, $customMessages);
-        } catch (ValidationException $e) {
-            // $errors = $e->validator->messages()->all()[0];
-            $errors = implode(" ",$e->validator->messages()->all());
-            return redirect()->back()->with('error',$errors);
-        }
+        // try {
+        //     $request->validate($fields, $customMessages);
+        // } catch (ValidationException $e) {
+        //     // $errors = $e->validator->messages()->all()[0];
+        //     $errors = implode(" ",$e->validator->messages()->all());
+        //     return redirect()->back()->with('error',$errors);
+        // }
 
         DB::beginTransaction();
         try {
@@ -137,8 +138,7 @@ class SpesiesController extends Controller
                     // $gambar->move($tujuan_upload,$nama_gambar);
                     // $upload = Storage::putFileAs('public/spesies',$gambar,$nama_gambar);
 
-                    $filenameSave = time().rand(5,1).".jpg";
-                    $arr_nama_gambar[] = $filenameSave;
+                    $tempFilenameSave = time().".jpg";
                     // dd($filenameWithExt);
 
                     $destinationPath = public_path('/storage/spesies');
@@ -146,57 +146,63 @@ class SpesiesController extends Controller
                         mkdir($destinationPath, 755, false);
                     }
 
+                    HeicToJpg::convert($gambar->path())->saveAs(public_path('/storage/spesies/'.$tempFilenameSave));
+
                     $image = $gambar;
-                    $img = Image::make($image->path());
-                    // dd($img);
-                    $img->orientate()->resize(1000, null, function ($constraint) {
+                    $filenameSave = time().rand(5,1).".jpg";
+                    $img = Image::make(public_path('/storage/spesies/'.$tempFilenameSave));
+                    $img->orientate()->resize(2000, 2000, function ($constraint) {
                         $constraint->aspectRatio();
                     })->save($destinationPath.'/'.$filenameSave);
+
+                    //
+                    Storage::delete('public/spesies/'.$tempFilenameSave);
+                    $arr_nama_gambar[] = $filenameSave;
                 }
 
-                $upload = Storage::putFileAs('public/spesies', $gambar, $nama_gambar);
+                // $upload = Storage::putFileAs('public/spesies', $gambar, $nama_gambar);
 
-                Gallery::create([
-                    "user_id" => auth()->user()->id,
-                    "judul" => $request->nama_latin,
-                    "file_gallery" => $nama_gambar,
-                    "jenis_file" => "Gambar",
-                ]);
+                // Gallery::create([
+                //     "user_id" => auth()->user()->id,
+                //     "judul" => $request->nama_latin,
+                //     "file_gallery" => $nama_gambar,
+                //     "jenis_file" => "Gambar",
+                // ]);
             }
-        }
 
-        $json_nama_gambar = json_encode($arr_nama_gambar);
+            $json_nama_gambar = json_encode($arr_nama_gambar);
 
-        $lokasi_penemuan = LokasiPenemuan::create([
-            "nama_lokasi" => $request->nama_lokasi,
-            "provinsi_id" => $request->provinsi_id,
-            "kabupaten_id" => $request->kabupaten_id,
-            "kecamatan_id" => $request->kecamatan_id,
-        ]);
+            $lokasi_penemuan = LokasiPenemuan::create([
+                "nama_lokasi" => $request->nama_lokasi,
+                "provinsi_id" => $request->provinsi_id,
+                "kabupaten_id" => $request->kabupaten_id,
+                "kecamatan_id" => $request->kecamatan_id,
+            ]);
 
-        $spesies = Spesies::create([
-            "genus_id" => $request->genus_id,
-            "nama_latin" => $request->nama_latin,
-            "nama_umum" => $request->nama_umum,
-            "meristik" => $request->meristik,
-            "status_konservasi_id" => $request->status_konservasi_id,
-            "deskripsi" => $request->deskripsi,
-            "potensi" => $request->potensi,
-            "keaslian_jenis" => $request->keaslian_jenis,
-            "distribusi_global" => $request->distribusi_global,
-            "gambar" => $json_nama_gambar,
-            "user_id" => auth()->user()->id,
-            "status" => $request->status,
-            "rujukan" => $request->rujukan,
-            "kondisi_air" => $request->kondisi_air,
-            "etnosains" => $request->etnosains,
-            "is_approved" => 1,
-        ]);
+            $spesies = Spesies::create([
+                "genus_id" => $request->genus_id,
+                "nama_latin" => $request->nama_latin,
+                "nama_umum" => $request->nama_umum,
+                "meristik" => $request->meristik,
+                "status_konservasi_id" => $request->status_konservasi_id,
+                "deskripsi" => $request->deskripsi,
+                "potensi" => $request->potensi,
+                "keaslian_jenis" => $request->keaslian_jenis,
+                "distribusi_global" => $request->distribusi_global,
+                "gambar" => $json_nama_gambar,
+                "user_id" => auth()->user()->id,
+                "status" => $request->status,
+                "rujukan" => $request->rujukan,
+                "kondisi_air" => $request->kondisi_air,
+                "etnosains" => $request->etnosains,
+                "is_approved" => 1,
+            ]);
 
             if (count($request->gambar) > 0) {
                 foreach ($arr_nama_gambar as $nama_gambar) {
                     Gallery::create([
                         "user_id"=>auth()->user()->id,
+                        "spesies_id"=>$spesies->id,
                         "judul" =>$request->nama_latin,
                         "file_gallery" =>$nama_gambar,
                         "jenis_file" =>"Gambar",
@@ -255,19 +261,42 @@ class SpesiesController extends Controller
 
             $arr_nama_gambar = json_decode($spesies->gambar, true) ?? [];
             if (count($request->gambar) > 0) {
-                foreach ($request->gambar as $gambar) {
+                foreach ($request->gambar as $idx=> $gambar) {
+                    $gambar = $request->file('gambar')[$idx];
                     // $gambar = $request->file('gambar');
                     // dd($gambar);
-                    $nama_gambar = time().rand(5,1).".".$gambar->getClientOriginalExtension();
-                    $arr_nama_gambar[] = $nama_gambar;
-                    // $tujuan_upload = 'spesies';
-                    // $gambar->move($tujuan_upload,$nama_gambar);
-                    $upload = Storage::putFileAs('public/spesies',$gambar,$nama_gambar);
+                    // $nama_gambar = time().rand(5,1).".".$gambar->getClientOriginalExtension();
+                    // $arr_nama_gambar[] = $nama_gambar;
+                    // // $tujuan_upload = 'spesies';
+                    // // $gambar->move($tujuan_upload,$nama_gambar);
+                    // $upload = Storage::putFileAs('public/spesies',$gambar,$nama_gambar);
+
+
+
+                    $tempFilenameSave = time().".jpg";
+                    // dd($filenameWithExt);
+
+                    $destinationPath = public_path('/storage/spesies');
+                    if (!file_exists($destinationPath)) {
+                        mkdir($destinationPath, 755, false);
+                    }
+
+                    HeicToJpg::convert($gambar->path())->saveAs(public_path('/storage/spesies/'.$tempFilenameSave));
+
+                    $filenameSave = time().rand(5,1).".jpg";
+                    $img = Image::make(public_path('/storage/spesies/'.$tempFilenameSave));
+                    $img->orientate()->resize(2000, 2000, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->save($destinationPath.'/'.$filenameSave);
+
+                    //
+                    Storage::delete('public/spesies/'.$tempFilenameSave);
 
                     Gallery::create([
                         "user_id"=>auth()->user()->id,
+                        "spesies_id"=>$id,
                         "judul" =>$request->nama_latin,
-                        "file_gallery" =>$nama_gambar,
+                        "file_gallery" =>$filenameSave,
                         "jenis_file" =>"Gambar",
                     ]);
                 }
