@@ -16,6 +16,7 @@
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "2.4",
+        "maestroerror/php-heic-to-jpg": "^1.0",
         "stichoza/google-translate-php": "^4.1",
         "yajra/laravel-datatables": "^1.0"
     },

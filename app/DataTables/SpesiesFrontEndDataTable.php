@@ -57,7 +57,7 @@ class SpesiesFrontEndDataTable extends DataTable
                         $badgeClass = '';
                         break;
                 }
-            
+
                 if (!empty($badgeClass)) {
                     return '<span class="badge ' . $badgeClass . '">' . $row->status . '</span>';
                 } else {
@@ -97,7 +97,7 @@ class SpesiesFrontEndDataTable extends DataTable
                     ->setTableId('spesies-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
-                    ->dom('Bfrtip')
+                    ->dom('Blfrtip')
                     ->orderBy(1)
                     ->buttons(
                         Button::make('create'),
@@ -105,7 +105,10 @@ class SpesiesFrontEndDataTable extends DataTable
                         Button::make('print'),
                         Button::make('reset'),
                         Button::make('reload')
-                    );
+                    )
+                    ->parameters([
+                        "lengthMenu" => [[5, 10, 25, 50, 100, -1], [5, 10, 25, 50, 100, 'All']]
+                    ]);
     }
 
     /**
