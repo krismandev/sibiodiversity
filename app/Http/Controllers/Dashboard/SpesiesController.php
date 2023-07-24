@@ -153,33 +153,45 @@ class SpesiesController extends Controller
                         $constraint->aspectRatio();
                     })->save($destinationPath.'/'.$filenameSave);
                 }
-            }
-            $json_nama_gambar = json_encode($arr_nama_gambar);
-            $lokasi_penemuan = LokasiPenemuan::create([
-                "nama_lokasi"=>$request->nama_lokasi,
-                "provinsi_id"=>$request->provinsi_id,
-                "kabupaten_id"=>$request->kabupaten_id,
-                "kecamatan_id"=>$request->kecamatan_id,
-            ]);
 
-            $spesies = Spesies::create([
-                "genus_id" =>$request->genus_id,
-                "nama_latin" =>$request->nama_latin,
-                "nama_umum" =>$request->nama_umum,
-                "meristik" =>$request->meristik,
-                "status_konservasi_id" =>$request->status_konservasi_id,
-                "deskripsi" =>$request->deskripsi,
-                "potensi" =>$request->potensi,
-                "keaslian_jenis" =>$request->keaslian_jenis,
-                "distribusi_global" => $request->distribusi_global,
-                "gambar" =>$json_nama_gambar,
-                "user_id"=>auth()->user()->id,
-                "status"=>$request->status,
-                "rujukan"=>$request->rujukan,
-                "kondisi_air"=>$request->kondisi_air,
-                "etnosains"=>$request->etnosains,
-                "is_approved"=>1,
-            ]);
+                $upload = Storage::putFileAs('public/spesies', $gambar, $nama_gambar);
+
+                Gallery::create([
+                    "user_id" => auth()->user()->id,
+                    "judul" => $request->nama_latin,
+                    "file_gallery" => $nama_gambar,
+                    "jenis_file" => "Gambar",
+                ]);
+            }
+        }
+
+        $json_nama_gambar = json_encode($arr_nama_gambar);
+
+        $lokasi_penemuan = LokasiPenemuan::create([
+            "nama_lokasi" => $request->nama_lokasi,
+            "provinsi_id" => $request->provinsi_id,
+            "kabupaten_id" => $request->kabupaten_id,
+            "kecamatan_id" => $request->kecamatan_id,
+        ]);
+
+        $spesies = Spesies::create([
+            "genus_id" => $request->genus_id,
+            "nama_latin" => $request->nama_latin,
+            "nama_umum" => $request->nama_umum,
+            "meristik" => $request->meristik,
+            "status_konservasi_id" => $request->status_konservasi_id,
+            "deskripsi" => $request->deskripsi,
+            "potensi" => $request->potensi,
+            "keaslian_jenis" => $request->keaslian_jenis,
+            "distribusi_global" => $request->distribusi_global,
+            "gambar" => $json_nama_gambar,
+            "user_id" => auth()->user()->id,
+            "status" => $request->status,
+            "rujukan" => $request->rujukan,
+            "kondisi_air" => $request->kondisi_air,
+            "etnosains" => $request->etnosains,
+            "is_approved" => 1,
+        ]);
 
             if (count($request->gambar) > 0) {
                 foreach ($arr_nama_gambar as $nama_gambar) {
