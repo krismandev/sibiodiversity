@@ -29,13 +29,9 @@
 
                     </tr>
                     <tr>
-<<<<<<< HEAD
-                        <td colspan="3"><b>Etnosains :</b> <p>{!! $data->etnosains !!}</p></td>
-=======
 
                         <td colspan="3"><b>Etnosains :</b> <p>{!! $data->etnosains !!}</p></td>
 
->>>>>>> 0976ed615663a0f1c5743ee4fb87765790dfa66c
                     </tr>
                     <tr>
                         <td scope="col">Nama Umum</td>

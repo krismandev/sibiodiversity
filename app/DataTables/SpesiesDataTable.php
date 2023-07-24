@@ -71,7 +71,7 @@ class SpesiesDataTable extends DataTable
      */
     public function query(Spesies $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()->with('genus');
     }
 
     /**
