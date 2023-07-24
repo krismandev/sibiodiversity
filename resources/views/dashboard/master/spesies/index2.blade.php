@@ -7,8 +7,8 @@
 @section("title",$title)
 @push('css')
     <!-- css for this page only -->
-    <link href="{{asset('assets_dashboard/vendor/datatables.net-dt/css/jquery.dataTables.min.css')}}" rel="stylesheet" />
-    <link href="{{asset('assets_dashboard/vendor/datatables.net-responsive-dt/css/responsive.dataTables.min.css')}}" rel="stylesheet" />
+    <link href="{{asset('asset_dashboard/vendor/datatables.net-dt/css/jquery.dataTables.min.css')}}" rel="stylesheet" />
+    <link href="{{asset('asset_dashboard/vendor/datatables.net-responsive-dt/css/responsive.dataTables.min.css')}}" rel="stylesheet" />
 
 @endpush
 @section("content")
@@ -42,11 +42,14 @@
 @endsection
 @section("linkfooter")
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script src="{{asset('assets_dashboard/vendor/jquery/dist/jquery.min.js')}}"></script>
-<script src="{{asset('assets_dashboard/vendor/datatables.net/js/jquery.dataTables.min.js')}}"></script>
-<script src="{{asset('assets_dashboard/vendor/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{asset('asset_dashboard/vendor/jquery/dist/jquery.min.js')}}"></script>
+<script src="{{asset('asset_dashboard/vendor/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('asset_dashboard/vendor/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
 {{ $dataTable->scripts()}}
+
 <script type="text/javascript">
+
+
  $('#spesies-table').on('click','.action-hapus', function(){
         let data = $(this).data()
         let id = data.id

@@ -1,9 +1,9 @@
 @extends("layouts.frontend.master")
 @section("title","Daftar Spesies Anda")
 @push('css')
-    <!-- css for this page only -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
-
+        <!-- css for this page only -->
+        <link href="{{asset('asset_dashboard/vendor/datatables.net-dt/css/jquery.dataTables.min.css')}}" rel="stylesheet" />
+        <link href="{{asset('asset_dashboard/vendor/datatables.net-responsive-dt/css/responsive.dataTables.min.css')}}" rel="stylesheet" />
 @endpush
 @section("content")
 
@@ -27,9 +27,9 @@
         </ul>
     </div>
     @endif
-   
+
     <div class="col-12">
-   
+
       <div class="card">
         <div class="card-header">
           <div class="card-tools text-right">
@@ -43,21 +43,23 @@
       </div>
       <!-- /.card -->
     </div>
-       
+
     </div>
-    
+
 </section>
 <!-- Courses section end-->
 @endsection
 @section("linkfooter")
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+<script src="{{asset('asset_dashboard/vendor/jquery/dist/jquery.min.js')}}"></script>
+<script src="{{asset('asset_dashboard/vendor/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('asset_dashboard/vendor/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
 {{ $dataTable->scripts()}}
 <script type="text/javascript">
  $('#spesies-table').on('click','.action-hapus', function(){
     let data = $(this).data()
     let id = data.id
-       
+
     swal({
           title: "Yakin?",
           text: "Mau menghapus data ini?",

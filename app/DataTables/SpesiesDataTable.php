@@ -85,7 +85,8 @@ class SpesiesDataTable extends DataTable
                     ->setTableId('spesies-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
-                    ->dom('Bfrtip')
+                    // ->lengthMenu([5, 10, 25, 50, 100, -1], [5, 10, 25, 50, 100, 'All'])
+                    ->dom('Blfrtip')
                     ->orderBy(1)
                     ->buttons(
                         Button::make('create'),
@@ -93,7 +94,10 @@ class SpesiesDataTable extends DataTable
                         Button::make('print'),
                         Button::make('reset'),
                         Button::make('reload')
-                    );
+                    )
+                    ->parameters([
+                        "lengthMenu" => [[5, 10, 25, 50, 100, -1], [5, 10, 25, 50, 100, 'All']]
+                    ]);
     }
 
     /**
